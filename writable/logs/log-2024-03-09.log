@@ -1,0 +1,500 @@
+INFO - 2024-03-09 07:14:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:14:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:14:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:14:27 --> CSRF token verified.
+INFO - 2024-03-09 07:18:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:18:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:18:20 --> CSRF token verified.
+INFO - 2024-03-09 07:18:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:18:43 --> CSRF token verified.
+INFO - 2024-03-09 07:19:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:19:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:19:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:19:35 --> CSRF token verified.
+CRITICAL - 2024-03-09 07:20:28 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 07:22:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:22:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:22:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:22:36 --> CSRF token verified.
+CRITICAL - 2024-03-09 07:23:27 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 07:27:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:27:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:27:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:27:48 --> CSRF token verified.
+CRITICAL - 2024-03-09 07:28:37 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 07:35:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:35:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:35:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:35:12 --> CSRF token verified.
+CRITICAL - 2024-03-09 07:35:59 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 07:48:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:48:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:48:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:48:23 --> CSRF token verified.
+CRITICAL - 2024-03-09 07:49:14 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 07:54:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:54:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:54:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:54:51 --> CSRF token verified.
+CRITICAL - 2024-03-09 07:55:42 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 07:57:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:57:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:57:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 07:57:05 --> CSRF token verified.
+CRITICAL - 2024-03-09 07:57:56 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 08:06:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:06:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:06:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:06:29 --> CSRF token verified.
+CRITICAL - 2024-03-09 08:07:17 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 08:12:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:12:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:12:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:12:01 --> CSRF token verified.
+CRITICAL - 2024-03-09 08:12:46 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 08:30:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:30:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:30:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:30:39 --> CSRF token verified.
+CRITICAL - 2024-03-09 08:31:34 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 08:37:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:37:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:37:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:37:28 --> CSRF token verified.
+CRITICAL - 2024-03-09 08:38:30 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 08:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:38:50 --> CSRF token verified.
+INFO - 2024-03-09 08:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:43:14 --> CSRF token verified.
+INFO - 2024-03-09 08:44:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:44:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:44:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 08:44:19 --> CSRF token verified.
+CRITICAL - 2024-03-09 08:45:17 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 09:24:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:24:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:24:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:24:15 --> CSRF token verified.
+CRITICAL - 2024-03-09 09:25:03 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 09:36:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:36:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:36:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:36:05 --> CSRF token verified.
+CRITICAL - 2024-03-09 09:36:53 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 09:40:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:40:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:40:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 09:40:49 --> CSRF token verified.
+CRITICAL - 2024-03-09 09:41:42 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 11:03:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:03:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:03:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:03:42 --> CSRF token verified.
+CRITICAL - 2024-03-09 11:04:36 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 11:07:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:07:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:08:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:08:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:08:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-09 11:08:52 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Common.php(982): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 APPPATH/Controllers/MusicUpload.php(32): session()
+10 SYSTEMPATH/CodeIgniter.php(913): App\Controllers\MusicUpload->__construct()
+11 SYSTEMPATH/CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+12 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 11:16:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:16:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:16:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:16:43 --> CSRF token verified.
+CRITICAL - 2024-03-09 11:17:47 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+in SYSTEMPATH/Session/Handlers/FileHandler.php on line 72.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/vendor/codeigniter4/framework/system/Session/Handlers/FileHandler.php', 72)
+ 2 SYSTEMPATH/Session/Handlers/FileHandler.php(72): ini_set('session.save_path', '/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/writable/session')
+ 3 SYSTEMPATH/Config/Services.php(686): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '::1')
+ 4 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH/Config/Services.php(664): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH/Security/Security.php(223): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH/Security/Security.php(204): CodeIgniter\Security\Security->configureSession()
+10 SYSTEMPATH/Config/Services.php(653): CodeIgniter\Security\Security->__construct(Object(Config\Security))
+11 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security(Object(Config\Security), false)
+12 SYSTEMPATH/Config/BaseService.php(199): CodeIgniter\Config\BaseService::__callStatic('security', [...])
+13 SYSTEMPATH/Config/Services.php(648): CodeIgniter\Config\BaseService::getSharedInstance('security', null)
+14 SYSTEMPATH/Config/BaseService.php(258): CodeIgniter\Config\Services::security()
+15 SYSTEMPATH/Filters/CSRF.php(53): CodeIgniter\Config\BaseService::__callStatic('security', [])
+16 SYSTEMPATH/Filters/Filters.php(182): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+17 SYSTEMPATH/CodeIgniter.php(474): CodeIgniter\Filters\Filters->run('upload_music_release_data', 'before')
+18 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Applications/XAMPP/xamppfiles/htdocs/codeigniter 4/artist-login/public/index.php')
+INFO - 2024-03-09 11:30:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:30:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:30:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:30:46 --> CSRF token verified.
+INFO - 2024-03-09 11:39:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 11:41:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 12:00:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 12:00:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 12:01:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-09 12:39:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

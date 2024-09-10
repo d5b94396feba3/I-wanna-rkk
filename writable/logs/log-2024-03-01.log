@@ -1,0 +1,88 @@
+CRITICAL - 2024-03-01 11:22:04 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 258.
+ 1 APPPATH/Views/rokk-artists/login.php(258): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-01 12:48:38 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 268.
+ 1 APPPATH/Views/rokk-artists/login.php(268): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-01 12:49:16 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 268.
+ 1 APPPATH/Views/rokk-artists/login.php(268): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-01 12:49:17 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 268.
+ 1 APPPATH/Views/rokk-artists/login.php(268): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-01 12:49:31 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 268.
+ 1 APPPATH/Views/rokk-artists/login.php(268): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-01 12:50:29 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 268.
+ 1 APPPATH/Views/rokk-artists/login.php(268): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-01 12:50:30 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 268.
+ 1 APPPATH/Views/rokk-artists/login.php(268): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-01 12:50:31 --> ErrorException: Undefined variable $recaptcha_site_key
+in APPPATH/Views/rokk-artists/login.php on line 268.
+ 1 APPPATH/Views/rokk-artists/login.php(268): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(228): include('/homepages/19/d952737489/htdocs/artist-login/app/Views/rokk-artists/login.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Home.php(27): view()
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->index()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()

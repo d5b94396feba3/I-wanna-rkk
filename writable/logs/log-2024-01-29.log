@@ -1,0 +1,27 @@
+CRITICAL - 2024-01-29 17:03:04 --> ErrorException: Undefined property: stdClass::$first_name
+in APPPATH/Controllers/MusicUpload.php on line 186.
+ 1 APPPATH/Controllers/MusicUpload.php(186): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/MusicUpload.php(148): App\Controllers\MusicUpload->extract_music_upload_profile_detail()
+ 3 APPPATH/Controllers/MusicUpload.php(55): App\Controllers\MusicUpload->extract_artist_profile_data()
+ 4 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\MusicUpload->ajax_music_upload_data_onPageLoad()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-01-29 17:03:11 --> ErrorException: Undefined property: stdClass::$first_name
+in APPPATH/Controllers/MusicUpload.php on line 186.
+ 1 APPPATH/Controllers/MusicUpload.php(186): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/MusicUpload.php(148): App\Controllers\MusicUpload->extract_music_upload_profile_detail()
+ 3 APPPATH/Controllers/MusicUpload.php(55): App\Controllers\MusicUpload->extract_artist_profile_data()
+ 4 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\MusicUpload->ajax_music_upload_data_onPageLoad()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-01-29 17:03:14 --> ErrorException: Undefined property: stdClass::$first_name
+in APPPATH/Controllers/MusicUpload.php on line 186.
+ 1 APPPATH/Controllers/MusicUpload.php(186): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/MusicUpload.php(148): App\Controllers\MusicUpload->extract_music_upload_profile_detail()
+ 3 APPPATH/Controllers/MusicUpload.php(55): App\Controllers\MusicUpload->extract_artist_profile_data()
+ 4 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\MusicUpload->ajax_music_upload_data_onPageLoad()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest()
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
