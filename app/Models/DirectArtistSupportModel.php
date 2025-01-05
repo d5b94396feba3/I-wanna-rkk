@@ -62,14 +62,9 @@ class DirectArtistSupportModel extends Model
                              ->select('*')
                              ->where(['artist_id' => $id])
                              ->get();
-            
-            if ($query->resultID->num_rows > 0) {
-                return $query->getRow();
-            } else {
-                return false;
-            }
+            return $query->resultID->num_rows > 0 ? $query->getRow() : false;
         } catch (Exception $e) {
-            // Log the error or do something else with it
+            // Log the error 
             log_message('error', 'Error in getArtistDataByID: ' . $e->getMessage());
             return false;
         }
@@ -80,31 +75,24 @@ class DirectArtistSupportModel extends Model
     public function update_direct_artist_support_by_id($postData,$artist_link_status)
     {
 
-
         try {
-            $id = trim($postData["registered_id"]);
+            $id = trim($postData["userid"]);
             
             $preferred_rokk_address = trim($postData["preferred_rokk_address"]);
-            // $Password = trim($postData["Password"]);
-            // $ConfirmPassword = trim($postData["ConfirmPassword"]);
 
             $data = [
                 'preferred_rokk_address' => $preferred_rokk_address,
                 'artist_link_status' => $artist_link_status,
             ];
 
-            $query = $this->db->table('artist_registration')
+            $query = $this->db->table('artist_details')
                 ->set($data)
                 ->where(['artist_id' => $id])
                 ->update();
 
-            if ($query) {
-                return true;
-            } else {
-                return false;
-            }
+            return $this->db->affectedRows() > 0;
         } catch (\Exception $e) {
-            // Log the error or do something else with it
+            // Log the error 
             log_message('error', 'Error in update_artist_data_by_id: ' . $e->getMessage());
             return false;
         }

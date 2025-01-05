@@ -39,13 +39,11 @@ class AccountModel extends Model
     protected $afterDelete    = [];
 
 
-
-
    public function get_registered_artist_data()
     {
-        $query = $this->db->table('artist_registration')
-                         ->select('*')
-                         ->get();
+        $query = $this->db->table('rokk_artist')
+                            ->select('*')
+                            ->get();
 
         if ($query->getResult()) {
             return $query->getResultArray();
@@ -58,7 +56,7 @@ class AccountModel extends Model
     public function getArtistDataByID($id)
     {
         try {
-            $query = $this->db->table('artist_registration')
+            $query = $this->db->table('rokk_artist')
                              ->select('*')
                              ->where(['artist_id' => $id])
                              ->get();
@@ -69,12 +67,31 @@ class AccountModel extends Model
                 return false;
             }
         } catch (Exception $e) {
-            // Log the error or do something else with it
+            // Log the error 
             log_message('error', 'Error in getArtistDataByID: ' . $e->getMessage());
             return false;
         }
     }
 
+    public function get_artist_detail($id)
+    {
+        try {
+            $query = $this->db->table('artist_details')
+                             ->select('*')
+                             ->where(['artist_id' => $id])
+                             ->get();
+            
+            if ($query->resultID->num_rows > 0) {
+                return $query->getRow();
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            // Log the error 
+            log_message('error', 'Error in getArtistDataByID: ' . $e->getMessage());
+            return false;
+        }
+    }
 
 
     public function get_artist_user_junc_data($main_artist_id)
@@ -91,107 +108,32 @@ class AccountModel extends Model
                 return false;
             }
         } catch (Exception $e) {
-            // Log the error or do something else with it
+            // Log the error 
             log_message('error', 'Error in getArtistDataByID: ' . $e->getMessage());
             return false;
         }
     }
 
-
+    // on delete cascade, needs to be added...
     public function delete_artist_account_data_by_id($postData)
     {
         try {
             $id = trim($postData["registered_id"]);
 
-            $query = $this->db->table('artist_registration')
+            $query = $this->db->table('rokk_artist')
                 ->where(['artist_id' => $id])
                 ->delete();
 
-            // Check if any rows were affected
-            if ($this->db->affectedRows() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return $this->db->affectedRows() > 0;
         } catch (\Exception $e) {
-            // Log the error or do something else with it
+            // Log the error 
             log_message('error', 'Error in delete_artist_account_data_by_id: ' . $e->getMessage());
             return false;
         }
     }
 
-
-    public function update_artist_account_data_by_id($postData)
-    {
-
-
-        try {
-            $id = trim($postData["registered_id"]);
-            $artist_type = trim($postData["artist_type"]);
-            $artist_name = trim($postData["artist_name"]);
-            $artist_country = trim($postData["artist_country"]);
-            $email_management = trim($postData["email_management"]);
-            $official_contact_email = trim($postData["official_contact_email"]);
-            $preferred_rokk_address = trim($postData["preferred_rokk_address"]);
-            $referral = trim($postData["referral"]);
-            $password = trim($postData["password"]);
-            $confirm_password = trim($postData["confirm_password"]);
-            $facebook = trim($postData["facebook"]);
-            $instagram = trim($postData["instagram"]);
-            $twitter = trim($postData["twitter"]);
-            $spotify = trim($postData["spotify"]);
-            $metal_archives = trim($postData["metal_archives"]);
-            $website = trim($postData["website"]);
-            $discogs = trim($postData["discogs"]);
-            $label = trim($postData["label"]);
-            $distributor_and_aggregator = trim($postData["distributor_and_aggregator"]);
-            $receive_newsletter = trim($postData["receive_newsletter"]);
-
-            $data = [
-                'artist_type' => $artist_type,
-                'artist_name' => $artist_name,
-                'artist_country' => $artist_country,
-                'email_management' => $email_management,
-                'official_contact_email' => $official_contact_email,
-                'preferred_rokk_address' => $preferred_rokk_address,
-                'referral' => $referral,
-                'password' => $password,
-                'confirm_password' => $confirm_password,
-                'facebook' => $facebook,
-                'instagram' => $instagram,
-                'twitter' => $twitter,
-                'spotify' => $spotify,
-                'metal_archives' => $metal_archives,
-                'website' => $website,
-                'discogs' => $discogs,
-                'label' => $label,
-                'distributor_and_aggregator' => $distributor_and_aggregator,
-                'receive_newsletter' => $receive_newsletter,
-            ];
-
-            $query = $this->db->table('artist_registration')
-                ->set($data)
-                ->where(['artist_id' => $id])
-                ->update();
-
-            if ($query) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (\Exception $e) {
-            // Log the error or do something else with it
-            log_message('error', 'Error in update_artist_data_by_id: ' . $e->getMessage());
-            return false;
-        }
-
-
-    }
-
-
     public function update_artist_password_by_id($postData)
     {
-
 
         try {
             $id = trim($postData["registered_id"]);
@@ -200,26 +142,21 @@ class AccountModel extends Model
             $confirm_password = trim($postData["confirm_password"]);
 
             $data = [
-                'password' => $password,
-                'confirm_password' => $confirm_password,
+                'password_hash' => password_hash($password, PASSWORD_DEFAULT),
             ];
 
-            $query = $this->db->table('artist_registration')
-                ->set($data)
-                ->where(['artist_id' => $id])
-                ->update();
+            $query = $this->db->table('artist_auth')
+            ->set($data)
+            ->where(['artist_id' => $id])
+            ->update();
 
-            if ($query) {
-                return true;
-            } else {
-                return false;
-            }
+            return $query ? true : false;
+
         } catch (\Exception $e) {
-            // Log the error or do something else with it
+            // Log the error 
             log_message('error', 'Error in update_artist_data_by_id: ' . $e->getMessage());
             return false;
         }
-
 
     }
 

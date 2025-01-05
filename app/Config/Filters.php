@@ -24,6 +24,7 @@ class Filters extends BaseConfig
         "honeypot" => Honeypot::class,
         "invalidchars" => InvalidChars::class,
         "secureheaders" => SecureHeaders::class,
+        'throttle' => \App\Filters\ThrottleFilter::class
     ];
 
     /**
@@ -34,14 +35,14 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         "before" => [
-            // 'honeypot',
-            "csrf",
-            // 'invalidchars',
+            'honeypot',
+            'csrf',
+            'invalidchars',
         ],
         "after" => [
             "toolbar",
             // 'honeypot',
-            // 'secureheaders',
+            'secureheaders',
         ],
     ];
 

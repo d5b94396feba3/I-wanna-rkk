@@ -1,459 +1,333 @@
 <style>
-
-section {
-    padding: 50px 0;
-    overflow: hidden;
+#dashboard-footer {
+    margin: 0px 55px 0px 111px !important;
 }
-.section-header {
-    text-align: left;
-    padding-bottom: 40px;
-}
-.section-header h2 {
-    margin: -154px 0 0;
-    color: rgba(255, 255, 255, .8);
-    margin-bottom: 25px;
-    font-size: 64px !important;
-    font-weight: 500;
-    line-height: 77px;
-    letter-spacing: .03em;
-    text-align: left;
+.ac-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background-color: transparent;
 }
 
-@media (max-width:768px) {
-    .section-header p{
-    font-size: 28px;
-    line-height: 32px;
-}
-}
-
-@media (max-width:968px) {
-    .top-artist-header-section {
-    height: 295px !important;
-}
-.top-artist-header-section h2 {
-    margin-left: 8px;
-    font-size: 50px !important;
-}
+.ac-table thead th {
+  padding: 10px;
+  text-align: left;
+  font-weight: normal;
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  position: relative;
 }
 
-#main {
-    background: #111;
-    background: linear-gradient(0deg, #111 100%, rgba(0, 0, 0, 0) 27.82%), linear-gradient(0deg, #0b0b0b, #080808);
-    width: 94% !important;
-    display: block;
-    margin: 0 auto;
-    z-index: 99999;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+.ac-table thead th > a{
+  color: rgba(255,255,255,0.5);
 }
 
-#act-content-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, #282828 47.82%, rgba(17, 17, 17, 0) 100%);
-    background-size: 100% 100%, 100% 100%, contain;
-    background-position: right center;
-    border-radius: 15px;
-    color: #FFFFFFCC;
-    margin-top: -41px;
-    padding: 0;
-    margin-bottom: 20px;
-    margin-left: -14px;
-    transition: background .3s ease, transform .3s ease;
-    border: none;
-    position: relative;
-    overflow: hidden;
-    margin-right: 0;
+.ac-table .sort-icon {
+  float: right;
+  color: #666;
+  font-size: 12px;
+  margin-left: 5px;
 }
 
-.background-masker {
-    background-color: #fff;
-    position: absolute;
-}
-@keyframes placeHolderShimmer {
-    0% {
-    background-position: -800px 0;
-    }
-    100% {
-    background-position: 800px 0;
-    }
-}
-.act-animated-background {
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: placeHolderShimmer;
-    animation-timing-function: linear;
-    background: linear-gradient(to right, #151515 47.82%, rgba(17, 17, 17, 0) 100%);
-    background-size: 100% 100%, 100% 100%, contain;
-    background-position: right center;
-    height: 680px;
-    border-radius: 1px;
-    position: relative;
-}
-
-.band-close-icon:hover {
-    background: #ff8303;
-    font-weight: 700;
-    color: #000;
-}
-.show-result {
-    font-size: 25px !important;
-    font-weight: 500;
-    color: var(--text-color-show-result);
-    text-transform: uppercase;
-    font-family: 'TitlingGothicFBComp-Medium', sans-serif;
-}
-.highlight-result {
-    color: #cf6c05;
-}
-.second-highlight-result {
-    color: #888;
-}
-.show-result-country {
-    margin-top: -18px !important;
-    margin-bottom: 0 !important;
-}
-
-/*artist login style*/
-
-.top-artist-header-section {
-    margin-top: 37px;
-    margin-bottom: -36px;
-    padding-top: 220px;
-    margin-left: -220px !important;
-    padding-bottom: 74px;
-    margin-right: -256px !important;
-    background: linear-gradient(to right, #282828 47.82%, rgba(17, 17, 17, 0) 100%);
-    padding-left: 211px;
-}
-
-.top-20-artists-section {
-    overflow: hidden !important;
-    max-height: 750px !important;
-    padding: 6px 0px 0px 0px !important;
-    margin-bottom: 40px !important;
-}
-
-.act-nav-container {
-    width: 200px;
-    margin-top: 34px;
-}
-
-.navbar-list {
-     list-style-type: disc;
-    padding: 0;
-}
-
-.navbar-item {
-    padding: 6px 0px 6px 10px;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 22px;
-    margin-top: 5px;
-    font-size: 16px;
-    width: 207px;
-}
-
-.navbar-item:hover{
-    background-color: rgba(255,131,3,.6);
-    color: #fff !important;
-}
-
-.navbar-item:hover > .navbar-item-link{
-    color: #fff !important;
-}
-
-.menu-active {
-    background-color: rgba(255,131,3,.6);
+.ac-table thead th a:hover,
+.ac-table thead th a:hover > .sort-icon{
     color: #fff;
-    font-weight: 500;
 }
 
-.password-toggle {
-    position: relative;
-    display: block !important;
-    margin-left: 0px;
+.active-arrow{
+  color: #fff;
 }
 
-.form-group.password-toggle.password-section {
-    margin-top: -18px;
-    margin-bottom: 20px !important;
-    font-weight: 700;
-    font-size: 20px;
+.ac-table tbody tr {
+  background-color: rgba(255,255,255,0.02);
+  transition: background-color 0.3s;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.change-password, .connected-accounts{
-    cursor: pointer;
+.ac-table tbody tr:hover {
+  background-color: #2a2a2a;
 }
 
-.change-password:hover, .connected-accounts:hover{
-    color:#fff;
+.ac-table td {
+  padding: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
 }
 
-.pass-valid-text {
-    color: #DFDFDF !important;
-    font-size: 11px !important;
-    margin-left: 287px;
-    margin-top: 21px !important;
+.ac-table td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
-.form-group.ca-heading {
-    font-size: 20px;
-    font-weight: 700;
-    margin-top: -18px;
-}
-.artist-popup-left-sidebar {
-    position: sticky !important;
-    top: 0 !important;
-    height: calc(90vh - 20px);
-    overflow-y: auto !important;
-    z-index: 99 !important;
-    background: linear-gradient(to right, #282828 47.82%, rgba(17, 17, 17, 0) 100%);
-    margin-top: 52px;
-    padding-left: 48px;
+.ac-table td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.artist-popup-right-sidebar {
-    height: 1000px;
-    overflow-y: auto !important;
-    padding-bottom: 30px !important;
-    background: linear-gradient(0deg, #111 100%, rgba(0, 0, 0, 0) 27.82%), linear-gradient(0deg, #0b0b0b, #282828);
-    margin-top: 53px;
-    padding: 10px 44px 10px 30px;
-}
-label.label-block.act-label-heading {
-    font-size: 19px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    width: 97%;
-    padding-bottom: 20px;
-    border-bottom: 3px solid #ffffff24;
+.ac-table td:first-child {
+    width: 85px;
 }
 
-.top-artist-header-section {
-    margin-top: 37px;
-    margin-bottom: -36px;
-    padding-top: 220px;
-    margin-left: -607px !important;
-    padding-bottom: 74px;
-    margin-right: -600px !important;
-    background: linear-gradient(to right, #282828 47.82%, rgba(17, 17, 17, 0) 100%);
-    padding-left: 211px;
+.ac-table td img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 5px;
 }
-.section-header h2 {
-    margin: -154px 0 0;
-    color: rgba(255, 255, 255, .8);
-    margin-bottom: 25px;
-    font-size: 64px !important;
-    font-weight: 500;
-    line-height: 77px;
-    letter-spacing: .03em;
-    text-align: left;
-    margin-left: 391px;
+
+.ac-table .active {
+  font-weight: 500;
 }
-.section-header p {
-    font-size: 13px;
-    letter-spacing: 1px;
-    font-weight: 500;
+
+.ac-table .active.pending {
+  color: #FFAB5D;
+}
+.ac-table .active.active,
+.ac-table .active.yes {
+  color: #90EE90; /* Light green color */
+}
+
+.ac-table .active.inactive,
+.ac-table .active.no  {
+  color: #E45263;
+}
+
+.ac-table .arrow {
+  font-size: 24px;
+  color: #666;
+}
+
+.ac-table .arrow {
+    font-size: 24px;
+    color: #666;
+    float: right;
+    margin-right: 10px;
+}
+
+#pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  font-family: 'Poppins', sans-serif;
+  color: rgba(255,255,255,0.7);
+  padding-bottom:30px;
+}
+
+.pagi-rank {
+  font-size: 12px;
+  margin: 0;
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
     margin: 0;
+    font-size: 12px;
+}
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.08);
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 5px;
+}
+
+.pagination .current-page {
+    background-color: rgba(255,255,255,0.2);
     color: #fff;
-    text-transform: uppercase;
-    margin-left: 391px;
 }
 
-.main-container {
-    padding: 0px 40px 0px 63px;
+.pagination a:hover {
+  background-color: #ff8303;
+  color: #000;
 }
 
-.act-container {
-    padding-top: 40px;
+.ca-header{
+    margin: 0px 0px 10px 0px;
+    padding: 0px 0px 0px 0px;
+    border-bottom: 1px solid #322b2b;
 }
 
-.act-selected-menu-container {
-     margin-top: 0px; 
-    margin-left: 36px;
+.no-result{
+  text-align: center; 
+  color: #666; 
+  font-size: 16px; 
+  padding: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+   }
+   .pagination a, .pagination .current-page {
+        padding: 0px 3px !important;
+    }
+  #dashboard-footer {
+    margin: 0px 0px 0px 0px !important;
+  }
 }
 
 </style>
 
+<div class="acccount-header ca-header">
+    <h2 class="acccount-header-title">Connected Accounts</h2>
+    <p>Shows your all the connected accounts.</p>
+</div>
 
+<?php if (!empty($artist_user)): ?>
+<div class="table-container">
+<table class="ac-table">
+  <thead>
+    <tr>
+      <th>
+        <a class="ac-table-a" href="<?= esc(site_url(
+            "Account/ajax_paginated_artist_connected_accounts_data?sort_column=id&order=" .
+            ($sort_column == "id" && $order == "asc" ? "desc" : "asc")
+        )) ?>">
+          NO.
+          <span class="sort-icon">
+            <?= ($sort_column == "id" ? ($order == "asc" ? "<span class='active-arrow'>↓</span>↑" : "↓<span class='active-arrow'>↑</span>") : "↑↓") ?>
+          </span>
+        </a>
+      </th>
+      <th>
+        <a class="ac-table-a" href="<?= esc(site_url(
+            "Account/ajax_paginated_artist_connected_accounts_data?sort_column=user_id&order=" .
+            ($sort_column == "user_id" && $order == "asc" ? "desc" : "asc")
+        )) ?>">
+         USER ID
+          <span class="sort-icon">
+            <?= ($sort_column == "user_id" ? ($order == "asc" ? "<span class='active-arrow'>↓</span>↑" : "↓<span class='active-arrow'>↑</span>") : "↑↓") ?>
+          </span>
+        </a>
+      </th>
+      <th>
+        <a class="ac-table-a" href="<?= esc(site_url(
+            "Account/ajax_paginated_artist_connected_accounts_data?sort_column=type&order=" .
+            ($sort_column == "type" && $order == "asc" ? "desc" : "asc")
+        )) ?>">
+         TYPE
+          <span class="sort-icon">
+            <?= ($sort_column == "type" ? ($order == "asc" ? "<span class='active-arrow'>↓</span>↑" : "↓<span class='active-arrow'>↑</span>") : "↑↓") ?>
+          </span>
+        </a>
+      </th>
+      <th>
+        <a class="ac-table-a" href="<?= esc(site_url(
+            "Account/ajax_paginated_artist_connected_accounts_data?sort_column=role&order=" .
+            ($sort_column == "role" && $order == "asc" ? "desc" : "asc")
+        )) ?>">
+         ROLE
+          <span class="sort-icon">
+            <?= ($sort_column == "role" ? ($order == "asc" ? "<span class='active-arrow'>↓</span>↑" : "↓<span class='active-arrow'>↑</span>") : "↑↓") ?>
+          </span>
+        </a>
+      </th>
+      <th colspan="2">
+        <a class="ac-table-a" href="<?= esc(site_url(
+            "Account/ajax_paginated_artist_connected_accounts_data?sort_column=active&order=" .
+            ($sort_column == "active" && $order == "asc" ? "desc" : "asc")
+        )) ?>">
+        ACTIVE
+          <span class="sort-icon">
+            <?= ($sort_column == "active" ? ($order == "asc" ? "<span class='active-arrow'>↓</span>↑" : "↓<span class='active-arrow'>↑</span>") : "↑↓") ?>
+          </span>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+      $index = 1;
+      $start_record = ($current_page - 1) * $per_page + 1;
+      $index = $start_record;
+      $end_record = min($current_page * $per_page, $total_records);
+      foreach ($artist_user as $i => $user): ?>
+        <tr>
+            <td><?= $index ?></td>
+            <td><?= $user['user_id'] ?></td>
+            <td><?= $user['type'] ?></td>
+            <td><?= $user['role'] ?></td>
+            <td class="active <?= strtolower($user['active']) ?>"><?= $user['active'] ?></td>
+            <!-- <td><a href="<?= base_url('account_detail/'.$user['id']) ?>"><span class="arrow">›</span></a></td> -->
+            <td><a href="#"><span class="arrow">›</span></a></td>
+        </tr>
+    <?php $index++; ?>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+</div>
 
-<script type="text/javascript">
-  
-    var change_password_html='';
-    var connected_account_html='';
+<?php if ($total_records >= $per_page) { ?>
 
-    $(document).ready(function () {
-        // Show the loader initially
-        $("#ajax_loader").show();
-        // $('body').css('overflow', 'hidden');
-
-        // Create an array of promises for each AJAX request
-        const promises = [
-            load_artist_account_data_OnPageLoad(),
-            // load_connected_accounts_data_OnPageLoad()
-        ];
-
-        // Wait for all AJAX requests to complete before hiding the loader
-        Promise.all(promises)
-            .then(() => {
-                $("#ajax_loader").fadeOut("slow");
-            })
-            .catch((error) => {
-                console.log("Error:", error);
-            });
-    });
-
-
-  function togglePass(inputId, eyeIconId) {
-      var passwordInput = $("#" + inputId);
-      var eyeIcon = $("#" + eyeIconId);
-
-      if (passwordInput.attr("type") === "password") {
-        passwordInput.attr("type", "text");
-        eyeIcon.removeClass("fa-eye-slash").addClass("fa-eye");
-      } else {
-        passwordInput.attr("type", "password");
-        eyeIcon.removeClass("fa-eye").addClass("fa-eye-slash");
-      }
-    }
-
-
-    function load_artist_account_data_OnPageLoad() {
-
-        var url = '<?= base_url('Account/ajax_artist_account_data_onPageLoad') ?>';
-        
-        // Get CSRF token values
-        var csrfName ="<?= csrf_token() ?>";
-        var csrfValue ="<?= csrf_hash() ?>";
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data:{
-                [csrfName]:csrfValue
-            },
-            beforeSend: function (jqXHR) {
-                $('#ajax_loader').show();
-                 $('.connected-accounts').addClass('menu-active');
-                 $('#act-content-placeholder').show(); 
-            },
-            success: function(response){
-                connected_account_html = response;
-                $('#ajax_loader').fadeOut("slow");
-                $('#act-content-placeholder').hide(); 
-                $('.act-selected-menu-container').html(connected_account_html);
-            },
-            complete: function(data) {
-                $('#ajax_loader').fadeOut("slow");
-            },
-            error: function (error) {
-                console.log('Error:', error);
-            },
-            dataType: 'html'  
-        });
-    }
-
-
-
-    $(document).on('click', '.change-password', function(event){
-
-
-            var url = '<?= base_url('Account/ajax_change_password_data') ?>';
-
-            if(change_password_html !=''){
-
-                $('.connected-accounts').removeClass('menu-active');
-                $('.change-password').addClass('menu-active');
-                $('.act-selected-menu-container').empty();
-                $('.act-selected-menu-container').html(change_password_html);
-
-            }else{
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    beforeSend: function (jqXHR) {
-                        $('#ajax_loader').show();
-                        // $('#top-20-artists-container').html("");
-                       $('#act-content-placeholder').show(); 
-                       $('.connected-accounts').removeClass('menu-active');
-                       $('.change-password').addClass('menu-active');
-
-                    },
-                    success: function(response){
-                        
-                       change_password_html = response;
-
-                        $('#ajax_loader').fadeOut("slow");
-                        $('#act-content-placeholder').hide(); 
-                        $('.act-selected-menu-container').html(change_password_html);
-                    },
-                    complete: function(data) {
-                        $('#ajax_loader').fadeOut("slow");
-                    },
-                    error: function (error) {
-                        console.log('Error:', error);
-                    },
-                    dataType: 'html'  
-                });
-        }
+<div id="pagination-container">
+    <p class="pagi-rank">Showing <?= ($current_page - 1) * $per_page + 1 ?> to <?= min($current_page * $per_page, $total_records) ?> of <?= $total_records ?> </p>
     
+    <div class="pagination">
+        <?php if ($has_previous): ?>
+            <a href="<?= esc(site_url('Account/ajax_paginated_artist_connected_accounts_data?page='.$current_page - 1)) ?>" class="prev-link">&laquo; Prev</a>
+        <?php endif; ?>
 
-    });
+        <?php for ($i = max(1, $current_page - 2); $i <= min($total_pages, $current_page + 2); $i++): ?>
+            <?php if ($i == $current_page): ?>
+                <span class="current-page"><?= $i ?></span>
+            <?php else: ?>
+                <a href="<?= esc(site_url('Account/ajax_paginated_artist_connected_accounts_data?page=' . $i)) ?>"><?= $i ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
+
+        <?php if ($has_next): ?>
+            <a href="<?= esc(site_url('Account/ajax_paginated_artist_connected_accounts_data?page='.$current_page + 1)) ?>" class="next-link">Next &raquo;</a>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php } else { ?>
+
+<div id="pagination-container">
+<p class="pagi-rank">Showing <?php echo $total_records; ?> </p>
+</div>
+
+<?php }else: ?>
+    <p class="no-result">No connected account found.</p>
+<?php endif; ?>
 
 
-    $(document).on('click', '.connected-accounts', function(event){
+<!-- connected accounts script start here -->
 
-         $('.connected-accounts').addClass('menu-active');
-         $('.change-password').removeClass('menu-active');
-         $('.act-selected-menu-container').empty();
-         $('.act-selected-menu-container').html(connected_account_html);
-
-    });
-
-
+<script>
+        $(document).on('click', '.ac-table-a, .pagination a', function(e) {
+            e.preventDefault();
+            var pageUrl = $(this).attr('href');
+            $.ajax({
+                url: pageUrl,
+                type: 'Get',
+                timeout:20000, // 20 seconds
+                beforeSend: function(jqXHR) {
+                    $('.secid-2').empty();
+                    $('#account-content-placeholder').show(); 
+                },
+                success: function(html) {
+                    $('#account-content-placeholder').hide(); 
+                    $('.secid-2').html(html);
+                },
+                error: function(xhr, status, error) {
+                  // Handle AJAX errors
+                  window.show_error_msg('An error occurred while processing your request. Please refresh and try again.');
+                  console.error('Error submitting form:', error);
+                },
+                dataType: 'html'
+            });
+        });
 
 </script>
-
-<div class="heading">
-   <h2>Connected Account</h2>
-   <p class="mb-4">Your connected accounts information is below.</p>
-</div>
-<div class="main-container">
-   <?php
-      if(isset($_SESSION['success-msg']))
-      { ?>
-   <div class="alert alert-success mt-4">
-      <?php echo $_SESSION['success-msg'];
-         unset($_SESSION['success-msg']);
-         ?>
-      <span class="alert-close-icon" style="cursor: pointer;">&times;</span>
-   </div>
-   <?php   }  ?>
-   <?php
-      if(isset($_SESSION['error-msg']))
-      { ?>
-   <div class="alert alert-danger">
-      <?php echo $_SESSION['error-msg'];
-         unset($_SESSION['error-msg']);
-         ?>
-      <span class="alert-close-icon" style="cursor: pointer;">&times;</span>
-   </div>
-   <?php   }  ?>
-   <div class="row">
-      <div class="row top-20-artists-section">
-            <div class="col-md-12 col-lg-12 col-sm-12 artist-popup-right-sidebar">
-               <div class="row act-container">
-                  <div id="act-content-placeholder">
-                     <div class="act-animated-background">
-                        <div class="background-masker"></div>
-                     </div>
-                  </div>
-                  <div class="act-selected-menu-container"></div>
-               </div>
-            </div>
-      </div>
-   </div>
-</div>
+<!-- connected accounts script end here -->

@@ -1,0 +1,170 @@
+body {
+    font-family: "Poppins", sans-serif;
+    color: rgba(255, 255, 255, 0.81);
+    background: linear-gradient(180deg, #000 20%, #111111 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding:0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'TitlingGothicFBComp-Medium', sans-serif;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    font-stretch: condensed;
+}
+
+.main-container {
+    padding: 45px 37px 30px 112px  !important;
+    background: linear-gradient(180deg, #000 20%, #111111 100%);
+}
+
+.heading {
+    padding: 45px 0 30px 65px;
+    background: linear-gradient(0deg, #111 100%, rgba(0, 0, 0, 0) 27.82%), linear-gradient(0deg, #0b0b0b, #282828);
+    margin: 0 37px 0 36px;
+    text-transform: uppercase;
+    font-family: 'TitlingGothicFBComp-Medium', sans-serif;
+}
+
+.heading h2 {
+    font-weight: 800;
+    font-family: 'TitlingGothicFBComp-Medium', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.main-body-content {
+    margin-left: 322px;
+}
+
+.main-body-content.active {
+    margin-left: 100px;
+}
+
+#dashboard-footer.active {
+    margin-left: 0;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 66px 10px 14px;
+    background-color: #000;
+    margin: 20px 0 -27px 102px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-scrolled {
+    padding: 20px 66px 5px 14px !important;
+}
+
+.desktop-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mobile-header-content {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-right: 39px;
+}
+
+.mobile-menu-heading {
+    display: none;
+}
+
+.mobile-header-content #rokk-logo {
+    margin: 0 0 0 34px;
+    max-width: 44px;
+}
+
+.mobile-header-content .sidebar-toggle {
+    margin: -9px 0 0 19px;
+}
+
+.logo-text-right {
+    color: #FF8303;
+    margin-bottom: 5px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    font-family: 'TitlingGothicFBComp-Medium', sans-serif;
+    letter-spacing: 0.18em;
+    font-stretch: condensed;
+}
+
+.mobile-header-content .logo-text-right {
+    color: #fff;
+    margin-bottom: 5px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+#header h1 {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 25px;
+    font-weight: 200 !important;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+#header-active-tilte {
+    color: #9999997d;
+    padding-left: 10px;
+}
+
+@media (min-width: 769px) {
+    .desktop-header-content {
+        display: flex;
+    }
+    .mobile-header-content {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    #header {
+        padding: 20px;
+        position: fixed;
+        z-index: 1000;
+        margin: 0px 0px 0px 0px;
+        padding: 22px 0px 16px 0px;
+        width: 100%;
+    }
+    .desktop-header-content {
+        display: none;
+    }
+    .mobile-header-content {
+        display: flex;
+    }
+    
+    .mobile-header-content #rokk-logo {
+        margin: -10px 0 0 34px;
+    }
+    
+    .mobile-menu-heading {
+        display: block;
+        margin: 83px 0 -68px 39px;
+    }
+    
+    .mobile-menu-heading h1 {
+        font-size: 22px;
+        text-transform: uppercase;
+        margin-bottom: 38px;
+        margin-top: 15px;
+    }
+}

@@ -1,0 +1,45 @@
+/* sweetalert2 style */
+.custom-popup {
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+.custom-title h2{
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+}
+.custom-html-container {
+    color: #FFFFFF;
+}
+.custom-icon {
+    border-color: #FF8303;
+}
+.custom-confirm-button, .custom-cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 10px;
+}
+.custom-confirm-button {
+    background-color: #FF8303;
+    color: #000000;
+}
+.custom-cancel-button {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+.custom-confirm-button:hover {
+    background-color: #FF9933;
+}
+.custom-cancel-button:hover {
+    background-color: #444444;
+}
+
+div:where(.swal2-container) div:where(.swal2-timer-progress-bar) {
+    width: 100%;
+    height: 0.25em;
+    background: #dd8615 !important;
+}

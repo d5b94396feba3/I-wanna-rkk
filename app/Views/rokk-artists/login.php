@@ -5,313 +5,313 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="<?php echo base_url('assets/images/rokk-ico.png') ?>">
-
+    <title>Rokk Artist - Login</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="<?php echo base_url("assets/src/css/fonts.css"); ?>" rel="stylesheet">
+    <link href="<?php echo base_url("assets/src/vendor/bootstrap/css/bootstrap.min.css"); ?>" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="<?php echo base_url('assets/src/new/css/style-login.css') ?>"> 
+    <link rel="stylesheet" href="<?php echo base_url('assets/src/css/style-login.css') ?>"> 
     <!-- Include Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!--Google Recaptcha -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-    <title>Rokk Artist - Login</title>
-
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 
 <style>
+:root {
+  --primary-color: #ff8302;
+  --primary-hover: #e66a00;
+  --text-color: #dfdfdf;
+  --bg-dark: #181818;
+  --font-family: "Poppins", Arimo;
+}
 
 body {
-  font-family: "Poppins", Arimo;
+  font-family: var(--font-family);
   background-color: #000 !important;
   color: #fff !important;
 }
-input[type="text"], textarea, input[type="password"], button{
 
-  font-family: "Poppins", Arimo !important;
+input, textarea, button {
+  font-family: var(--font-family) !important;
 }
-.alert-danger, .alert-success{
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    font-size: 14px;
-    margin-top: 37px !important;
+
+.alert {
+  font-size: 14px;
+  margin-top: 37px !important;
 }
+
+.alert-success {
+    padding: 2.56rem 1.25rem !important;
+    color: #155724 !important;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+}
+
 .password-toggle {
-    position: relative;
+  position: relative;
 }
+
 .password-toggle .eye-icon {
-    position: absolute;
-    right: 30px;
-    top: 71%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    opacity: 0.5;
+  position: absolute;
+  right: 30px;
+  top: 71%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.5;
+}
+.password-toggle input:focus ~ .eye-icon,
+.password-toggle input:not(:placeholder-shown)  ~ .eye-icon
+{
+  color: var(--primary-color);
+  opacity: 1;
 }
 
 h1 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    font-family: "Poppins";
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
+
 p {
-    color: #dfdfdf;
-    font-size: 16px;
-    line-height: 1.5;
+  color: var(--text-color);
+  font-size: 16px;
+  line-height: 1.5;
 }
+
 .container {
-    background-color: #000 !important;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    padding: 0 10px;
+  background-color: #000 !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
 }
 
 footer {
-    background-color: #000 !important;
-    color: #dfdfdf;
-    font-size: 12px;
-}
-footer p {
-    margin: 0;
-    font-size: 13px;
-    font-family: "Poppins", Arimo !important;
-}
-.rokk_charts_form {
-    width: 622px;
-    margin: 0 auto;
-    margin-top: 100px;
-    padding: 60px 60px 90px 60px;
-    border-radius: 15px;
-}
-.form-group {
-    margin-bottom: 20px;
-}
-label {
-    color: #dfdfdf;
-    font-weight: 700;
-    font-size: 16px;
-    font-family: "Poppins";
-}
-input {
-    width: 100%;
-    height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    padding: 0 10px;
-}
-input:focus {
-    outline: none;
-    border-color: #ff8302;
-}
-button {
-    width: 100%;
-    height: 40px;
-    background-color: #ff8302;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #e66a00;
-}
-.error {
-    color: red;
-    font-size: 12px;
-    margin-top: 10px;
-}
-.wrapper {
-    width: 650px;
-    margin: 0 auto;
-}
-.page-header h2 {
-    margin-top: 0;
-}
-.edit-title {
-    margin-left: 60px;
-    margin-bottom: -87px !important;
-    font-weight: 700;
-}
-.btn-default {
-    color: #dfdfdf;
-    margin-left: -12px;
-}
-.btn-default:hover {
-    color: orange;
-}
-.btn-primary {
-    background-color: #E66A00;
-    border: 1px solid #E66A00;
-    border-radius: 25px;
-    margin-top: 8px;
-}
-.btn-primary:hover {
-    background-color: orange;
-    border: 1px solid orange;
-}
-.btn-primary:focus {
-    background-color: orange !important;
-    border: 1px solid orange;
-    box-shadow: none !important;
-}
-.btn-light {
-    background-color: #0c090a !important;
-    color: #dfdfdf;
-    font-family: "Poppins";
-    border: none !important;
-}
-.btn-light:hover {
-    color: orange;
+  background-color: #000 !important;
+  color: var(--text-color);
 }
 
-input[type="email"], textarea, input[type="password"] {
-    background-color: #000 !important;
-    color: #DFDFDF !important;
-    border: 1px solid rgb(255 255 255 / 0%) !important;
-    font-size: 15px !important;
-    border-radius: 25px;
-    height: 47px;
-    padding-left: 25px;
-    margin-left: -7px;
-    margin-top: 4px;
+footer p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.rokk_charts_form {
+  width: 622px;
+  margin: 100px auto 0;
+  padding: 60px 60px 90px;
+  border-radius: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 0px 0px 8px 0px;
+}
+
+input {
+  width: 100%;
+  height: 47px;
+  border-radius: 25px !important;
+  font-size: 15px !important;
+  padding-left: 25px;
+  margin: 4px 0 0 -7px;
+  background-color: #000 !important;
+  color: var(--text-color) !important;
+  border: 1px solid transparent !important;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color) !important;
+}
+
+button {
+  width: 100%;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
 }
 
 .login-form {
-    background-color: #181818 !important;
-    box-shadow: 1px 11px 131px -48px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 1px 11px 131px -48px rgb(18 18 18 / 75%);
-    -moz-box-shadow: 1px 11px 131px -48px rgba(0,0,0,0.75);
-}
-p,
-.logout {
-    font-family: "Poppins";
-}
-.logout {
-    color: orange !important;
-}
-button:focus {
-    outline: none !important;
-    border: none !important;
-}
-img {
-    color: #fff !important;
-}
-img.login-logo {
-    width: 85px;
-    display: flex;
-    margin: 0 auto;
-    padding-bottom: 40px;
-}  
-
-img#rokk-logo-indx {
-    width: 235px;
-    display: flex;
-    margin: 0 auto;
-    margin-bottom: 20px;
+  background-color: var(--bg-dark) !important;
+  box-shadow: 1px 11px 131px -48px rgb(18 18 18 / 75%);
 }
 
-h1 span {
-    font-weight: 500;
-    color: #6d6d6d;
+#rokk-logo-indx {
+  width: 235px;
+  display: block;
+  margin: 0 auto 20px;
 }
 
 .heading {
-    font-size: 18px;
-    text-align: center;
-    color: #d3d3d3;
-    margin: 10px 10px 40px 10px;
+  font-size: 18px;
+  text-align: center;
+  color: #d3d3d3;
+  margin: 10px 10px 40px;
 }
 
 .g-recaptcha {
-    margin: 10px 0px 10px 0px;
-}
-span.alert-close-icon {
-    top: 6px;
-    position: absolute;
-    right: 20px;
-    font-size: 25px;
-    color: #155724;
+  margin: 10px 0;
 }
 
-span.alert-close-icon:hover {
-    color: #282828;
+.alert-close-icon {
+  position: absolute;
+  top: 7px;
+  right: 15px;
+  font-size: 25px;
+  color: #155724;
+  cursor: pointer;
+}
+
+.alert-close-icon:hover {
+  color: #282828;
+}
+
+.logo-text-right{
+    color: #FF8303;
+    margin-bottom: 0px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2em;
+    font-stretch: condensed;
+}
+.logo-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.remember-checkbox {
+    width: auto !important;
+    height: auto !important;
+    margin-right: 10px !important;
+}
+
+.remember-label {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-weight: normal !important;
+    font-size: 14px !important;
+    cursor: pointer;
+}
+
+.forgot-password {
+    text-align: right;
+    margin: 15px 0;
+}
+
+.forgot-password-link {
+    color: var(--text-color);
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password-link:hover {
+    color: var(--primary-color);
+    text-decoration: none;
 }
 
 </style>
 
-  </head>
-  <body>
+</head>
+<body>
+  <div class="container mt-5">
+    <form action="<?= base_url('login') ?>" class="rokk_charts_form login-form" method="post" enctype="multipart/form-data">
+      <?= csrf_field() ?>
+      
+      <div class="logo-box">
+        <a href="<?php echo base_url(); ?>/" class="logo d-flex align-items-center">
+            <img src="<?php echo base_url("assets/images/rokk-logo-white.png"); ?>" alt="Rokk logo" id="rokk-logo-indx">
+        </a>
+        <span class='logo-text-right'>ARTISTS</span>
+      </div>
 
-    <div class="container mt-5">
-     
-            <form action="<?= base_url('Home/login') ?>" class="rokk_charts_form login-form" method="post" enctype="multipart/form-data">
+      <div class="form-group mt-4">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your official email address" required>
+      </div>
 
-             <?= csrf_field() ?> 
+      <div class="form-group password-toggle">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <i id="eye-icon" class="eye-icon fas fa-eye-slash" onclick="togglePass()"></i>
+      </div>
 
-            <img src="<?php echo base_url('assets/images/rokk-logo-white.png') ?>" alt="Rokk logo" id="rokk-logo-indx">
+      <div class="form-group">
+        <div class="remember-me">
+          <input type="checkbox" id="remember" name="remember" class="remember-checkbox">
+          <label for="remember" class="remember-label">Remember me</label>
+        </div>
+      </div>
 
-            <p class="heading">Sign In to your ROKK Artist account.</p>
+      <div class="g-recaptcha mt-4 mb-3" data-sitekey="<?= $recaptcha_site_key ?>"></div>
 
-            <div class="form-group">
-              <label for="username">Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Your Registered Official Email" required>
-            </div>
-            <div class="form-group password-toggle">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Your Registered Password" required>
-                <i id="eye-icon" class="eye-icon fas fa-eye-slash" onclick="togglePass()"></i>
-            </div>
-            <div class="g-recaptcha" data-sitekey="<?php echo $recaptcha_site_key; ?>"></div>
+      <button type="submit" class="btn btn-primary">Sign In</button>
 
-            <button type="submit" class="btn btn-primary">Sign In</button>
+      <div class="form-group">
+        <div class="forgot-password">
+          <a href="<?= base_url('forgot-password') ?>" class="forgot-password-link">Forgot Password?</a>
+        </div>
+      </div>
 
-            <?php if (isset($successMsg)) : ?>
-                <div class="alert alert-success mt-4">
-                    <?= $successMsg;?>
-                    <span class="alert-close-icon" style="cursor: pointer;">&times;</span>
-                </div>
-            <?php endif; ?>
+      <?php $successMsg = session()->getFlashdata('successMsg'); ?>
+      <?php if (!empty($successMsg)): ?>
+          <div class="alert alert-success mt-4">
+              <?= $successMsg ?>
+              <span class="alert-close-icon">&times;</span>
+          </div>
+      <?php endif; ?>
 
-            <?php if (isset($errorMsg)) : ?>
-                <div class="alert alert-danger">
-                    <?= $errorMsg;?>
-                    <span class="alert-close-icon" style="cursor: pointer;">&times;</span>
-                </div>
-            <?php endif; ?>
-          </form>
-
-    </div>
-
-
-  <!-- Vendor JS Files -->
-   <script src="<?php echo base_url('assets/src/new/vendor/bootstrap/js/bootstrap.bundle.js') ?>"></script> 
-  <!--Main JS File -->
-  <script src="<?php echo base_url('assets/src/new/js/main.js') ?>"></script> 
-
-  </body>
-</html>
+      <?php $errorMsg = session()->getFlashdata('errorMsg'); ?>
+      <?php if (!empty($errorMsg)): ?>
+          <div class="alert alert-danger">
+              <?= $errorMsg ?>
+              <span class="alert-close-icon">&times;</span>
+          </div>
+      <?php endif; ?>
+    </form>
+  </div>
 
 <script>
-  function togglePass() {
-    var passwordInput = document.getElementById("password");
-    var eyeIcon = document.getElementById("eye-icon");
+    function togglePass() {
+        var passwordInput = document.getElementById("password");
+        var eyeIcon = document.getElementById("eye-icon");
 
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye");
-    } else {
-      passwordInput.type = "password";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash");      
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        }
     }
-  }
 
     var closeIcon = document.querySelector(".alert-close-icon");
 
@@ -319,7 +319,4 @@ span.alert-close-icon:hover {
         var parentElement = this.parentElement;
         parentElement.style.display = "none";
     });
-
-
 </script>
-

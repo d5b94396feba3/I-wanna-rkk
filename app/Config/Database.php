@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         "DSN" => "",
-        "hostname" => "85.215.65.193",
+        "hostname" => "localhost",
         "username" => "root",
-        "password" => "Rokk123!@#",
-        "database" => "wp_artist_registration",
+        "password" => "root",
+        "database" => "cl_db",
         "DBDriver" => "MySQLi",
         "DBPrefix" => "",
         "pConnect" => false,
@@ -47,10 +47,10 @@ class Database extends Config
 
     public array $maindb = [
         "DSN" => "",
-        "hostname" => "85.215.65.193",
+        "hostname" => "localhost",
         "username" => "root",
-        "password" => "Rokk123!@#",
-        "database" => "data_ma",
+        "password" => "root",
+        "database" => "cl_db",
         "DBDriver" => "MySQLi",
         "DBPrefix" => "",
         "pConnect" => false,

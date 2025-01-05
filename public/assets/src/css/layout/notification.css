@@ -1,0 +1,114 @@
+.notification-icon {
+    position: relative;
+    color: #FF8303;
+    font-size: 24px;
+    padding: 0px 8px 0px 0px;
+}
+
+.notification-count {
+    position: absolute;
+    top: 5px;
+    right: -23px;
+    background-color: #FF8303;
+    color: #000;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+}
+
+.notification-wrapper {
+    position: relative;
+    margin-top: -5px;
+}
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: -27px;
+    background: #161515;
+    border: 1px solid #282828;
+    border-radius: 4px;
+    width: 340px;
+    height: 400px;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+.desktop-notifications-items,
+.mobile-notifications-items
+{
+    max-height: 346px;
+    overflow-y: auto;
+}
+
+.notification-dropdown h3 {
+    padding: 10px 15px;
+    margin: 2px 0px 0px 0px;
+    border-bottom: 1px solid #3838389e;
+    font-size: 17px;
+    color: #FF8303;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+}
+
+.notification-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-dropdown li {
+    padding: 15px 15px;
+    border-bottom: 1px solid #38383896;
+    color: #ffffffd9;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.notification-dropdown li a{
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.notification-dropdown li i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #FF8303;
+}
+
+.notification-dropdown li span {
+    flex: 1;
+}
+
+.notification-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.notification-dropdown .dropdown-indicator{
+    top: -3px;
+    right: 9px;
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .notification-wrapper {
+        margin-right: 12px;
+    }
+    .notification-dropdown {
+        position: fixed;
+        top: 75px;
+        left: 32px;
+        right: 0;
+        width: 88%;
+        max-height: calc(100vh - 60px);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 8.8);
+    }
+}

@@ -8,6 +8,10 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Traits\AuthTrait;
+use App\Traits\CookieTrait;
+use App\Traits\SessionTrait;
+use App\Traits\JsonResponseTrait;
 
 /**
  * Class BaseController
@@ -21,6 +25,15 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
+
+    /**
+     * Import required traits:
+     * - AuthTrait: Provides authentication functionality like authenticated(), isAdmin(), etc.
+     * - CookieTrait: Handles cookie management for authentication
+     * - SessionTrait: Manages session-related functionality
+     */
+    use AuthTrait, CookieTrait, SessionTrait, JsonResponseTrait;
+
     /**
      * Instance of the main Request object.
      *
@@ -35,7 +48,11 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = [
+        'url',    // For redirect() function
+        'form',   // For form helper functions
+        'session' // For session functions
+    ];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -53,6 +70,62 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
 
+        // Initialize properties to prevent deprecated dynamic property creation
+        $this->response = $response;
+        $this->logger = $logger;
+        $this->session = \Config\Services::session();
         // E.g.: $this->session = \Config\Services::session();
+
     }
+
+     /**
+     * Check if the current user is an admin
+     *
+     * @return bool
+     */
+    protected function isAdmin(): bool
+    {
+        if (!$this->authenticated()) {
+            return false;
+        }
+
+        $admin_roles = ['super_admin', 'admin'];
+        $reserved_roles = ['super_admin', 'admin']; 
+        $user_role = session()->get('userrole');
+        return in_array($user_role, $admin_roles);
+    }
+
+     /**
+     * Get array of reserved roles
+     *
+     * @return array
+     */
+    protected function getReservedRoles(): array
+    {
+        if (!$this->authenticated()) {
+            return []; 
+        }
+
+        $reserved_roles = ['admin'];
+        return $reserved_roles;
+    }
+
+
+    /**
+     * Get user ID of the currently logged in account
+     * Returns false if not logged in
+     *
+     * @return int
+     */
+    protected function userID(): int
+    {
+        if (!$this->authenticated()) {
+            return 0;
+        }
+
+        $userid = session()->get('userid');
+        return $userid;
+    }
+
+    
 }

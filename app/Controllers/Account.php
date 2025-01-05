@@ -2,84 +2,150 @@
 
 namespace App\Controllers;
 
-use App\Models\HomeModel;
-use App\Models\ProfileModel;
+use App\Models\AuthModel;
 use App\Models\AccountModel;
-use App\Models\DirectArtistSupportModel;
 use CodeIgniter\Controller;
-use App\Libraries\Ajax_pagination;
+use App\Models\AccountSettingModel;
+use App\Models\CAPaginationModel;
+use App\Traits\InputFieldsValidationTrait;
 
 class Account extends BaseController
 {
-    protected $home;
-    protected $chart;
-    protected $direct_artist_support_model;
+    protected $auth_model;
     protected $account_model;
-    protected $session;
     protected $validation;
-    protected $perPage = 35;
-    protected $ajaxPagination;
+    protected $perPage = 5;
+    protected $account_setting_model;
+    protected $capagination_model;
+    use InputFieldsValidationTrait;
+
 
     public function __construct()
     {
-        $this->home = model("HomeModel");
-        $this->chart = model("ProfileModel");
+        $this->auth_model = model("AuthModel");
         $this->account_model = model("AccountModel");
-        $this->direct_artist_support_model = model("DirectArtistSupportModel");
-        $this->session = session();
+        $this->account_setting_model = model("AccountSettingModel");
+        $this->capagination_model = model("CAPaginationModel");
         $this->validation = \Config\Services::validation();
-        $this->ajaxPagination = new Ajax_pagination();
     }
 
     public function index()
     {
-        $data["active"] = "account";
+        $data["active_nav"] = "account";
 
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
 
+        $data["artist_password"] = "artist_password";
         return view("rokk-artists/layout/header", $data) .
             view("rokk-artists/account/index", $data) .
             view("rokk-artists/layout/footer");
     }
 
-    public function change_password_index()
-    {
-        $data["active"] = "accountPassword";
-        $data["dropdownActive"] = "account";
 
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
+    public function ajax_account_administrator_data()
+    {
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
 
-        return view("rokk-artists/layout/header", $data) .
-            view("rokk-artists/account/account_password", $data) .
-            view("rokk-artists/layout/footer");
+        $userid =$this->userID();
+
+        $person_data = $this->account_setting_model->get_person_data_from_rokk_person_by_id($userid);
+    
+        // Prepare data for the view
+        $data['person_data'] = $person_data;
+        // Prepare data for the view
+        $data['roles'] = $this->isAdminTrait() ?
+            ['Super Admin', 'Admin', 'Manager'] : 
+            ['Artist', 'Manager'];
+        // Render views
+        $administrator_view = view("rokk-artists/account/adminstrator", $data);
+
+        // Prepare the response
+        $response = [
+            'administrator_data' => $administrator_view,
+        ];
+
+        // Send the JSON response
+        return $this->response->setJSON($response);
     }
+
+    public function ajax_password_deletion_data_onPageLoad()
+    {
+        $data["active_nav"] = "accountPassword";
+        $data["dropdownActive"] = "account";
+
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
+        }
+
+        // $userid =$this->userID();
+        // $artist_data = $this->account_model->getArtistDataByID($userid);
+    
+        // Prepare data for the view
+        $data['artist_data'] = '';
+
+        // Render views
+        $account_password_view = view("rokk-artists/account/account_password", $data);
+        $account_delete_view = view("rokk-artists/account/account_delete", $data);
+
+        // Prepare the response
+        $response = [
+            'account_password_data' => $account_password_view,
+            'delete_account_data' => $account_delete_view,
+        ];
+
+        // Send the JSON response
+        return $this->response->setJSON($response);
+    }
+
+    public function ajax_load_all_account_data_onPageLoad_archieve()
+    {
+        $data["active_nav"] = "accountPassword";
+        $data["dropdownActive"] = "account";
+
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
+        }
+
+        $userid =$this->userID();
+        $artist_data = $this->account_model->getArtistDataByID($userid);
+        $person_data = $this->account_setting_model->get_person_data_from_rokk_person_by_id($userid);
+    
+        // Prepare data for the view
+        $data['artist_data'] = $artist_data;
+        $data['person_data'] = $person_data;
+        $data['isAdmin'] = $this->isAdminTrait();
+
+        // Render views
+        $administrator_view = view("rokk-artists/account/adminstrator", $data);
+        $account_password_view = view("rokk-artists/account/account_password", $data);
+        $account_delete_view = view("rokk-artists/account/account_delete", $data);
+
+        $connected_accounts_data=$this->ajax_paginated_artist_connected_accounts_data();
+
+        // Prepare the response
+        $response = [
+            'administrator_data' => $administrator_view,
+            'account_password_data' => $account_password_view,
+            'delete_account_data' => $account_delete_view,
+            'connected_accounts_data' => $connected_accounts_data
+        ];
+
+        // Send the JSON response
+        return $this->response->setJSON($response);
+    }
+
 
     public function connected_account_index()
     {
-        $data["active"] = "connectedAccount";
+        $data["active_nav"] = "connectedAccount";
         $data["dropdownActive"] = "account";
 
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
 
         return view("rokk-artists/layout/header", $data) .
@@ -87,257 +153,56 @@ class Account extends BaseController
             view("rokk-artists/layout/footer");
     }
 
-    public function delete_account_index()
-    {
-        $data["active"] = "deleteAccount";
-        $data["dropdownActive"] = "account";
 
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
+    public function ajax_paginated_artist_connected_accounts_data()
+    {
+
+        $pager = \Config\Services::pager();
+        $per_page = $this->perPage;
+        $userid=$this->userID();
+
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
 
-        return view("rokk-artists/layout/header", $data) .
-            view("rokk-artists/account/account_delete", $data) .
-            view("rokk-artists/layout/footer");
+        // Get the current page number from the query string
+        $page = $this->request->getGet("page") ?? 1;
+
+        // $search = trim($this->request->getGet("search"));
+        $search='';
+
+        $sort_column = $this->request->getGet("sort_column") ?? "id";
+        $order = $this->request->getGet("order") ?? "asc";
+        
+         // Get the artist data
+        $artist_user = $this->capagination_model->get_ca_data_from_artist_user_junc($userid,$search,$per_page,$sort_column,$order);
+
+        $data["sort_column"] = $sort_column;
+        $data["order"] = $order;
+        $data['artist_user'] = $artist_user;
+
+        // cl4 built-in pager links
+        // $pager_links = $this->capagination_model->pager->links();
+
+        $total_records = $this->capagination_model->pager->getTotal();
+
+        // Calculate pagination details
+        $total_pages = ceil($total_records / $per_page);
+        $has_previous = $page > 1;
+        $has_next = $page < $total_pages;
+
+        $data["total_records"] = $total_records;
+        $data["current_page"] = $page;
+        $data["per_page"] = $this->perPage;
+        $data["total_pages"] = $total_pages;
+        $data["has_previous"] = $has_previous;
+        $data["has_next"] = $has_next;
+
+        return view("rokk-artists/account/connected-account/index", $data);
     }
 
-    public function buildHtmlFromArtists($artists)
-    {
-        $html = "";
 
-        $index = 1;
-
-        if (!empty($artists)) {
-            $html .= '<table class="gc-page-tb gc-page-tb2-dis table-responsive ra-table">
-                <thead>
-                <tr>
-                <th class="gc-tb-tle">No.</th>
-                <th class="gc-tb-tle">Artist Type</th>
-                <th class="gc-tb-tle">Artist Name</th>
-                <th class="gc-tb-tle">Artist Country</th>
-                <th class="gc-tb-tle">Email Management</th>
-                <th class="gc-tb-tle">Email Artist Official Contact</th>
-                <th class="gc-tb-tle">Preferred Rokk Address</th>
-                <th class="gc-tb-tle">label</th>
-                <th class="gc-tb-tle">Distributor and Aggregator</th>
-                <th class="gc-tb-tle">Receive Newsletter</th>
-                <th class="gc-tb-tle">Join date</th>
-                <th class="gc-tb-tle">Status</th>
-                </tr>
-                </thead>
-                <tbody>';
-
-            foreach ($artists as $record) {
-                $artist_id = trim($record["artist_id"]);
-                $artist_type = trim($record["artist_type"]);
-                $artist_name = trim($record["artist_name"]);
-                $artist_country = trim($record["artist_country"]);
-                $email_management = trim($record["email_management"]);
-                $official_contact_email = trim(
-                    $record["official_contact_email"]
-                );
-                $preferred_rokk_address = trim(
-                    $record["preferred_rokk_address"]
-                );
-                $referral = trim($record["referral"]);
-                $password = trim($record["password"]);
-                $confirm_password = trim($record["confirm_password"]);
-                $facebook = trim($record["facebook"]);
-                $instagram = trim($record["instagram"]);
-                $twitter = trim($record["twitter"]);
-                $spotify = trim($record["spotify"]);
-                $metal_archives = trim($record["metal_archives"]);
-                $website = trim($record["website"]);
-                $discogs = trim($record["discogs"]);
-                $label = trim($record["label"]);
-                $distributor_and_aggregator = trim(
-                    $record["distributor_and_aggregator"]
-                );
-                $ReceiveArtistNewsletter = trim(
-                    $record["ReceiveArtistNewsletter"]
-                );
-                $join_date = trim($record["join_date"]);
-                $status = trim($record["status"]);
-
-                if (empty($email_management)) {
-                    $email_management = "n/a";
-                }
-                if (empty($facebook)) {
-                    $facebook = "n/a";
-                }
-                if (empty($instagram)) {
-                    $instagram = "n/a";
-                }
-                if (empty($twitter)) {
-                    $twitter = "n/a";
-                }
-                if (empty($spotify)) {
-                    $spotify = "n/a";
-                }
-                if (empty($metal_archives)) {
-                    $metal_archives = "n/a";
-                }
-                if (empty($website)) {
-                    $website = "n/a";
-                }
-                if (empty($discogs)) {
-                    $discogs = "n/a";
-                }
-                if (empty($label)) {
-                    $label = "n/a";
-                }
-                if (empty($referral)) {
-                    $referral = "n/a";
-                }
-                if (empty($preferred_rokk_address)) {
-                    $preferred_rokk_address = "n/a";
-                } else {
-                    $preferred_rokk_address = preg_replace(
-                        "/\s+/",
-                        "",
-                        $preferred_rokk_address
-                    );
-                    $preferred_rokk_address =
-                        $preferred_rokk_address . ".rokk.app";
-                }
-                if (empty($distributor_and_aggregator)) {
-                    $distributor_and_aggregator = "n/a";
-                }
-                if (empty($ReceiveArtistNewsletter)) {
-                    $ReceiveArtistNewsletter = "n/a";
-                }
-
-                $status_tag = "";
-
-                if ($status == "requested") {
-                    $status_tag = "status-requested";
-                } elseif ($status == "partner-request") {
-                    $status_tag = "status-partner-request";
-                } elseif ($status == "partner") {
-                    $status_tag = "status-partner";
-                } else {
-                    $status_tag = "status-active";
-                }
-
-                if (!empty($artist_name)) {
-                    $html .=
-                        '
-
-                    <tr class="data-searchbar-country-list-dis artist-popup" data-id="' .
-                        $artist_id .
-                        '" data-name="' .
-                        $artist_name .
-                        '" data-type="' .
-                        $artist_type .
-                        '">
-
-                        <td>' .
-                        $index .
-                        '. </td>
-                        <td>' .
-                        $artist_type .
-                        '</td>
-                        <td>' .
-                        $artist_name .
-                        '</td>
-                        <td>' .
-                        $artist_country .
-                        '</td>
-                        <td>' .
-                        $email_management .
-                        '</td>
-                        <td>' .
-                        $official_contact_email .
-                        '</td>
-                        <td>' .
-                        $preferred_rokk_address .
-                        '</td>
-                        <td>' .
-                        $label .
-                        '</td>
-                        <td>' .
-                        $distributor_and_aggregator .
-                        '</td>
-                        <td>' .
-                        $ReceiveArtistNewsletter .
-                        '</td>
-                        <td>' .
-                        $join_date .
-                        '</td>
-                        <td class="' .
-                        $status_tag .
-                        '">' .
-                        $status .
-                        '</td>
-
-                   </tr>';
-
-                    $index++;
-                }
-            }
-
-            $html .= "</tbody></table>";
-        }
-
-        return $html;
-    }
-
-    public function ajax_artist_account_data_onPageLoad()
-    {
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
-        } else {
-            $artist_id = session("artist_id");
-            $artists = $this->account_model->get_artist_user_junc_data(
-                $artist_id
-            );
-            $artist_user_data = $this->extract_artist_user_junc_html($artists);
-            echo $artist_user_data;
-        }
-    }
-
-    public function update_artist_data()
-    {
-        $data["active"] = "account";
-
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
-        } elseif ($this->request->getMethod() === "post") {
-            $result = $this->account_model->update_artist_account_data_by_id(
-                $this->request->getPost()
-            );
-            if ($result) {
-                $this->session->setFlashdata(
-                    "success-msg",
-                    "Account data has been updated."
-                );
-                return redirect()->to(base_url("profile"));
-            } else {
-                $this->session->setFlashdata(
-                    "error-msg",
-                    "Failed to update data."
-                );
-                return redirect()->to(base_url("profile"));
-            }
-        }
-    }
-
-    public function update_artist_password()
+    public function update_artist_password_old()
     {
         $validation = \Config\Services::validation();
 
@@ -347,13 +212,8 @@ class Account extends BaseController
             "confirm_password" => "required",
         ]);
 
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
 
         if (
@@ -366,12 +226,9 @@ class Account extends BaseController
             );
 
             if ($password != $confirm_password) {
-                return redirect()
-                    ->to("account")
-                    ->with(
-                        "error-msg",
-                        "password mismatch. Please enter same password."
-                    );
+                return $this->handleResponse(false,
+                    "The password you entered does not match your current password. Please try again."
+                );
             }
 
             $result = $this->account_model->update_artist_password_by_id(
@@ -379,320 +236,96 @@ class Account extends BaseController
             );
 
             if ($result) {
-                $this->session->setFlashdata(
-                    "success-msg",
-                    "password has been updated."
+                return $this->handleResponse(true,
+                    "Password has been updated successfully."
                 );
-                return redirect()->to("change_password");
             } else {
-                $this->session->setFlashdata(
-                    "error-msg",
-                    "Failed to update password."
+                return $this->handleResponse(false,
+                    "Failed to update password. Please refresh and try again."
                 );
-                return redirect()->to("change_password");
             }
         } else {
-            return redirect()
-                ->to("account")
-                ->with(
-                    "error-msg",
-                    "Please provide a valid password with at least 8 characters, including uppercase and lowercase letters, numbers, and special characters."
-                );
+            return $this->handleResponse(false,
+                "Please provide a valid password with at least 8 characters, including uppercase and lowercase letters, numbers, and special characters."
+            );
         }
+    }
+
+    public function update_artist_password()
+    {
+        // Early returns for authentication and validation
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
+        }
+
+        if ($this->request->getMethod() !== "post" || !$this->validatePasswordFields($this->request)) {
+            return $this->handleResponse(false,
+                "Please provide a valid password with at least 8 characters, including uppercase and lowercase letters, numbers, and special characters."
+            );
+        }
+
+        // Validate matching passwords
+        $password = trim($this->request->getPost("password"));
+        $confirm_password = trim($this->request->getPost("confirm_password"));
+
+        if ($password !== $confirm_password) {
+            return $this->handleResponse(false,
+                "The password you entered does not match your current password. Please try again."
+            );
+        }
+
+        // Update database
+        $result = $this->account_model->update_artist_password_by_id(
+            $this->request->getPost()
+        );
+
+        if (!$result) {
+            return $this->handleResponse(false,
+                "Failed to update password. Please refresh and try again."
+            );
+        }
+
+        return $this->handleResponse(true, "Password has been updated successfully.");
     }
 
     public function delete_artist_account()
     {
-        $validation = \Config\Services::validation();
-
-        $validation->setRules([
-            "password" =>
-                'required|min_length[8]|max_length[25]|regex_match[/[a-z]/]|regex_match[/[A-Z]/]|regex_match[/\d/]|regex_match[/[@$!%*?&]/]',
-        ]);
-
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
+        // Early returns for authentication and validation
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
 
-        if (
-            $this->request->getMethod() === "post" &&
-            $validation->withRequest($this->request)->run()
-        ) {
-            $hidden_password = trim($this->request->getPost("hidden_password"));
-            $password = trim($this->request->getPost("password"));
-
-            if ($password != $hidden_password) {
-                return redirect()
-                    ->to("account")
-                    ->with(
-                        "error-msg",
-                        "Password mismatch! Please enter correct password."
-                    );
-            }
-
-            $artist_id = session("artist_id");
-            $result = $this->account_model->delete_artist_account_data_by_id(
-                $artist_id
+        if ($this->request->getMethod() !== "post" || !$this->validateDeleteAccountFields($this->request)) {
+            return $this->handleResponse(false,
+                "Please provide your current password to delete your account."
             );
-
-            if ($result) {
-                $this->session->setFlashdata(
-                    "success-msg",
-                    "Your account data has been deleted.<br>Feel free to contact us if you consartist_ider joining us again."
-                );
-                return redirect()->to("logout");
-            } else {
-                return redirect()
-                    ->to("account")
-                    ->with("error-msg", "Failed to delete account.");
-            }
         }
-    }
 
-    public function extract_artist_account_data($record)
-    {
-        $html = "";
-
-        $artist_id = trim($record->artist_id);
-        $artist_type = trim($record->artist_type);
-        $artist_name = trim($record->artist_name);
-        $artist_country = trim($record->artist_country);
-        $email_management = trim($record->email_management);
-        $official_contact_email = trim($record->official_contact_email);
-        $preferred_rokk_address = trim($record->preferred_rokk_address);
-        $referral = trim($record->referral);
-        $password = trim($record->password);
-        $confirm_password = trim($record->confirm_password);
-        $facebook = trim($record->facebook);
-        $instagram = trim($record->instagram);
-        $twitter = trim($record->twitter);
-        $spotify = trim($record->spotify);
-        $metal_archives = trim($record->metal_archives);
-        $website = trim($record->website);
-        $discogs = trim($record->discogs);
-        $label = trim($record->label);
-        $distributor_and_aggregator = trim($record->distributor_and_aggregator);
-        $receive_newsletter = trim($record->receive_newsletter);
-        $ConnectedAccounts = "n/a";
-        $artists = $this->account_model->get_artist_user_junc_data($artist_id);
-        $artist_user_data = $this->extract_artist_user_junc_html($artists);
-
-        return $artist_user_data;
-    }
-
-    public function ajax_change_password_data()
-    {
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
-        } else {
-            $artist_id = session("artist_id");
-            $artists = $this->account_model->getArtistDataByID($artist_id);
-            $artist_user_data = $this->extract_artist_password_html($artists);
-            echo $artist_user_data;
-        }
-    }
-
-    public function extract_artist_password_html($record)
-    {
-        $html = "";
-
-        $artist_id = trim($record->artist_id);
-        $artist_type = trim($record->artist_type);
-        $artist_name = trim($record->artist_name);
-        $artist_country = trim($record->artist_country);
-        $email_management = trim($record->email_management);
-        $official_contact_email = trim($record->official_contact_email);
-        $preferred_rokk_address = trim($record->preferred_rokk_address);
-        $referral = trim($record->referral);
-        $password = trim($record->password);
-        $confirm_password = trim($record->confirm_password);
-        $facebook = trim($record->facebook);
-        $instagram = trim($record->instagram);
-        $twitter = trim($record->twitter);
-        $spotify = trim($record->spotify);
-        $metal_archives = trim($record->metal_archives);
-        $website = trim($record->website);
-        $discogs = trim($record->discogs);
-        $label = trim($record->label);
-        $distributor_and_aggregator = trim($record->distributor_and_aggregator);
-        $receive_newsletter = trim($record->receive_newsletter);
-        $ConnectedAccounts = "n/a";
-
-        $html .=
-            '<form action="' .
-            base_url("update_artist_password") .
-            '" class="artist-uform update-password-form" method="post" enctype="multipart/form-data" onsubmit="return confirm(\'Are you sure you want to update?\')">
-                 ' .
-            csrf_field() .
-            '
-                <input type="hidden" class="password-input" name="registered_id" id="registered_id" value="' .
-            $artist_id .
-            '">
-
-                <div class="form-group password-toggle password-section">
-                <label for="password" class="label-block act-label-heading">Change Password</label>
-                </div>
-
-                <div class="form-group password-toggle">
-                <label for="password" class="label-block pass-label">New Password:</label>
-                <input type="password" class="password-input form-control input-field pass-input-field" name="password" id="password" value="' .
-            $password .
-            '">
-                <i id="eye-icon-password" class="eye-icon fas fa-eye-slash" onclick="togglePass(\'password\', \'eye-icon-password\')" required></i>
-                </div>
-
-                <div class="form-group password-toggle">
-                <label for="confirm_password" class="label-block pass-label">Confirm password: </label>
-                <input type="password" class="password-input form-control input-field pass-input-field" name="confirm_password" id="confirm_password" value="' .
-            $confirm_password .
-            '" required>
-                <i id="eye-icon-confirm" class="eye-icon fas fa-eye-slash" onclick="togglePass(\'confirm_password\', \'eye-icon-confirm\')"></i>
-                </div>
-                <p class="pass-valid-text">At least 8 digits, Include upper and lower case letters, numbers, and marks</p>
-                <div class="form-group">
-                <button type="submit" class="pass-btn">Update</button>
-                </div>
-             </form>';
-
-        return $html;
-
-        // echo $html;
-    }
-
-    public function ajax_delete_account()
-    {
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
-        } else {
-            $artist_id = session("artist_id");
-            $artists = $this->account_model->getArtistDataByID($artist_id);
-            $artist_user_data = $this->extract_artist_account_deletion_html(
-                $artists
+        // Verify password against stored hash
+        $password = trim($this->request->getPost("password"));
+        $userId = $this->userID();
+        
+        if (!$this->auth_model->verifyPassword($userId, $password)) {
+            return $this->handleResponse(false,
+                "Incorrect password. Please try again."
             );
-            echo $artist_user_data;
-        }
-    }
-
-    public function extract_artist_account_deletion_html($record)
-    {
-        $html = "";
-
-        $artist_id = trim($record->artist_id);
-        $password = trim($record->password);
-        $confirm_password = trim($record->confirm_password);
-
-        $html .=
-            '<form action="' .
-            base_url("delete_artist_account") .
-            '" class="artist-uform det-form" method="post" enctype="multipart/form-data" onsubmit="return confirm(\'Are you sure you want to delete account?\')">
-                 ' .
-            csrf_field() .
-            '
-                <input type="hidden" name="registered_id" id="registered_id" value="' .
-            $artist_id .
-            '">
-                <input type="hidden" name="hidden_password" id="hidden_password" value="' .
-            $confirm_password .
-            '">
-
-                <div class="form-group delete-section">
-                <label for="password" class="label-block act-label-heading">Delete Account</label>
-                </div>
-
-                <label for="delete" class="delete-label">To remove account permanently, please enter your password.</label>
-
-                <div class="form-group password-toggle">
-                <label for="confirm_password" class="label-block pass-label">Password: </label>
-                <input type="password" class="password-input form-control input-field pass-input-field" name="password" id="password" value="" placeholder="***********" required>
-                <i id="eye-icon-confirm" class="eye-icon fas fa-eye-slash" onclick="togglePass(\'password\', \'eye-icon-password\')"></i>
-                </div>
-
-                <div class="form-group">
-                <button type="submit" class="pass-btn delete-btn">Delete Account</button>
-                </div>
-             </form>';
-
-        return $html;
-    }
-
-    public function extract_artist_user_junc_html($users)
-    {
-        $html = '<div class="au_junc_container">
-             <div class="form-group ca-heading">
-                <label for="Connected Accounts" class="label-block act-label-heading">Accounts Info</label>
-                </div>';
-
-        $index = 1;
-
-        if (!empty($users)) {
-            $html .=
-                '
-                <p class="connected-account-tle">Showing all the connected accounts (Total users: ' .
-                count($users) .
-                '):</p>
-                <table class="au_junc_table table-responsive">
-                <thead>
-                <tr>
-                <th class="gc-tb-tle">No.</th>
-                <th class="gc-tb-tle">User ID</th>
-                <th class="gc-tb-tle">Role</th>
-                <th class="gc-tb-tle">Active</th>
-                </tr>
-                </thead>
-                <tbody>';
-
-            foreach ($users as $user) {
-                $user_id = trim($user["user_id"]);
-                $main_artist_id = trim($user["main_artist_id"]);
-                $role = trim($user["role"]);
-                $active = trim($user["active"]);
-
-                if (!empty($main_artist_id)) {
-                    $html .=
-                        '
-                            <tr class="artist-popup" data-id="' .
-                        $main_artist_id .
-                        '">
-                                <td>' .
-                        $index .
-                        '. </td>
-                                <td>' .
-                        $user_id .
-                        '</td>
-                                <td>' .
-                        $role .
-                        '</td>
-                                <td>' .
-                        $active .
-                        '</td>
-                            </tr>';
-
-                    $index++;
-                }
-            }
-
-            $html .= "</tbody></table>";
-        } else {
-            $html .= "<p>There are no connected accounts found.</p>";
         }
 
-        $html .= "</div>";
+        // Delete account
+        $result = $this->account_model->delete_artist_account_data_by_id(
+            $this->request->getPost()
+        );
 
-        return $html;
+        if (!$result) {
+            return $this->handleResponse(false,
+                'An error occurred while deleting your account. Please try again later or contact support if the issue persists.'
+            );
+        }
+
+        // Redirect with success message
+        return redirect()->to("login")
+            ->with('successMsg', "Your account has been successfully deleted.");
     }
+
+
 }

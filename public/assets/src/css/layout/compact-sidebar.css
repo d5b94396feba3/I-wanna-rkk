@@ -1,0 +1,272 @@
+#compact-sidebar {
+    height: 100%;
+    width: 120px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    border-right: 1px solid #383838;
+    transition: margin-left 0.6s ease-in-out;
+}
+
+#compact-sidebar .account-info-box {
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d914;
+    padding: 0px 7px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+#compact-sidebar .account-info-box a {
+    padding: 0px 0px 2px 7px !important;
+}
+#compact-sidebar #rokk-logo {
+    margin-left: 12px;
+    max-width: 37px;
+    margin-bottom: 15px;
+}
+.rotatedToggleIcon {
+    transform: rotate(180deg);
+}
+
+#compact-sidebar svg{
+    fill:#818181;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+#compact-sidebar a i {
+    font-size: 22px !important;
+    margin-left: 10px;
+}
+
+.sidebar-footer a i {
+    font-size: 22px !important;
+    margin-left: 0px;
+}
+
+#compact-sidebar a {
+    padding: 12px 10px;
+    text-decoration: none;
+    font-size: 17px;
+    color: #818181;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#compact-sidebar a.active {
+    color: #fff;
+    background-color: #d9d9d914;
+    border-radius: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+}
+.compact-music-dropdown a.active {
+    width: 100% !important;
+}
+
+#compact-sidebar a.active > svg,
+#compact-sidebar a.active > svg path,
+#compact-sidebar a.active > i {
+    color: #FF8303 !important;
+    fill: #FF8303 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px !important;
+}
+
+#compact-sidebar a:hover {
+    color: #f8f9fa !important;
+}
+
+#compact-sidebar a:hover > svg,
+#compact-sidebar a:hover > svg path,
+#compact-sidebar a:hover > i {
+    color: #FF8303 !important;
+    fill: #FF8303 !important;
+}
+
+
+#compact-sidebar .sidebar-toggle {
+    cursor: pointer;
+    font-size: 24px;
+    color: #FF8303;
+    margin-right: -45px;
+    margin-top: -24px;
+    position: absolute;
+    right: 25px;
+}
+#compact-sidebar .artist-avatar {
+    width: 40px;
+    height: 38px;
+    border-radius: 50%;
+    margin: 14px 0px 6px 0px;
+}
+#compact-sidebar .artist-info {
+    padding: 20px 0px 37px 0px;
+}
+#compact-sidebar .sidebar-footer{
+    border-top: 1px solid #383838;
+    margin-top: auto;
+    padding-top: 20px;
+    width: 100%;
+}
+#compact-sidebar .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#compact-sidebar .main-links {
+    display: block;
+    align-content: center !important;
+}
+
+#compact-sidebar .sidebar-footer-top {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: -185px;
+    margin-left:0px;
+}
+
+#compact-sidebar .sidebar-footer {
+    border-top: 1px solid #383838;
+    padding-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#compact-sidebar .sidebar-footer .fa-sign-out-alt{
+    color: #FF8303;
+}
+
+.compact-music-dropdown-container{
+    position: relative;
+}
+
+.compact-music-dropdown {
+    display: none;
+    position: absolute;
+    left: 96px;
+    top: 0px;
+    background: rgb(35 35 35);
+    border: 1px solid #3d3838;
+    border-radius: 4px;
+    width: 220px;
+    z-index: 1002 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-indicator {
+    margin-left: -11px !important;
+    transition: transform 0.3s ease;
+    position: absolute;
+    top: 14px;
+    color: rgb(81 77 77);
+}
+
+.compact-music-dropdown h3 {
+    padding: 15px 10px 12px 35px;
+    margin: 0;
+    border-bottom: 1px solid #464242;
+    font-size: 16px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.compact-music-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.compact-music-dropdown li {
+    padding: 0px 15px;
+    border-bottom: 1px solid #464242;
+}
+
+.compact-music-dropdown li:last-child {
+    border-bottom: none;
+}
+.compact-music-dropdown a:hover > svg,
+.compact-music-dropdown a:hover > svg path,
+.compact-music-dropdownr a:hover > i {
+    color: #FF8303 !important;
+    fill: #FF8303 !important;
+}
+
+/* compact sidebar icon */
+#compact-sidebar #compact-sidebar a.active > i {
+    font-size: 22px !important;
+}
+#compact-sidebar i{
+    font-size: 22px !important;
+}
+
+.compact-music-dropdown a {
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size:15px !important;
+    padding:0px 0p 0px 0px !important;
+}
+
+.compact-music-dropdown a svg {
+    margin-right: 5px;
+    font-size: 18px;
+    color: #FF8303;
+    margin-left: 3px !important;
+}
+.compact-music-dropdown a span{
+    padding-left: 5px !important;
+}
+
+.compact-music-dropdown a.active {
+    color: #FF8303;
+    background-color: transparent !important;
+    padding-left: 0px !important;
+    margin-left: -6px !important;
+}
+.compact-music-dropdown a.active span{
+    padding-left: 7px !important;
+}
+.compact-music-dropdown .create_release.active {
+    margin-left: 0px !important;
+}
+/* mobile responsiveness */
+@media (max-width: 768px) {
+
+    #compact-sidebar {
+        display: none !important;
+    }
+
+    .main-body-content {
+        margin-left: 0;
+    }
+
+    .main-body-content.active {
+        margin-left: 0;
+    }
+    .sidebar-footer a i {
+        margin-left: 10px !important;
+    }
+
+}

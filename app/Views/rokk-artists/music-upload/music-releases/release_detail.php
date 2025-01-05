@@ -1,0 +1,1411 @@
+<style type="text/css">
+#dashboard-footer {
+    margin: 0px 55px 0px 111px !important;
+}
+.separator {
+    width: 100%;
+    height: 1px;
+    background-color: #333333ab;
+    margin: 0px 0px 25px 0px;
+}
+
+.music-upload-progress-bar {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.09);
+    border-radius: 30px;
+    padding: 5px;
+    margin: 43px 43px 30px 30px;
+}
+
+.progress-step {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    border-radius: 25px;
+    flex-grow: 1;
+}
+
+.progress-step.active {
+    background-color: #2A2A2A;
+    justify-content: flex-start; 
+}
+
+.step-number {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #333;
+    color: rgba(255, 255, 255, 0.60);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    flex-shrink: 0; 
+}
+
+.step-number.active {
+    background-color: #FF8303;
+    color: #fff;
+}
+
+.step-number svg{
+    background-color: #FF8303;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    flex-shrink: 0; 
+}
+
+.step-text {
+    color: rgba(255, 255, 255, 0.60);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.step-text.active {
+    color: #fff;
+}
+
+.account-container, .release-container, .track-container, .review-container{
+    margin: 0px 43px 30px 30px;
+}
+
+.step-container {
+    background-color: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 26px;
+    margin-top: -4px;
+}
+
+.step-container h2 {
+    margin: 0 0 10px 0;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.step-container p {
+    margin: 0;
+    color: #FF8303;
+    font-size: 13px;
+}
+
+.upload-form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.upload-popup-form-group {
+    flex: 1;
+    margin-right: 20px;
+} 
+
+.upload-popup-form-group:last-child {
+    margin-right: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: rgba(255,255,255,0.35);
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255,255,255,0.12);
+    border: none;
+    border-radius: 55px !important;
+    color: #ffffff;
+    padding-left: 20px;
+    margin-top: 4px;
+}
+
+input::placeholder {
+    color: #555;
+}
+
+select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.btn-back{
+    padding: 10px 40px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 2px solid #333;
+    letter-spacing: 0.12em;
+    margin-top: 12px;
+}
+
+.submit-release-btn {
+    padding: 10px 60px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #FF8303;
+    color: #000000;
+    letter-spacing: 0.12em;
+    float:right;
+}
+
+.btn-next{
+    padding: 10px 40px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #FF8303;
+    color: #000000;
+    letter-spacing: 0.12em;
+    float: right;
+    margin-top: 12px;
+}
+
+.img-update-btn {
+    padding: 8px 25px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 2px solid #333;
+    letter-spacing: 0.12em;
+    margin-top: 17px;
+    font-size: 12px;
+}
+
+.track-update-btn{
+    padding: 8px 25px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 2px solid #333;
+    letter-spacing: 0.12em;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.release-info-update-btn {
+    padding: 8px 25px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 2px solid #333;
+    letter-spacing: 0.12em;
+    margin-top: 0px;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.btn-next:hover, .submit-release-btn:hover {
+    background-color: #FF9933;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 131, 3, 0.5);
+}
+
+.btn-back:hover, .img-update-btn:hover, .release-info-update-btn:hover, .track-update-btn:hover{
+    background-color: #333;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
+}
+
+.form-actions {
+    border-top: 1px solid #333333ab;
+    padding-top: 25px;
+    margin-top:0px;
+}
+
+.cover-upload-container {
+  margin: 20px 0;
+  padding: 20px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-image: 
+    repeating-linear-gradient(to right, #444 0, #444 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(to bottom, #444 0, #444 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(to left, #444 0, #444 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(to top, #444 0, #444 10px, transparent 10px, transparent 20px);
+  background-position: top, right, bottom, left;
+  background-repeat: repeat-x, repeat-y;
+  background-size: 20px 2px, 2px 20px;
+  background-clip: padding-box;
+}
+.cover-upload-box {
+  display: flex;
+  align-items: center;
+}
+
+.image-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #333;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.image-placeholder img {
+    width: 94px;
+    height: 94px;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.img-upload-button {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #FF8303;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  width: 225px;
+}
+
+.img-upload-button:hover {
+  background-color: #FF8303;
+  color: #000;
+}
+
+.upload-instructions {
+    color: rgba(255,255,255,0.3);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+}
+
+.btn-release{
+    padding: 10px 90px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.15);
+    color:rgba(255,255,255,0.55);
+}
+
+.track-no {
+    color: #FF8303;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.track-container {
+    margin: 0px 43px 30px 30px;
+    color: #fff;
+}
+
+.track-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.track-header h3 {
+    color: #FF8303;
+    font-size: 16px;
+    margin: 0;
+}
+
+.reset-btn {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 14px;
+}
+.reset-btn:hover {
+ color:#FF8303;
+}
+.track-inputs {
+    display: flex;
+    gap: 0px;
+}
+
+.track-input-group {
+    flex: 1;
+}
+
+.track-input-group label {
+    display: block;
+    color: rgba(255,255,255,0.35);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.track-input-group input {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255,255,255,0.12);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding-left: 20px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    padding-right: 30px;
+}
+
+.input-with-icon span {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.check-icon {
+    color: #FF8303;
+}
+
+.add-info-popup-btn, .upload-audio-btn {
+    color: #888;
+    cursor: pointer;
+}
+
+.track-row {
+    border-bottom: 1px solid #333333ab;
+    padding-bottom: 32px;
+    margin:25px 0px 9px 0px;
+}
+
+.track-row:last-of-type,
+ .track-row:last-child {
+    border-bottom: 1px solid transparent !important;
+}
+
+
+.section-title {
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.release-details {
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background:rgba(255, 255, 255, 0.085);
+}
+
+.release-details-container{
+    display: flex; 
+}
+
+.album-cover {
+    width: 115px;
+    height: 115px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    margin-bottom: 0px; 
+    color: rgba(255,255,255,0.35);
+    font-size: 14px;
+}
+
+.detail-value {
+    font-size: 16px;
+}
+
+.orange {
+    color: #FF8303;
+}
+
+.tracks-list {
+    background:rgba(255, 255, 255, 0.085);
+    border-radius: 10px;
+    padding: 10px 10px 0px 10px;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px 20px 10px;
+    border-bottom: 1px solid #3A3A3A;
+}
+
+.track-item:last-child {
+    border-bottom: none;
+}
+
+.track-cover {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.track-details {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.track-duration {
+    font-size: 14px;
+    color: #888;
+}
+
+.more-details-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(255,255,255,0.35);
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.track-list-more-info {
+    transition: margin-bottom 0.6s ease;
+    background: rgba(255, 255, 255, 0.01);
+    border-bottom: 1px solid #3A3A3A;
+    border-radius: 0px;
+    margin-left:-8px;
+}
+
+.track-list-more-info .details-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.more-info-title {
+    margin-bottom:-10px !important;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.more-details-btn:hover {
+    color: #FF8303;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.submit-release-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.submit-release-btn {
+    background-color: #FF8303;
+    color: #000000;
+    border: none;
+    padding: 10px 30px;
+}
+.track-title {
+    font-size:16px;
+    margin: 10px 10px -3px 10px;
+}
+
+.add-info-popup-btn:hover svg,
+.add-info-popup-btn:hover svg path, .upload-audio-btn:hover svg path{
+    fill: #FF8303 !important;
+    stroke: #FF8303 !important;
+}
+
+/* track popup style  */
+.track-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.popup-content {
+  background-color: #111111;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  margin: 90px auto;
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-header h2 {
+  color: #FF8303;
+  font-size: 24px;
+  margin: 0;
+}
+
+.popup-header .close-btn {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 24px;
+  cursor: pointer;
+}
+.close-btn:hover{
+    color: #FF9933;
+}
+
+.popup-body .form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.popup-body .popup-form-group {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.popup-body .popup-form-group:last-child {
+  margin-right: 0;
+}
+
+.popup-body label {
+  display: inline-flex;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 13px;
+}
+
+.popup-body input[type="text"],
+.popup-body input[type="url"],
+.popup-body input[type="email"],
+.popup-body input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  padding-left: 20px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.popup-body input::placeholder {
+  color: #555;
+}
+
+.popup-radio-group {
+  display: flex;
+  align-items: center;
+}
+
+.popup-radio-label {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  color: #FFFFFF;
+}
+
+.popup-radio-label input {
+  margin-right: 5px;
+}
+
+.popup-radio-label input[type="radio"]:checked {
+  accent-color: #FF8303;
+}
+
+.popup-radio-label input[type="radio"]:checked::before {
+  background-color: #FF8303;
+}
+
+.popup-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.save-track-btn, .audio-upload-btn {
+  padding: 10px 40px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #FF8303;
+  color: #000000;
+  letter-spacing: 0.12em;
+  width: 100%;
+}
+
+.save-track-btn:hover, .audio-upload-btn:hover {
+  background-color: #FF9933;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 131, 3, 0.5);
+}
+
+.close-btn{
+    cursor:pointer;
+}
+.close-btn:hover{
+    color: #FF9933;
+}
+
+/* audio upload popup */
+
+.audio-upload-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.audio-upload-popup .popup-content .popup-body{
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-image: 
+    repeating-linear-gradient(to right, #444 0, #444 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(to bottom, #444 0, #444 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(to left, #444 0, #444 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(to top, #444 0, #444 10px, transparent 10px, transparent 20px);
+  background-position: top, right, bottom, left;
+  background-repeat: repeat-x, repeat-y;
+  background-size: 20px 2px, 2px 20px;
+  background-clip: padding-box;
+  
+}
+.audio-upload-popup .track-upload-area {
+  border: 2px dashed #333333;
+  border-radius: 10px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.audio-upload-popup .audio-upload-icon {
+    background: rgba(255,255,255,0.1);
+    width: 92px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    padding: 27px 0px;
+    border-radius: 10px;
+}
+
+.audio-upload-popup .audio-upload-icon svg{
+    width: 32px !important;
+}
+
+.audio-upload-popup .upload-text {
+  color: #666666;
+  margin: 5px 0;
+  font-size: 14px;
+}
+.uploaded-file-name{
+    color: #fff;
+}
+
+/* submit release, save popup style*/
+
+.create-release-popup,
+.save-track-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.create-release-popup .popup-content{
+  width: 70%;
+  margin: 100px auto;
+  padding: 30px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.save-track-popup .popup-content{
+  width: 90%;
+  margin: 100px auto;
+  padding: 33px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.create-release-popup .popup-content .popup-body,
+.save-track-popup .popup-content .popup-body{
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    margin: 0px 0px 28px 0px;
+    padding: 37px 10px 10px 10px;
+}
+
+.create-release-popup .popup-icon,
+.save-track-popup .popup-icon{
+  margin-bottom: 20px;
+}
+
+.create-release-popup h2,
+.save-track-popup h2 {
+    color: #FF8303;
+    font-size: 25px;
+    margin: 0 0 10px;
+    letter-spacing: 0.07em;
+}
+.create-release-popup p, 
+.save-track-popup p{
+  color: #666666;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.create-release-popup .popup-actions, 
+.save-track-popup .popup-actions{
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-release-popup .btn-back,
+.create-release-popup .btn-submit, 
+.save-track-popup .btn-back, 
+.save-track-popup .btn-submit{
+  width: 48%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-release-popup .btn-back,
+.save-track-popup .btn-back {
+    background-color: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.55);
+    font-weight: 500 !important;
+}
+
+.create-release-popup .btn-submit,
+.save-track-popup .btn-submit {
+  background-color: #FF8303;
+  color: #000000;
+}
+
+.create-release-popup .btn-back:hover,
+.save-track-popup .btn-back:hover {
+  background-color: #444444;
+}
+
+.create-release-popup .btn-submit:hover,
+.save-track-popup .btn-submit:hover {
+  background-color: #FF9933;
+}
+
+#imageFileContainer.highlight {
+    border-color: #FF8303;
+    background-color: rgba(255, 131, 3, 0.1);
+}
+
+.audio-upload-icon{
+    cursor: pointer;
+}
+
+#uploadProgressBar {
+    position: relative;
+    height: 20px;
+    background-color: #f0f0f0 !important;
+    border-radius: 25px;
+    width: 100%;
+    padding: 0px 0px;
+    display: none;
+    text-align: center;
+    margin:0px 0px 79px 2px !important;
+}
+.progress-bar-inner {
+    height: 100%;
+    width: 0;
+    background-color: #4caf50;
+    border-radius: 4px;
+}
+
+/* sweetalert2 style */
+.custom-popup {
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+.custom-title h2{
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+}
+.custom-html-container {
+    color: #FFFFFF;
+}
+.custom-icon {
+    border-color: #FF8303;
+}
+.custom-confirm-button, .custom-cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 10px;
+}
+.custom-confirm-button {
+    background-color: #FF8303;
+    color: #000000;
+}
+.custom-cancel-button {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+.custom-confirm-button:hover {
+    background-color: #FF9933;
+}
+.custom-cancel-button:hover {
+    background-color: #444444;
+}
+svg.back-arrow {
+    margin-left: -20px;
+    margin-right: 6px;
+}
+
+svg.right-arrow {
+    margin-left: 8px;
+    margin-right: -28px;
+    transform: rotate(180deg);
+}
+
+.form-btn-next:hover .back-arrow {
+    transform: translateX(-3px);
+    transition: transform 0.3s ease;
+}
+
+
+/* style sweetalert2 custom progressbar */
+.progress-bar-container {
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+.progress-bar {
+    width: 0%;
+    height: 20px;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    transition: width 0.3s ease-in-out;
+}
+
+.progress-percentage {
+    position: absolute;
+    top: 49.2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000;
+}
+
+/* custom alert */
+
+.alert svg {
+    font-size: 24px;
+    margin: 0px 15px -3px 15px;
+}
+
+.form-actions.last-form-actions {
+    margin-top: -12px;
+}
+
+.track-update-group{
+    display: flex; 
+    gap: 10px;
+}
+
+/* mobile responsiveness */
+
+@media (max-width: 868px){
+    .main-container {
+        margin-top: 6px !important;
+        padding: 0px 0px 0px 0px !important;
+    }
+    .track-input-group label {
+        margin-top: 10px;
+    }
+    #dashboard-footer {
+        margin: 0px 0px 0px 0px !important;
+    }
+}
+
+</style>
+
+
+<script>
+// Initialize configuration for file-upload.js
+window.config = {
+    defaultImageUrl: '<?= base_url('assets/images/image-cover.png') ?>',
+    artistName : "<?= session()->get('fullName') ?>"
+};
+</script>
+
+<script src="<?= base_url('assets/src/js/music-upload/release-detail/index.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/release-detail/alert.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/release-detail/file-upload.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/release-detail/validation.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/release-detail/progress-bar.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/release-detail/event-listeners.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/release-detail/form.js') ?>"></script>
+
+
+<div class="main-container">
+    <div class="music-upload-progress-bar">
+        <div class="progress-step active">
+            <div class="step-number active" data-step="0">1</div>
+            <div class="step-number check" style="display:none;" data-step="1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="step-text">Release</div>
+        </div>
+        <div class="progress-step">
+            <div class="step-number default" data-step="2">2</div>
+            <div class="step-number check" style="display:none;" data-step="2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="step-text">Tracks</div>
+        </div>
+    </div>
+
+    <?php if (isset($_SESSION["success-msg"])) { ?>
+        <div class="alert alert-success mt-4" style="display:block; width: 28% !important;">
+        <i class="fas fa-check-circle"></i>
+            <?php
+            echo $_SESSION["success-msg"];
+            unset($_SESSION["success-msg"]);
+            ?>
+        </div>
+    <?php } ?>
+    <?php if (isset($_SESSION["error-msg"])) { ?>
+        <div class="alert alert-danger mt-4" style="width: 28% !important; text-align:left;">
+        <i class="fas fa-exclamation-circle"></i>
+            <?php
+            echo $_SESSION["error-msg"];
+            unset($_SESSION["error-msg"]);
+            ?>
+        </div>
+    <?php } ?>
+
+    <div class="release-container form-section" data-step="0">
+        <div class="step-container">
+            <h2>Release Information</h2>
+            <p>Shows the cover image and release information below</p>
+        </div>
+        <div class="cover-upload-container">
+            <form action="<?= base_url('update_music_release_cover_image') ?>" class="updateCoverImageForm" method="post" enctype="multipart/form-data">
+                <?= csrf_field() ?>
+                <input type="hidden" name="release_id" id="release_id" value="<?= esc($release_detail->release_id); ?>">
+                <input type="hidden" name="old_cover_image_link" id="old_cover_image_link" value="<?= $release_detail->image_link; ?>">
+                <div class="cover-upload-box" id="imageFileContainer">
+                    <div class="image-placeholder" id="preview">
+                        <?php if (!empty($release_detail->image_link)): ?>
+                            <img src="<?= $release_detail->image_link; ?>" alt="Release cover">
+                        <?php else: ?>
+                            <img src="<?php echo base_url('assets/images/image-cover.png');?>" alt="Upload icon">
+                        <?php endif; ?>
+                    </div>
+                    <div class="upload-content">
+                        <button class="img-upload-button">Upload Cover Image</button>
+                        <input type="file" name="image_link" id="image_link" value="<?= $release_detail->image_link; ?>" accept="image/*" style="display: none;" onchange="previewFile()" required>
+                        <p class="upload-instructions">
+                            At least 800 x 800px recommended. PNG or JPG is allowed.<br>
+                            Drag and Drop the image.
+                        </p>
+                    </div>
+                </div>
+                <button type="submit" class="img-update-btn">Update</button>
+            </form>    
+        </div>
+        <div class="separator"></div>
+        
+        <form action="<?= base_url('update_music_release_detail') ?>" id="updateReleaseDetail" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
+            <input type="hidden" name="release_id" id="release_id" value="<?= esc($release_detail->release_id); ?>">
+        
+            <div class="upload-form-row">
+                <div class="upload-popup-form-group">
+                    <label for="label">Release Title *</label>
+                    <input type="text" name="release_title" id="release_title" value="<?= $release_detail->release_title; ?>" placeholder="Faith no more">
+                </div>
+
+                <div class="upload-popup-form-group">
+                    <label for="genre">Genre *</label>
+                    <select name="genre" id="genre" required>
+                        <option value="<?= $release_detail->genre; ?>" selected><?= $release_detail->genre; ?></option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="upload-form-row">
+                <div class="upload-popup-form-group">
+                    <label for="release_date">Release Date *</label>
+                    <input type="date" name="release_date" id="release_date" value="<?= date('Y-m-d', strtotime($release_detail->release_date)); ?>">
+                </div>
+                <div class="upload-popup-form-group">
+                    <label for="copyright">Copyright *</label>
+                    <select name="copyright" id="copyright" required>
+                        <option value="<?= $release_detail->copyright; ?>" selected><?= $release_detail->copyright; ?></option>
+                        <?php
+                        date_default_timezone_set("UTC");
+                        $current_year = date("Y");
+                        for ($copyright_year = 1964; $copyright_year <= $current_year; $copyright_year++) {
+                            echo '<option value="' . $copyright_year . '">' . $copyright_year . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="upload-popup-form-group">
+                    <label for="language">Language *</label>
+                    <?php
+                    $languages = array(
+                        'ar' => 'Arabic',
+                        'yue-Hant' => 'Cantonese', 
+                        'ca' => 'Catalan',
+                        'cmn-Hans' => 'Chinese (Simplified)',
+                        'cmn-Hant' => 'Chinese (Traditional)',
+                        'hr' => 'Croatian',
+                        'cs' => 'Czech',
+                        'da' => 'Danish',
+                        'de-DE' => 'Deutsch',
+                        'nl' => 'Dutch',
+                        'en-GB' => 'English',
+                        'et' => 'Estonian',
+                        'fi' => 'Finnish',
+                        'fr-FR' => 'French',
+                        'el' => 'Greek',
+                        'he' => 'Hebrew',
+                        'hu' => 'Hungarian',
+                        'is' => 'Icelandic',
+                        'id' => 'Indonesian',
+                        'it-IT' => 'Italian',
+                        'ja' => 'Japanese',
+                        'ko' => 'Korean',
+                        'lo' => 'Lao',
+                        'lv' => 'Latvian',
+                        'li' => 'Lithuanian',
+                        'ms' => 'Malay',
+                        'no' => 'Norwegian',
+                        'pl' => 'Polish',
+                        'pt' => 'Portuguese',
+                        'ro' => 'Romanian',
+                        'ru' => 'Russian',
+                        'sk' => 'Slovak',
+                        'es' => 'Spanish',
+                        'sv' => 'Swedish',
+                        'de-CH' => 'Schweizerdeutsch',
+                        'tl' => 'Tagalog',
+                        'th' => 'Thai',
+                        'tr' => 'Turkish',
+                        'uk' => 'Ukrainian',
+                        'vi' => 'Vietnamese'
+                    );
+                    ?>
+                    <select name="language" id="language" required>
+                        <option value="<?= $release_detail->language; ?>" selected><?= $languages[$release_detail->language]; ?></option>
+                        <?php foreach ($languages as $code => $name): ?>
+                            <option value="<?= $code ?>"><?= $name ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="upload-form-row">
+                <div class="upload-popup-form-group">
+                    <label for="copyright_desc">Additional Copyright Information</label>
+                    <input type="text" id="copyright_desc" name="copyright_desc" value="<?= $release_detail->copyright_desc; ?>" placeholder="e.g. ℗ 2024 Artist Name. All rights reserved.">
+                </div>
+            </div>
+            <button type="submit" class="release-info-update-btn">Update</button>  
+        </form>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-next form-btn-next">
+                NEXT
+                <svg class="right-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="track-container form-section" data-step="1" style="display: none;">
+        <div class="step-container">
+            <h2>Tracks</h2>
+            <p>Shows the tracks information below </p>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="dynamic-track-container">
+            <?php if(!empty($artist_release_track)): ?>
+            <?php foreach ($artist_release_track as $index => $track): ?>
+                <div class="track-row">
+                    <div class="track-header">
+                        <h3>TRACKS <?= $index+1; ?></h3>
+                    </div>
+                    <div class="track-inputs row">
+                        <div class="col-md-6 col-sm-12 col-lg-6">
+                        <div class="track-input-group">
+                            <form action="<?= base_url('update_release_track_title') ?>" class="updateTrackTitle" method="post" enctype="multipart/form-data">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="release_id" id="release_id" value="<?= esc($release_detail->release_id); ?>">
+                                <input type="hidden" name="track_id" id="track_id" value="<?= esc($track['track_id']); ?>">
+                                <input type="hidden" name="track_index" id="track_index" value="<?= esc($index+1); ?>">
+                                <label for="release_title-2">Release Title *</label>
+                                <div class="track-update-group">
+                                <input type="text" value="<?= $track['track_title']; ?>" name="track_title_<?= $index+1; ?>" id="track_title_<?= $index+1; ?>" placeholder="Title" required>
+                                <button type="submit" class="track-update-btn">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-lg-3">
+                        <div class="track-input-group">
+                            <label for="track-info-2">Track Info *</label>
+                            <div class="input-with-icon">
+                                <div class="track-info-save-<?= $index+1; ?>" style="display:none;">
+                                    <input type="text" id="track-info-1" value="Added" readonly>
+                                    <span class="check-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z" fill="#FF8303"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="track-info-unsave-<?= $index+1; ?>">
+                                    <input type="text" id="track-info-2" placeholder="Update Info" readonly>
+                                    <span class="add-info-popup-btn" data-popup_id=<?= $index+1; ?>>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z" fill="white" fill-opacity="0.3"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-3 col-sm-12 col-lg-3">
+                            <div class="track-input-group">
+                                <label for="audio-file-2">Update Audio File *</label>
+                                <div class="input-with-icon">
+                                    <div class="track-audio-uploaded-<?= $index+1; ?>" style="display:none;">
+                                        <input type="text" id="audio-file-1" value="Uploaded" readonly>
+                                        <span class="check-icon">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z" fill="#FF8303"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="track-audio-not-uploaded-<?= $index+1; ?>">
+                                        <input type="text" id="audio-file-2" placeholder="Update Audio File" readonly>
+                                        <span class="upload-audio-btn" data-popup_id=<?= $index+1; ?>>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM13 9V16H11V9H6L12 3L18 9H13Z" fill="white" fill-opacity="0.3"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="uploadProgressBar"><div class="progress-bar-inner"></div></div>
+                <div id="trackPopup-<?= $index+1; ?>" class="track-popup" style="display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5);z-index: 1000; backdrop-filter: blur(5px);">
+                    <div class="popup-content">
+                        <div class="popup-header">
+                            <h2>TRACK <?= $index+1; ?></h2>
+                            <button class="close-btn-<?= $index+1; ?>">&times;</button>
+                        </div>
+                        <div class="popup-body">
+                            <form action="<?= base_url('update_release_track_info') ?>" class="updateTrackInfo" data-trackForm-id="<?= $index+1; ?>" method="post" enctype="multipart/form-data">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="release_id" id="release_id" value="<?= esc($release_detail->release_id); ?>">
+                                <input type="hidden" name="track_id" id="track_id" value="<?= esc($track['track_id']); ?>">
+                                <input type="hidden" name="track_index" id="track_index" value="<?= esc($index+1); ?>">
+
+                                <div class="form-row">
+                                    <div class="popup-form-group">
+                                        <label for="artist">Artist *</label>
+                                        <input type="text" value="<?= $track['artist_name']; ?>" name="artist_name_<?= $index+1; ?>" id="popup_artist_name_<?= $index+1; ?>" value="">
+                                    </div>
+                                    <div class="popup-form-group">
+                                        <label for="title">Title *</label>
+                                        <input type="text" value="<?= $track['track_title']; ?>" name="track_title_<?= $index+1; ?>" id="popup_track_title_<?= $index+1; ?>" value="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="popup-form-group">
+                                        <label for="features">Features</label>
+                                        <input type="text" value="<?= $track['features']; ?>" name="features_<?= $index+1; ?>" id="features_<?= $index+1; ?>" value="">
+                                    </div>
+                                    <div class="popup-form-group">
+                                        <label for="composer">Composer *</label>
+                                        <input type="text" value="<?= $track['composer']; ?>" name="composer_<?= $index+1; ?>" id="composer_<?= $index+1; ?>" value="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="popup-form-group">
+                                        <label for="lyricist">Lyricist</label>
+                                        <input type="text" value="<?= $track['lyricist']; ?>" name="lyricist_<?= $index+1; ?>" id="lyricist_<?= $index+1; ?>" value="">
+                                    </div>
+                                    <div class="popup-form-group">
+                                        <label for="isrc">ISRC Code *</label>
+                                        <input type="text" value="<?= $track['isrc_code']; ?>" name="isrc_code_<?= $index+1; ?>" id="isrc_code_<?= $index+1; ?>" value="" placeholder="XXXX-XXXX">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="popup-form-group">
+                                        <label>Explicit *</label>
+                                        <div class="popup-radio-group">
+                                            <label class="popup-radio-label">
+                                                <input type="radio" name="explicit_<?= $index+1; ?>" id="explicit_<?= $index+1; ?>" value="yes" <?= $track['explicit'] == 'yes' ? 'checked' : ''; ?>>
+                                                Yes
+                                            </label>
+                                            <label class="popup-radio-label">
+                                                <input type="radio" name="explicit_<?= $index+1; ?>" id="explicit_<?= $index+1; ?>" value="no" <?= $track['explicit'] == 'no' ? 'checked' : ''; ?>> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-footer">
+                                <button class="save-track-btn" data-btn_id="<?= $index+1; ?>">Update Track</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="audioUploadPopup-<?= $index+1; ?>" class="audio-upload-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; backdrop-filter: blur(5px);">
+                    <div class="popup-content">
+                        <div class="popup-header">
+                            <h2>TRACK <?= $index+1; ?></h2>
+                            <button class="close-btn-<?= $index+1; ?>">&times;</button>
+                        </div>
+                        <div class="popup-body">
+                            <form action="<?= base_url('update_track_audio_file') ?>" id="updateTrackAudioFile-<?= esc($index+1); ?>" class="updateTrackAudioFile" method="post" enctype="multipart/form-data">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="release_id" id="release_id" value="<?= esc($release_detail->release_id); ?>">
+                                <input type="hidden" name="track_id" id="track_id" value="<?= esc($track['track_id']); ?>">
+                                <input type="hidden" name="track_index" id="track_index" value="<?= esc($index+1); ?>">
+                                <input type="hidden" name="old_track_file" id="old_track_file" value="<?= esc($track['track_file_name']); ?>">
+                                <div class="track-upload-area" id="fileInputTrackContainer_<?= $index+1; ?>" data-track-upload-area-id="<?= $index+1; ?>">
+                                    <div class="audio-upload-icon" data-popup_id="<?= $index+1; ?>">
+                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M26 5.16291V19.9999C26 23.3137 23.3138 25.9999 20 25.9999C16.6862 25.9999 14 23.3137 14 19.9999C14 16.6861 16.6862 13.9999 20 13.9999C20.7012 13.9999 21.3744 14.1202 22 14.3413V0.0986328C32.1066 1.10207 40 9.62917 40 19.9999C40 31.0457 31.0456 39.9999 20 39.9999C8.9543 39.9999 0 31.0457 0 19.9999C0 9.62917 7.89336 1.10207 18 0.0986328V4.12367C10.1074 5.10785 4 11.8406 4 19.9999C4 28.8365 11.1634 35.9999 20 35.9999C28.8366 35.9999 36 28.8365 36 19.9999C36 13.2851 31.8636 7.53645 26 5.16291Z" fill="white" fill-opacity="0.3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="preview<?= $index+1; ?>" id="preview<?= $index+1; ?>"></div>
+                                    <input type="file" name="track_file_<?= $index+1; ?>" id="track_file_<?= $index+1; ?>" value="<?= $track['track_file_link']; ?>" data-track-file-id="<?= $index+1; ?>" accept="audio/*" required style="display:none;">
+                                    <p class="uploaded-file-name"><?= $track['track_file_name']; ?></p>
+                                    <p class="upload-text">Supported audio file, (MP3, WAV, FLAC, AAC, OGG).</p>
+                                    <p class="upload-text">Drag and Drop the file here.</p>
+                                </div>
+                            </div>
+                            <div class="popup-footer">
+                                <button class="audio-upload-btn" data-track_btn_id="<?= $index+1; ?>">UPDATE AUDIO FILE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>       
+            <?php else: ?>       
+            <p>No release information found</p>
+            <?php endif; ?>       
+        </div>
+
+        <div class="form-actions last-form-actions">
+            <button type="button" class="btn-back form-btn-back">
+                <svg class="back-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="currentColor"/>
+                </svg>
+                BACK
+            </button>
+        </div>
+    </div>
+</div>

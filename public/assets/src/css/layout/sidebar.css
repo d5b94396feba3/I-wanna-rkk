@@ -1,0 +1,510 @@
+/* Base layout setup */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+#sidebar {
+    height: 100vh;
+    width: 390px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #000 20%, #111111 100%);
+    border-right: 1px solid #383838;
+    transition: margin-left 0.3s ease-in-out;
+}
+#sidebar.active {
+    margin-left: -350px; 
+    transition: margin-left 0.6s ease-in-out;
+    opacity: 0;
+}
+#sidebar img {
+    max-width: 50%;
+    margin-bottom: 11px;
+}
+.rotatedToggleIcon {
+    transform: rotate(180deg);
+}       
+#sidebar a {
+    padding: 15px 10px;
+    text-decoration: none;
+    font-size: 19px;
+    color: #ffffffbf;
+    display: flex;
+    align-items: center;
+}
+
+#sidebar a i, 
+#sidebar a svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sidebar svg, #compact svg {
+    margin-right: 15px;
+    font-size: 12px;
+    margin-left: 10px;
+    fill: #818181;
+}
+
+#sidebar a.active {
+    color: #fff;
+    background-color: #d9d9d914;
+    border-radius: 55px;
+}
+
+.pb-sidebar a.active {
+    border-radius: 10px !important;
+}
+
+#sidebar a.active > svg,
+#sidebar a.active > svg path{
+    color: #FF8303 !important;
+    fill: #FF8303 !important;
+}
+#sidebar a i {
+    font-size: 25px;
+}
+#sidebar a.active > i {
+    color: #FF8303 !important;
+}
+
+#sidebar .dropdown svg{
+    margin-right: 6px;
+}
+
+#sidebar a:hover {
+    color: #f8f9fa !important;
+}
+#sidebar a:hover > svg,
+#sidebar a:hover > svg path,
+#sidebar a:hover > i {
+    color: #FF8303 !important;
+    fill: #FF8303 !important;
+}
+
+.sidebar-footer{
+    border-top: 1px solid #383838;
+    margin-top: auto;
+    padding-top: 10px;
+    width: 100%;
+}
+.sidebar-footer-top {
+    margin-top: auto;
+    width: 100%;
+    position: fixed;
+    bottom: 85px;
+    width: 330px;
+}
+
+.list-menu {
+    display: none;
+    list-style: none;
+    padding-left: 21px;
+    margin-bottom: 2px;
+}
+.list-menu li {
+    padding: 0px 0px 0px 0px;
+    line-height: 0px;
+    font-size: 17px !important;
+}
+.list-menu .dropdown-item:hover{
+    background-color: #1b1a1a;
+    color:#fff;
+}
+
+.dropdown-item.active{
+    background-color: #1b1a1a;
+}
+.rotate180 {
+    transform: rotate(180deg);
+}
+a{
+    color: #FF8C00;
+}
+a:active{
+    background-color: rgba(255, 131, 3, .6) !important;
+    color: #fff !important;
+}
+.logo-text-right{
+    color: #FF8303;
+    margin-bottom: 5px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    font-family: 'TitlingGothicFBComp-Medium', sans-serif;
+    letter-spacing: 0.2em;
+    font-stretch: condensed;
+}
+#rokk-logo{
+    margin-right:5px !important;
+}
+.artist-genre {
+    font-size: 12px;
+    margin-left: 0;
+    font-size: 12px;
+    color: #888;
+}
+
+.artist-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.artist-name {
+    font-size: 19px;
+    color: #fff;
+    display: block;
+    width: 224px;
+}
+
+.pb-sidebar .artist-name {
+    color: #ffebebcf;
+}
+
+.pb-account-info-box:hover .artist-name{
+    color: #fff;
+}
+
+.account-info-box {
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d914;
+    padding: 10px 8px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.account-info-box:hover,
+.account-info-box.active {
+    background-color: #e5e5e529 !important;
+}
+
+.pb-account-info-box{
+    padding: 10px 8px;
+}
+
+.account-info-box a{
+    padding: 0px 0px 0px 7px !important;
+}
+
+.account-info-box .fa-chevron-right {
+    color: #fff;
+    font-size: 17px !important;
+    opacity: 0.7;
+    margin-left: 0px !important;
+}
+
+.pb-account-info-box .fa-chevron-right {
+    margin-left: 0px !important;
+    color: #fff;
+    font-size: 17px !important;
+    opacity: 0.2;
+}
+
+.artist-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 14px;
+    margin-top: 10px;
+}
+
+.artist-info {
+    flex-grow: 1;
+}
+.default-profile-name {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #FF8303;
+    color: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.seperator{
+    border-top: 1px solid #383838;
+    padding-bottom: 20px;
+    width: 100%; 
+}
+
+.sidebar-toggle {
+    cursor: pointer;
+    font-size: 24px;
+    color: #FF8303;
+    margin-right: -62px;
+    margin-top: -20px;
+}
+
+
+.sidebar-footer a, .sidebar-footer i{
+    color:#FF8303 !important;
+}
+
+.left-toggle-arrow-icon {
+    color: #ffffff94;
+    border-radius: 50%;
+    border: 1px solid #ffffff40;
+    padding: 8px 8px;
+    font-size: 24px !important;
+    background: #000;
+    transition: transform 0.3s ease-in-out;
+}
+
+.main-body-content{
+    margin-left: 322px;
+}
+
+.main-body-content.active{
+    margin-left: 100px;
+}
+#dashboard-footer.active{
+    margin-left: 0px;
+}
+
+#sidebar i {
+    margin-right: 15px;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+#sidebar #musicUploadDropdownIcon {
+    float: right;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+    margin-top: 0px;
+    opacity: 0.4;
+    font-size: 25px;
+}
+
+#sidebar a.dropdown-item {
+    margin-bottom: -10px;
+    margin-top: -6px;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -390px;
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+}
+
+#sidebarMusicUploadDropdown.active, #sidebarMusicUploadDropdown{
+    background-color: transparent !important;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    margin-top: 16px;
+}
+
+
+/* Updated styles for the dropdown */
+
+#sidebarMusicUploadDropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    color: #FF8303;
+}
+
+.list-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-menu li {
+    margin-bottom: 10px;
+}
+
+.list-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.list-menu .dropdown-item:hover {
+    background-color: #2a2a2a;
+}
+
+.list-menu .dropdown-item i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.list-menu .dropdown-item.active {
+    color:#fff !important;
+}
+
+/* Updated styles for the dropdown */
+
+#musicUploadDropdown.active, #musicUploadDropdown{
+    background-color: transparent !important;
+}
+
+#musicUploadDropdown svg{
+ margin-right:20px;
+}
+
+.dropdown-item.active, .dropdown-item{
+    background-color:transparent !important;
+}
+.list-dropdown {
+    background-color: transparent !important;
+    border-radius: 10px;
+    margin: 0px 0px 0px 0px;
+}
+.list-dropdown.active {
+    background-color:#d9d9d914 !important;
+    border-radius: 10px;
+    color:#000 !important;
+    padding-bottom: 10px;
+    padding-top: 0px;
+}
+.list-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-menu li {
+    margin-bottom: 10px;
+}
+
+.list-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.list-menu .dropdown-item:hover {
+    background-color: #2a2a2a;
+}
+
+.list-menu .dropdown-item i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.list-menu .dropdown-item.active {
+    color:#fff !important;
+}
+
+.sidebar-footer-top a,
+.sidebar-footer a,
+.sidebar a {
+    padding: 12px 10px !important;
+}
+
+.sidebar-footer-top .setting-icon,
+.sidebar-footer i
+.sidebar i,
+.sidebar svg{
+    margin-top: 0; 
+    margin-bottom: 0; 
+    display: flex;
+    align-items: center;
+}
+.sidebar a.das-link {
+    margin-bottom: -5px !important;
+}
+.sidebar a.faq-link {
+    margin-top: -5px !important;
+}
+
+.sidebar .dropdown-item.sidebar_create_release.active {
+    margin-left: 2px !important;
+}
+
+.dropdown-item.sidebar_music_releases {
+    margin-left: -3px !important;
+}
+
+
+.list-dropdown a{
+    padding: 10px 10px !important;
+}
+
+/* mobile responsiveness */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -430px;
+        position: fixed;
+        z-index: 1000;
+        background: linear-gradient(0deg, #111 100%, rgba(0, 0, 0, 0) 27.82%), linear-gradient(0deg, #0b0b0b, #282828);
+        z-index: 9999;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    .main-body-content {
+        margin-left: 0;
+    }
+
+    .main-body-content.active {
+        margin-left: 0;
+    }
+    .sidebar-toggle {
+        margin-right: -57px;
+        margin-top: -14px;
+    }
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.85);
+        z-index: 1000;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    .main-body-content {
+        margin-left: 0 !important;
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+}

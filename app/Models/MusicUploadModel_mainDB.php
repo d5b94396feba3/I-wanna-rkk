@@ -54,11 +54,7 @@ class MusicUploadModel_mainDB extends Model
             ->select('*')
             ->get();
 
-        if ($query->getResult()) {
-            return $query->getResultArray();
-        } else {
-            return false;
-        }
+        return $query->getNumRows() > 0 ? $query->getResultArray() : false;
     }
 
     public function getGenreDataFromMainDBById($id)
@@ -69,11 +65,7 @@ class MusicUploadModel_mainDB extends Model
                 ->where(['id' => $id])
                 ->get();
 
-            if ($query->resultID->num_rows > 0) {
-                return $query->getRow();
-            } else {
-                return false;
-            }
+            return $query->getNumRows() > 0 ? $query->getRow() : false;
         } catch (\Exception $e) {
             // Log the error
             log_message('error', 'Error in getGenreDataFromMainDBById: ' . $e->getMessage());

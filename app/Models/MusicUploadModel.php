@@ -38,16 +38,12 @@ class MusicUploadModel extends Model
     protected $afterFind = [];
     protected $beforeDelete = [];
     protected $afterDelete = [];
-
+ 
     public function get_registered_artist_data()
     {
         $query = $this->db->table("artist_registration")->select("*")->get();
 
-        if ($query->getResult()) {
-            return $query->getResultArray();
-        } else {
-            return false;
-        }
+        return $query->getNumRows() > 0 ? $query->getResultArray() : false;
     }
 
     public function getArtistDataByID($id)
@@ -59,11 +55,7 @@ class MusicUploadModel extends Model
                 ->where(["artist_id" => $id])
                 ->get();
 
-            if ($query->resultID->num_rows > 0) {
-                return $query->getRow();
-            } else {
-                return false;
-            }
+            return $query->getNumRows() > 0 ? $query->getRow() : false;
         } catch (Exception $e) {
             // Log the error or do something else with it
             log_message(
@@ -78,15 +70,15 @@ class MusicUploadModel extends Model
     {
         try {
             $query = $this->db
-                ->table("artist_info")
+                ->table("rokk_artist")
                 ->select(
-                    "artist_info.artist_type as artist_type_from_ai, artist_info.*, artist_registration.*",
+                    "rokk_artist.artist_type as artist_type_from_ai, rokk_artist.*, artist_registration.*",
                     false
                 )
-                ->where(["artist_info.artist_id" => $artist_id])
+                ->where(["rokk_artist.artist_id" => $artist_id])
                 ->join(
                     "artist_registration",
-                    "artist_registration.artist_id = artist_info.artist_id",
+                    "artist_registration.artist_id = rokk_artist.artist_id",
                     "left"
                 )
                 ->get();
@@ -106,11 +98,7 @@ class MusicUploadModel extends Model
 
             $result = $query->getResult();
 
-            if (!empty($result)) {
-                return $result[0];
-            } else {
-                return false;
-            }
+            return !empty($result) ? $result[0] : false;
         } catch (Exception $e) {
             log_message(
                 "error",
@@ -121,79 +109,16 @@ class MusicUploadModel extends Model
         }
     }
 
-    public function update_artist_profile_data_by_id($postData)
+    public function cleanupFailedUpload($release_id)
     {
         try {
-            $id = trim($postData["hidden_artist_id"]);
-
-            $artist_type = trim($postData["artist_type"]);
-            $artist_name = trim($postData["artist_name"]);
-            $artist_country = trim($postData["artist_country"]);
-            $email_management = trim($postData["email_management"]);
-            $official_contact_email = trim($postData["official_contact_email"]);
-            $facebook = trim($postData["facebook"]);
-            $instagram = trim($postData["instagram"]);
-            $twitter = trim($postData["twitter"]);
-            $spotify = trim($postData["spotify"]);
-            $metal_archives = trim($postData["metal_archives"]);
-            $website = trim($postData["website"]);
-            $discogs = trim($postData["discogs"]);
-            $label = trim($postData["label"]);
-            $distributor_and_aggregator = trim(
-                $postData["distributor_and_aggregator"]
-            );
-
-            $data = [
-                "artist_type" => $artist_type,
-                "artist_name" => $artist_name,
-                "artist_country" => $artist_country,
-                "email_management" => $email_management,
-                "official_contact_email" => $official_contact_email,
-                "facebook" => $facebook,
-                "instagram" => $instagram,
-                "twitter" => $twitter,
-                "spotify" => $spotify,
-                "metal_archives" => $metal_archives,
-                "website" => $website,
-                "discogs" => $discogs,
-                "label" => $label,
-                "distributor_and_aggregator" => $distributor_and_aggregator,
-            ];
-
             $query = $this->db
-                ->table("artist_registration")
-                ->set($data)
-                ->where(["artist_id" => $id])
-                ->update();
+                ->table("artist_release")
+                ->where(["release_id" => $release_id])
+                ->delete();
 
             if ($query) {
                 return true;
-            } else {
-                return false;
-            }
-        } catch (\Exception $e) {
-            // Log the error or do something else with it
-            log_message(
-                "error",
-                "Error in update_artist_profile_data_by_id: " . $e->getMessage()
-            );
-            return false;
-        }
-    }
-
-    public function insert_track_data($postData)
-    {
-        try {
-            $artist_id = trim($postData["hidden_artist_id"]);
-
-            $query = $this->db
-                ->table("artist_registration")
-                ->select("*")
-                ->where(["artist_id" => $artist_id])
-                ->get();
-
-            if ($query->resultID->num_rows > 0) {
-                return $query->getRow();
             } else {
                 return false;
             }
@@ -201,64 +126,7 @@ class MusicUploadModel extends Model
             // Log the error or do something else with it
             log_message(
                 "error",
-                "Error in insert_track_data: " . $e->getMessage()
-            );
-            return false;
-        }
-    }
-
-    public function update_music_upload_profile_data_by_id($postData)
-    {
-        try {
-            $artist_id = trim($postData["hidden_artist_id"]);
-
-            $artist_type = trim($postData["artist_type"]);
-            $artist_name = trim($postData["artist_name"]);
-            $first_name = trim($postData["first_name"]);
-            $last_name = trim($postData["last_name"]);
-            $email = trim($postData["email"]);
-            $phone = trim($postData["phone"]);
-            $website = trim($postData["website"]);
-            $country = trim($postData["country"]);
-            $street_and_number = trim($postData["street_and_number"]);
-            $zip = trim($postData["zip"]);
-            $city = trim($postData["city"]);
-            $is_vat_applicable = trim($postData["vat"]);
-
-            // Set the timezone explicitly before using strtotime and date functions
-            date_default_timezone_set("UTC");
-            $updated = date("Y/m/d");
-
-            $data = [
-                "artist_id" => $artist_id,
-                "artist_type" => $artist_type,
-                "artist_name" => $artist_name,
-                "first_name" => $first_name,
-                "last_name" => $last_name,
-                "email" => $email,
-                "phone" => $phone,
-                "website" => $website,
-                "country" => $country,
-                "street_and_number" => $street_and_number,
-                "zip" => $zip,
-                "city" => $city,
-                "is_vat_applicable" => $is_vat_applicable,
-                "updated" => $updated,
-            ];
-
-            $query = $this->db->table("artist_info")->replace($data);
-
-            if ($this->db->affectedRows() > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (\Exception $e) {
-            // Log the error
-            log_message(
-                "error",
-                "Error in update_music_upload_profile_data_by_id: " .
-                    $e->getMessage()
+                "Error in cleanupFailedUpload: " . $e->getMessage()
             );
             return false;
         }
@@ -266,7 +134,6 @@ class MusicUploadModel extends Model
 
     public function upload_release_data($postData, $image_link, $artist_id)
     {
-        // CREATE TABLE artist_release ( release_id BIGINT(20) AUTO_INCREMENT PRIMARY KEY, artist_id BIGINT(20) UNIQUE KEY, artist_name VARCHAR(255), release_title VARCHAR(255), genre VARCHAR(100), language VARCHAR(50), release_date DATE, copyright VARCHAR(10), copyright_desc TEXT, image_link VARCHAR(255), updated DATE DEFAULT CURRENT_DATE );
 
         try {
             $artist_name = trim($postData["artist_name"]);
@@ -316,47 +183,31 @@ class MusicUploadModel extends Model
         }
     }
 
-    public function upload_track_data(
-        $artist_id,
-        $artist_name,
-        $track_title,
-        $features,
-        $composer,
-        $lyricist,
-        $isrc_code,
-        $explicit,
-        $track_file_name,
-        $track_link,
-        $release_id
-    ) {
+    public function upload_track_data($track_data) {
         try {
             // Set the timezone explicitly before using strtotime and date functions
             date_default_timezone_set("UTC");
             $updated = date("Y/m/d");
             $uploaded_at = date("Y-m-d H:i:s");
             $data = [
-                "release_id" => $release_id,
-                "artist_id" => $artist_id,
-                "artist_name" => $artist_name,
-                "track_title" => $track_title,
-                "features" => $features,
-                "composer" => $composer,
-                "lyricist" => $lyricist,
-                "isrc_code" => $isrc_code,
-                "explicit" => $explicit,
-                "track_file_name" => $track_file_name,
-                "track_file_link" => $track_link,
+                "release_id" => $track_data['release_id'],
+                "artist_id" => $track_data['artist_id'],
+                "artist_name" => trim($track_data['artist_name']),
+                "track_title" => trim($track_data['track_title']),
+                "features" => trim($track_data['features']),
+                "composer" => trim($track_data['composer']),
+                "lyricist" => trim($track_data['lyricist']),
+                "isrc_code" => trim($track_data['isrc_code']),
+                "explicit" => $track_data['explicit'],
+                "track_file_name" => $track_data['track_file_name'],
+                "track_file_link" => $track_data['track_file_link'],
                 "uploaded_at" => $uploaded_at,
                 "updated" => $updated,
             ];
 
             $query = $this->db->table("artist_track")->insert($data);
 
-            if ($this->db->affectedRows() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return $this->db->affectedRows() > 0;
         } catch (\Exception $e) {
             // Log the error
             log_message(
@@ -367,25 +218,4 @@ class MusicUploadModel extends Model
         }
     }
 
-    // public function upload_track_data($trackDataArray)
-    // {
-    //     try {
-    //         $query = $this->db
-    //             ->table("artist_track")
-    //             ->insertBatch($trackDataArray);
-
-    //         if ($this->db->affectedRows() > 0) {
-    //             return true;
-    //         } else {
-    //             return false;
-    //         }
-    //     } catch (\Exception $e) {
-    //         // Log the error
-    //         log_message(
-    //             "error",
-    //             "Error in upload_track_data: " . $e->getMessage()
-    //         );
-    //         return false;
-    //     }
-    // }
 }

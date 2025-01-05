@@ -2,1137 +2,356 @@
 
 namespace App\Controllers;
 
-use App\Models\HomeModel;
 use App\Models\MusicUploadModel;
 use App\Models\MusicUploadModel_mainDB;
-use App\Models\ProfileModel;
 use CodeIgniter\Controller;
-
-use App\Libraries\Ajax_pagination;
+use App\Traits\FileUploadTrait;
+use App\Traits\InputFieldsValidationTrait;
 
 class MusicUpload extends BaseController
 {
-    protected $home;
-    protected $profile;
+
     protected $music_upload_model;
     protected $music_upload_model_mainDB;
     protected $session;
-    protected $validation;
-    protected $perPage = 35;
-    protected $ajaxPagination;
-    private $db1;
-    private $db2;
+    private $cache;
+    use FileUploadTrait;
+    use InputFieldsValidationTrait;
 
     public function __construct()
     {
-        $this->home = model("HomeModel");
-        $this->profile = model("ProfileModel");
         $this->music_upload_model = model("MusicUploadModel");
         $this->music_upload_model_mainDB = model("MusicUploadModel_mainDB");
         $this->session = session();
-        $this->validation = \Config\Services::validation();
-        $this->ajaxPagination = new Ajax_pagination();
+        $this->cache = \Config\Services::cache();
+
+        // Set PHP limits for large file uploads
+        ini_set('upload_max_filesize', '100M');
+        ini_set('post_max_size', '100M');
+        ini_set('memory_limit', '256M');
+        ini_set('max_execution_time', '1200'); // 20 minutes
     }
 
     public function index()
     {
-        $data["active"] = "mu_profile";
-        $data["dropdownActive"] = "profile";
-        $this->session->setFlashdata("menu_active", "mu_profile");
+        $data["active_nav"] = "create_release";
 
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
 
+        // Get the user data
+        $userid = $this->userID();
+
+        $artist = $this->music_upload_model->get_artist_data_from_artist_info_by_id($userid);
+        $genres = $this->music_upload_model_mainDB->getGenreDataFromMainDB();
+
+        $data['artist_data'] = $artist;
+        $data['genres'] = $genres;
+
         return view("rokk-artists/layout/header", $data) .
-            view("rokk-artists/music-upload/profile/index", $data) .
+            view("rokk-artists/music-upload/create-release/index", $data) .
             view("rokk-artists/layout/footer");
     }
 
-    public function release_index()
-    {
-        $data["active"] = "mu_release";
-        $data["dropdownActive"] = "profile";
-
-        $this->session->setFlashdata("menu_active", "mu_profile");
-
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
-        }
-
-        return view("rokk-artists/layout/header", $data) .
-            view("rokk-artists/music-upload/release/index", $data) .
-            view("rokk-artists/layout/footer");
-    }
-
-    public function track_index()
-    {
-        $data["active"] = "mu_track";
-        $data["dropdownActive"] = "profile";
-
-        $this->session->setFlashdata("menu_active", "mu_track");
-
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with(
-                    "error-msg",
-                    "Access denied! Please login to your account first."
-                );
-        }
-
-        return view("rokk-artists/layout/header", $data) .
-            view("rokk-artists/music-upload/track/index", $data) .
-            view("rokk-artists/layout/footer");
-    }
-
-    public function ajax_music_upload_data_onPageLoad()
-    {
-        if (session("artist_id")) {
-            $artist_id = session("artist_id");
-            $artist = $this->music_upload_model->get_artist_data_from_artist_info_by_id(
-                $artist_id
-            );
-            $profile_data = $this->extract_artist_profile_data($artist);
-            echo $profile_data;
-        }
-    }
-
-    public function ajax_create_release_data()
-    {
-        if (session("artist_id")) {
-            $artist_id = session("artist_id");
-            $artist = $this->music_upload_model->get_artist_data_from_artist_info_by_id(
-                $artist_id
-            );
-            $release_data_html = $this->extract_create_release_data($artist);
-            echo $release_data_html;
-        }
-    }
-
-    public function ajax_upload_track_data()
-    {
-        if (session("artist_id")) {
-            $artist_id = session("artist_id");
-            $artist = $this->music_upload_model->get_artist_data_from_artist_info_by_id(
-                $artist_id
-            );
-            $track_data_html = $this->extract_upload_track_data($artist);
-            echo $track_data_html;
-        }
-    }
-
-    public function update_music_upload_profile_data()
-    {
-        $data["active"] = "music-upload";
-
-        $validation = \Config\Services::validation();
-
-        $validation->setRules([
-            "artist_type" => "required",
-            "artist_name" => "required|max_length[150]",
-            "first_name" => "required|max_length[100]",
-            "last_name" => "required|max_length[100]",
-            "email" => "required|max_length[100]|valid_email",
-            "phone" => [
-                "label" => "Phone",
-                "rules" =>
-                    'required|max_length[20]|regex_match[/^[0-9()+\- ]*$/]',
-                "errors" => [
-                    "regex_match" =>
-                        "The {field} field may only contain digits, plus sign (+), parentheses, hyphens, and spaces.",
-                ],
-            ],
-            "website" => "permit_empty|valid_url|max_length[255]",
-            "country" => "required|max_length[50]",
-            "street_and_number" => "required|max_length[250]",
-            "zip" => "required|max_length[20]",
-            "city" => "required|max_length[50]",
-            "vat" => "required|in_list[yes,no]",
-        ]);
-
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with("error-msg", "Access denied! Please Sign In first.");
-        } elseif (
-            $this->request->getMethod() === "post" &&
-            $validation->withRequest($this->request)->run()
-        ) {
-            $result = $this->music_upload_model->update_music_upload_profile_data_by_id(
-                $this->request->getPost()
-            );
-
-            if ($result) {
-                return $this->response->setJSON([
-                    "success" => true,
-                    "message" => "Profile data has been updated.",
-                ]);
-            } else {
-                return $this->response->setJSON([
-                    "success" => false,
-                    "message" => "Failed to update data.",
-                ]);
-            }
-        } else {
-            // Validation failed
-            $errors = $validation->getErrors();
-            $errorString = implode(" ", $errors);
-            return $this->response->setJSON([
-                "success" => false,
-                "message" => "Form validation failed. $errorString",
-            ]);
-        }
-    }
-
+    /**
+     * Upload a new music release with cover image and track data
+     * 
+     * Validates the request method and input fields
+     * Handles cover image upload and creates release record
+     * Calls upload_track_data() to handle individual track uploads
+     * 
+     * @return JSON Response with success/error message
+     */
     public function upload_music_release_data()
     {
-        $data["active"] = "music-upload";
-        $validation = \Config\Services::validation();
-        $artist_id = session("artist_id");
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
+        }
 
-        $validation->setRules([
-            "artist_name" => "required|max_length[150]",
-            "release_title" => "required|max_length[200]",
-            "genre" => "required|max_length[100]",
-            "language" => "required",
-            "image_link" => [
-                "label" => "Release Image",
-                "rules" => "max_size[image_link,10240]|is_image[image_link]",
-                "errors" => [
-                    "max_size" =>
-                        "The {field} field exceeds the maximum file size.",
-                    "is_image" =>
-                        "The {field} field must contain a valid image file.",
-                ],
-            ],
-            "release_date" => "required",
-            "copyright" => "required",
-            "copyright_desc" => "max_length[255]",
-        ]);
+        if ($this->request->getMethod() !== 'post') {
+            return $this->handleResponse(false, 'Invalid request method');
+        }
 
-        if (!session("logged_in")) {
-            return redirect()
-                ->to("/")
-                ->with("error-msg", "Access denied! Please Sign In first.");
-        } elseif (
-            $this->request->getMethod() === "post" &&
-            $validation->withRequest($this->request)->run()
-        ) {
-            // $artist_id = $this->request->getPost("hidden_artist_id");
-            $file = $this->request->getFile("image_link");
-
-            // Generate a unique name for the file
-            // $image_newName = $file->getRandomName();
-
-            // Get the original file name
-            $originalName = $file->getName();
-
-            // Generate a new file name with artist_id
-            $image_newName = $artist_id . "_" . $originalName;
-
-            // Move the file to the uploads directory
-            if (
-                !$file->move(
-                    ROOTPATH . "/public/uploads/release",
-                    $image_newName
-                )
-            ) {
-                // $this->session->setFlashdata("success-msg", "File has been uploaded.");
-                return $this->response->setJSON([
-                    "success" => false,
-                    "message" => "File upload failed.",
-                ]);
-            }
-
-            $image_link = base_url("/public/uploads/release/" . $image_newName);
-
-            $release_id = $this->music_upload_model->upload_release_data(
-                $this->request->getPost(),
-                $image_link,
-                $artist_id
+        if (!$this->validateUploadMusicReleaseFields($this->request)) {
+            return $this->handleResponse(false, 
+                'Failed to update. Please check the input fields and ensure correct data is entered in all required fields.'
             );
+        }
 
-            if ($release_id) {
-                $validation = [];
-                $validation = \Config\Services::validation();
+        // Handle cover image upload
+        $file = $this->request->getFile('image_link');
+        $image_newName = $this->generateFileName($this->userID(), $file->getName());
 
-                $num_of_track = $this->request->getPost("num_of_track");
+        if (!$this->handleReleaseImageFileUpload($file, $image_newName)) {
+            log_message('error', "Cover Image upload failed: file_name: " . $file->getName());
+            return $this->handleResponse(false, 
+                'Cover Image upload failed. Please refresh and try again.'
+            );
+        }
 
-                for ($id = 1; $id <= $num_of_track; $id++) {
-                    $track_title_ = "track_title_" . $id;
-                    $features_ = "features_" . $id;
-                    $composer_ = "composer_" . $id;
-                    $lyricist_ = "lyricist_" . $id;
-                    $isrc_code_ = "isrc_code_" . $id;
-                    $explicit_ = "explicit_" . $id;
-                    $track_file_ = "track_file_" . $id;
-                    $artist_name = "artist_name_" . $id;
+        // Create release record
+        $image_link = base_url("release/image/" . $image_newName);
+        $release_id = $this->music_upload_model->upload_release_data(
+            $this->request->getPost(),
+            $image_link,
+            $this->userID()
+        );
 
-                    $validation->setRules([
-                        $track_title_ => "required|max_length[250]",
-                        $features_ => "max_length[150]",
-                        $composer_ => "required|max_length[100]",
-                        $lyricist_ => "required|max_length[100]",
-                        $isrc_code_ => "required|max_length[100]",
-                        $track_file_ => [
-                            "label" => "Track File",
-                            "rules" => [
-                                "uploaded[" . $track_file_ . "]",
-                                "max_size[" . $track_file_ . ",102400]",
-                                "audioFile[" . $track_file_ . "]",
-                            ],
-                            "errors" => [
-                                "uploaded" =>
-                                    "The {field} field must contain a valid file.",
-                                "max_size" =>
-                                    "The {field} field exceeds the maximum file size.",
-                                "audioFile" =>
-                                    "The {field} field must be a valid audio file (MP3, WAV, FLAC, AAC, OGG).",
-                            ],
-                        ],
-                        $explicit_ => "required",
-                    ]);
+        if (!$release_id) {
+            return $this->handleResponse(false, 
+                'Failed to upload your release. Please refresh page and try again. 1'
+            );
+        }
 
-                    if ($validation->withRequest($this->request)->run()) {
-                        $track_file_ = $this->request->getFile($track_file_);
-                        // Get the original file name
-                        $originalName = $track_file_->getName();
-                        // Generate a new file name with artist_id
-                        $track_file_newName = $artist_id . "_" . $originalName;
+        // Upload tracks
+        $result = $this->upload_track_data(
+            $this->request,
+            $release_id,
+            $this->request->getPost('num_of_track')
+        );
 
-                        // server upload path
-                        // if (!($track_file_->move(ROOTPATH . '/uploads/tracks', $track_file_newName))) {
+        return $this->handleResponse(
+            $result,
+            $result 
+                ? 'Your release upload was successful.'
+                : 'Failed to upload your release. Please refresh page and try again. 2'
+        );
+    }
 
-                        //local upload path
-                        if (
-                            !$track_file_->move(
-                                ROOTPATH . "public/uploads/tracks",
-                                $track_file_newName
-                            )
-                        ) {
-                            return $this->response->setJSON([
-                                "success" => false,
-                                "message" =>
-                                    "File upload failed for " .
-                                    $originalName .
-                                    ". Please try again.",
-                            ]);
-                        }
-
-                        $track_link = base_url(
-                            "public/uploads/tracks/" . $track_file_newName
-                        );
-
-                        $track_title_ = $this->request->getPost($track_title_);
-                        $artist_name = $this->request->getPost($artist_name);
-                        $features_ = $this->request->getPost($features_);
-                        $composer_ = $this->request->getPost($composer_);
-                        $lyricist_ = $this->request->getPost($lyricist_);
-                        $isrc_code_ = $this->request->getPost($isrc_code_);
-                        $explicit_ = $this->request->getPost($explicit_);
-
-                        $track_inserted = $this->music_upload_model->upload_track_data(
-                            $artist_id,
-                            $artist_name,
-                            $track_title_,
-                            $features_,
-                            $composer_,
-                            $lyricist_,
-                            $isrc_code_,
-                            $explicit_,
-                            $track_file_newName,
-                            $track_link,
-                            $release_id
-                        );
-
-                        if (!$track_inserted) {
-                            // return redirect()->to(base_url('music-upload'));
-                            return $this->response->setJSON([
-                                "success" => false,
-                                "message" => "Failed to upload data.",
-                            ]);
-                            // echo "Failed to upload data.";
-                        }
-                    } else {
-                        $errors = $validation->getErrors();
-                        $errorString = implode(" ", $errors);
-                        return $this->response->setJSON([
-                            "success" => false,
-                            "message" =>
-                                "Form validation failed." . $errorString,
-                        ]);
-                        // echo "Form validation failed.";
-                    }
-                }
-
-                if ($track_inserted) {
-                    return $this->response->setJSON([
-                        "success" => true,
-                        "message" => "Tracks data has been uploaded.",
-                    ]);
-                    // echo "Tracks data has been uploaded.";
-                }
-
-                // return $this->response->setJSON(['success'=>true, 'message'=>'Release data has been created.']);
-                // // echo "File upload successful.";
-            } else {
-                return $this->response->setJSON([
-                    "success" => false,
-                    "message" =>
-                        "Failed to create data. Please refresh page and try again.",
-                ]);
+    /**
+     * Upload track data for a release
+     */
+    public function upload_track_data($request, $release_id, $num_of_track)
+    {
+        try {
+            // Validate input
+            if (!is_numeric($num_of_track) || $num_of_track > 100 || $num_of_track < 1) {
+                log_message('error', "Invalid number of tracks: {$num_of_track}");
+                return false;
             }
-        } else {
-            // Validation failed
-            $errors = $validation->getErrors();
-            $errorString = implode(" ", $errors); // Convert array of errors to a string
-            return $this->response->setJSON([
-                "success" => false,
-                "message" => "Form validation failed. $errorString",
-            ]);
-        }
-    }
 
-    public function upload_track_data($trackData)
-    {
-        // set_time_limit(3600);
+            $userid = $this->userID();
 
-        $validation = \Config\Services::validation();
-
-        // $num_of_track = $this->request->getPost('num_of_track');
-        $num_of_track = $trackData["num_of_track"];
-
-        $artist_id = session("artist_id");
-
-        $response = [];
-
-        for ($id = 1; $id <= $num_of_track; $id++) {
-            $track_title_ = "track_title_" . $id;
-            $features_ = "features_" . $id;
-            $composer_ = "composer_" . $id;
-            $lyricist_ = "lyricist_" . $id;
-            $isrc_code_ = "isrc_code_" . $id;
-            $explicit_ = "explicit_" . $id;
-            $track_file_ = "track_file_" . $id;
-            $artist_name = "artist_name_" . $id;
-
-            $validation->setRules([
-                $track_title_ => "required|max_length[250]",
-                $features_ => "max_length[150]",
-                $composer_ => "required|max_length[100]",
-                $lyricist_ => "required|max_length[100]",
-                $isrc_code_ => "required|max_length[100]",
-                $track_file_ => [
-                    "label" => "Track File",
-                    "rules" => [
-                        "uploaded[" . $track_file_ . "]",
-                        "max_size[" . $track_file_ . ",102400]",
-                        "audioFile[" . $track_file_ . "]",
-                    ],
-                    "errors" => [
-                        "uploaded" =>
-                            "The {field} field must contain a valid file.",
-                        "max_size" =>
-                            "The {field} field exceeds the maximum file size.",
-                        "audioFile" =>
-                            "The {field} field must be a valid audio file (MP3, WAV, FLAC, AAC, OGG).",
-                    ],
-                ],
-                $explicit_ => "required",
-            ]);
-
-            if ($validation->withRequest($this->request)->run()) {
-                $track_file_ = $this->request->getFile($track_file_);
-                // Get the original file name
-                $originalName = $track_file_->getName();
-                // Generate a new file name with artist_id
-                $track_file_newName = $artist_id . "_" . $originalName;
-
-                // server upload path
-                // if (!($track_file_->move(ROOTPATH . '/uploads/tracks', $track_file_newName))) {
-
-                //local upload path
-                if (
-                    !$track_file_->move(
-                        ROOTPATH . "public/uploads/tracks",
-                        $track_file_newName
-                    )
-                ) {
-                    return $this->response->setJSON([
-                        "success" => false,
-                        "message" =>
-                            "File upload failed for " .
-                            $originalName .
-                            ". Please try again.",
-                    ]);
+            // Process each track
+            for ($track_index = 1; $track_index <= $num_of_track; $track_index++) {
+                if (!$this->processTrackUpload($request, $release_id, $userid, $track_index)) {
+                    $this->handleFailedUpload($release_id);
+                    return false;
                 }
-
-                $track_link = base_url("uploads/tracks/" . $track_file_newName);
-
-                $track_title_ = $trackData[$track_title_];
-
-                $artist_name = $trackData[$artist_name];
-
-                $features_ = $trackData[$features_];
-
-                $composer_ = $trackData[$composer_];
-
-                $lyricist_ = $trackData[$lyricist_];
-
-                $isrc_code_ = $trackData[$isrc_code_];
-
-                $explicit_ = $trackData[$explicit_];
-
-                $track_inserted = $this->music_upload_model->upload_track_data(
-                    $artist_id,
-                    $artist_name,
-                    $track_title_,
-                    $features_,
-                    $composer_,
-                    $lyricist_,
-                    $isrc_code_,
-                    $explicit_,
-                    $track_file_newName,
-                    $track_link
-                );
-
-                // data insertion fails
-                if (!$track_inserted) {
-                    $response = [
-                        "success" => false,
-                        "message" => "Failed to upload track data.",
-                    ];
-                    return $response;
-                }
-            } else {
-                // form validation fails
-                $errors = $validation->getErrors();
-                $errorString = implode(" ", $errors);
-                $response = [
-                    "success" => false,
-                    "message" => "Form validation failed. " . $errorString,
-                ];
             }
-            return $response;
-        }
 
-        // track data uploaded successfully
-        if ($track_inserted) {
-            // return $this->response->setJSON(['success'=>true, 'message'=>'Tracks data has been uploaded.']);
-            // return true;
-            $response = [
-                "success" => true,
-                "message" => "Tracks data has been uploaded.",
-            ];
-            return $response;
+            return true;
+
+        } catch (\Exception $e) {
+            log_message('error', 'Track upload failed: ' . $e->getMessage());
+            $this->handleFailedUpload($release_id);
+            return false;
         }
     }
 
-    // public function upload_music_release_data()
-    // {
-    //     $validation = \Config\Services::validation();
-
-    //     $validation->setRules([
-    //             'artist_name' => 'required|max_length[150]',
-    //             'release_title' => 'required|max_length[200]',
-    //             'genre' => 'required|max_length[100]',
-    //             'language' => 'required',
-    //             'image_link' => [
-    //                 'label' => 'Release Image',
-    //                 'rules' => 'max_size[image_link,10240]|is_image[image_link]',
-    //                 'errors' => [
-    //                     'max_size' => 'The {field} field exceeds the maximum file size.',
-    //                     'is_image' => 'The {field} field must contain a valid image file.',
-    //                 ],
-    //             ],
-    //             'release_date' => 'required',
-    //             'copyright' => 'required',
-    //             'copyright_desc' => 'max_length[255]',
-    //         ]);
-
-    //     if (!session('logged_in')) {
-    //         // return $this->response->setJSON(['success' => false, 'message' => "Access denied! Please Sign In first."]);
-    //         // return $this->response->setJSON(['success' => false, 'message' => "Access denied! Please Sign In first."]);
-    //         echo "Access denied! Please Sign In first.";
-    //         exit;
-    //     } else if ($this->request->getMethod() === 'post' && $validation->withRequest($this->request)->run()) {
-    //         // Your file upload and other processing logic here
-
-    //         // return $this->response->setJSON(['success' => true, 'message' => 'File upload successful.']);
-    //         echo "File upload successful.";
-    //         exit;
-
-    //     } else {
-    //         // return $this->response->setJSON(['success' => false, 'message' => 'File upload failed.']);
-    //          echo "File upload failed.";
-    //          exit;
-    //     }
-    // }
-
-    public function extract_upload_track_data($record)
+    /**
+     * Process individual track upload
+     */
+    private function processTrackUpload($request, $release_id, $userid, $track_index): bool
     {
-        $html = "";
-        $profile_details_html = "";
-        $create_release_html = "";
-        $add_track_html = "";
+        // Build field names
+        $fields = $this->buildTrackFieldNames($track_index);
 
-        $add_track_html = $this->extract_music_upload_add_track($record);
+        if (!$this->validateUploadTrackFields($this->request, $fields)) {
+            log_message('error', "Track validation failed for track {$track_index}");
+            return false;
+        }
 
-        $html .=
-            '<div class="row">
+        // Handle file upload
+        $track_file = $request->getFile($fields['track_file']);
+        if (!$track_file->isValid()) {
+            log_message('error', "Invalid track file for track {$track_index}");
+            return false;
+        }
 
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                ' .
-            $add_track_html .
-            '
-          </div>
-        </div>
-            ';
+        // Generate new filename and upload
+        $track_file_newName = $this->generateFileName($userid, $track_file->getName());
+        if (!$this->handleReleaseTrackFileUpload($track_file, $track_file_newName)) {
+            log_message('error', "File upload failed for track {$track_index}");
+            return false;
+        }
 
-        return $html;
+        // Generate track URL and build data
+        $track_link = base_url("audio/track/" . $track_file_newName);
+        $track_data = $this->buildTrackData($fields, $track_file_newName, $track_link, $release_id, $this->request->getPost());
+
+        // Insert track data
+        if (!$this->music_upload_model->upload_track_data($track_data)) {
+            log_message('error', "Database insert failed for track {$track_index}");
+            return false;
+        }
+
+        return true;
     }
 
-    public function extract_create_release_data($record)
+    /**
+     * Handle cleanup for failed upload
+     */
+    private function handleFailedUpload($release_id): void
     {
-        $html = "";
-        $profile_details_html = "";
-        $create_release_html = "";
-        $add_track_html = "";
-
-        $create_release_html = $this->extract_music_upload_create_release(
-            $record
-        );
-
-        $html .=
-            '<div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                ' .
-            $create_release_html .
-            '
-           </div>
-        </div>
-            ';
-
-        return $html;
+        if (!$this->music_upload_model->cleanupFailedUpload($release_id)) {
+            log_message('error', 
+                "Failed to delete release data from artist_release table after track upload failure. " .
+                "Release ID: {$release_id}"
+            );
+        }
     }
 
-    public function extract_artist_profile_data($record)
+
+    /**
+     * Build track field names based on track index
+     */
+    private function buildTrackFieldNames(string $track_index): array 
     {
-        $html = "";
-        $profile_details_html = "";
-        $create_release_html = "";
-        $add_track_html = "";
-
-        $profile_details_html = $this->extract_music_upload_profile_detail(
-            $record
-        );
-
-        $html .=
-            '<div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                ' .
-            $profile_details_html .
-            '
-           </div>
-        </div>
-            ';
-
-        return $html;
-    }
-
-    public function extract_music_upload_profile_detail($record)
-    {
-        $html = "";
-        $artist_name = "";
-        $first_name = "";
-        $last_name = "";
-        $email = "";
-        $phone = "";
-        $website = "";
-        $country = "";
-        $street_and_number = "";
-        $zip = "";
-        $city = "";
-        $vat = "";
-        $is_vat_applicable = "";
-        $updated = "";
-
-        $artist_id = trim($record->artist_id);
-
-        if (isset($record->first_name)) {
-            $first_name = trim($record->first_name);
-        }
-
-        if (isset($record->last_name)) {
-            $last_name = trim($record->last_name);
-        }
-
-        if (isset($record->phone)) {
-            $phone = trim($record->phone);
-        }
-
-        if (isset($record->phone)) {
-            $phone = trim($record->phone);
-        }
-
-        if (isset($record->zip)) {
-            $zip = trim($record->zip);
-        }
-
-        if (isset($record->city)) {
-            $city = trim($record->city);
-        }
-
-        if (isset($record->city)) {
-            $is_vat_applicable = trim($record->is_vat_applicable);
-        }
-
-        if (isset($record->artist_type_from_ai)) {
-            $artist_type = trim($record->artist_type_from_ai);
-        }
-
-        if (isset($record->artist_name)) {
-            $artist_name = trim($record->artist_name);
-        }
-
-        if (isset($record->artist_country)) {
-            $artist_country = trim($record->artist_country);
-        }
-
-        if (isset($record->official_contact_email)) {
-            $official_contact_email = trim($record->official_contact_email);
-        }
-
-        if (isset($record->website)) {
-            $website = trim($record->website);
-        }
-
-        if (isset($record->artist_type)) {
-            $artist_type = trim($record->artist_type);
-        }
-
-        if (isset($record->street_and_number)) {
-            $street_and_number = trim($record->street_and_number);
-        }
-
-        if (empty($website)) {
-            $website = "n/a";
-        }
-
-        // Account type [Selectbox: Artist, Band, Label ]
-        $account_type_options = ["Artist", "Band", "Label"];
-        $selected_option_index = array_search(
-            $artist_type,
-            $account_type_options
-        );
-
-        // Moving the selected option to the beginning of the array
-        if ($selected_option_index !== false) {
-            unset($account_type_options[$selected_option_index]);
-            array_unshift($account_type_options, $artist_type);
-        }
-
-        $account_type_options_html = implode(
-            "\n",
-            array_map(function ($option) {
-                return '<option value="' .
-                    $option .
-                    '">' .
-                    $option .
-                    "</option>";
-            }, $account_type_options)
-        );
-
-        $is_selected_yes = $is_vat_applicable == "yes" ? "checked" : "";
-        $is_selected_no = $is_vat_applicable == "no" ? "checked" : "";
-
-        $html .=
-            '
-
-             <form action="' .
-            base_url("update_music_upload_profile_data") .
-            '" id="profileForm" class="artist-uform" method="post" enctype="multipart/form-data">
-              ' .
-            csrf_field() .
-            '
-            <input type="hidden" class="artist-popup-input" name="hidden_artist_id" id="hidden_artist_id" value="' .
-            $artist_id .
-            '">
-
-            <div class="form-group artist_type-group">
-              <label for="Account type" class="label-block">Account type *</label>
-               <select name="artist_type" class="artist-popup-input" id="artist_type" required>
-                 ' .
-            $account_type_options_html .
-            '
-                </select>
-            </div>
-
-            <div class="form-group">
-              <label for="Name" class="label-block">Band/Artist Name *</label>
-              <input type="text" class="artist-popup-input form-control input-field" name="artist_name" id="artist_name" value="' .
-            $artist_name .
-            '" placeholder="e.g., Mentalist" required>
-            </div>
-
-             <div class="form-group">
-              <label for="First Name" class="label-block">First Name *</label>
-              <input type="text" class="artist-popup-input form-control input-field" name="first_name" id="first_name" value="' .
-            $first_name .
-            '" placeholder="e.g., John" required>
-            </div>
-
-            <div class="form-group">
-              <label for="Last Name" class="label-block">Last Name *</label>
-              <input type="text" class="artist-popup-input form-control input-field" name="last_name" id="last_name" value="' .
-            $last_name .
-            '" placeholder="e.g., Doe" required>
-            </div>
-
-            <div class="form-group">
-              <label for="Email Address" class="label-block">Email Address *</label>
-              <input type="email" class="artist-popup-input form-control input-field" name="email" id="email" value="' .
-            $official_contact_email .
-            '" placeholder="e.g., name@domain.com" required>
-            </div>
-
-
-            <div class="form-group">
-                  <label for="Phone" class="label-block">Phone </label>
-                  <input type="text" class="artist-popup-input form-control input-field" name="phone" id="phone" value="' .
-            $phone .
-            '" placeholder="e.g., +1 (123) 456-7890" >
-            </div>
-
-            <div class="form-group">
-                  <label for="website" class="label-block">Website </label>
-                  <input type="link" class="artist-popup-input form-control input-field" name="website" id="website" value="' .
-            $website .
-            '" placeholder="e.g., https://www.example.com" >
-            </div>
-
-            <div class="form-group">
-              <label for="Countryoforigin" class="label-block">Country *</label>
-              <input type="text" class="artist-popup-input form-control input-field" name="country" id="country" value="' .
-            $artist_country .
-            '" placeholder="e.g., United States" required>
-            </div>
-
-            <div class="form-group">
-                  <label for="Street and number" class="label-block">Street and number </label>
-                  <input type="text" class="artist-popup-input form-control input-field" name="street_and_number" id="street_and_number" value="' .
-            $street_and_number .
-            '" placeholder="e.g., 123 Main St">
-            </div>
-
-
-            <div class="form-group">
-                <label for="zip" class="label-block">ZIP </label>
-                <input type="text" class="artist-popup-input form-control input-field" name="zip" id="zip" value="' .
-            $zip .
-            '" placeholder="e.g., 12345">
-            </div>
-
-
-            <div class="form-group">
-                <label for="zip" class="label-block">City </label>
-                <input type="text" class="artist-popup-input form-control input-field" name="city" id="city" value="' .
-            $city .
-            '" placeholder="e.g., New York">
-            </div>
-
-
-            <div class="form-group">
-              <label for="VAT" class="label-block">VAT Applicable <br>(European Union only)</label>
-
-                    <label class="radio-inline">
-                        <input type="radio" name="vat" value="yes" ' .
-            $is_selected_yes .
-            ' required> Yes
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="vat" value="no" ' .
-            $is_selected_no .
-            ' required> No
-                    </label>
-            </div>
-
-
-              <div class="form-group mt-3">
-                <button type="submit" class="signup-btn">Update</button>
-            </div>
-            </form>
-            ';
-
-        $response = [
-            "html" => $html,
+        return [
+            'track_title' => "track_title_{$track_index}",
+            'features' => "features_{$track_index}",
+            'composer' => "composer_{$track_index}",
+            'lyricist' => "lyricist_{$track_index}",
+            'isrc_code' => "isrc_code_{$track_index}",
+            'explicit' => "explicit_{$track_index}",
+            'track_file' => "track_file_{$track_index}",
+            'artist_name' => "artist_name_{$track_index}",
         ];
-
-        return $html;
     }
 
-    public function extract_music_upload_create_release($record)
+    /**
+     * Build track data array for database update
+     */
+    private function buildTrackData(array $fields, string $fileName, string $fileLink, string $release_id, array $requestData): array
     {
-        $html = "";
-        $artist_name = "";
-        $updated = "";
-
-        $artist_id = trim($record->artist_id);
-
-        if (isset($record->artist_type_from_ai)) {
-            $artist_type = trim($record->artist_type_from_ai);
-        }
-
-        if (isset($record->artist_name)) {
-            $artist_name = trim($record->artist_name);
-        }
-
-        date_default_timezone_set("UTC");
-        $current_year = date("Y");
-        $copyright_options = "";
-        for (
-            $copyright_year = 1964;
-            $copyright_year <= $current_year;
-            $copyright_year++
-        ) {
-            $copyright_options .=
-                '<option value="' .
-                $copyright_year .
-                '">' .
-                $copyright_year .
-                "</option>";
-        }
-
-        $genres_options = "";
-        $genres_options = $this->get_all_genres_from_mainDB();
-
-        $html .=
-            '
-             <form action="' .
-            base_url("upload_music_release_data") .
-            '" id="releaseForm" class="artist-uform" method="post" enctype="multipart/form-data" onsubmit="return confirm(\'Do you want to update this record?\');">
-            ' .
-            csrf_field() .
-            '
-
-            <div class="add-release-section">
-
-            <input type="hidden" class="artist-popup-input" name="hidden_artist_id" id="hidden_artist_id" value="' .
-            $artist_id .
-            '">
-
-            <label for="Preview of an Image" class="label-block">Preview of an Image *</label>
-
-             <div id="fileInputContainer">
-                    <div id="preview"></div>
-                    <input type="file" name="image_link" id="image_link" accept="image/*" onchange="previewFile()" ondrop="handleDrop(event)" required>
-                    <p>Click or drag and drop a file</p>
-            </div>
-
-            <div class="form-group">
-              <label for="Artist" class="label-block">Artist *</label>
-              <input type="text" class="artist-popup-input form-control input-field" name="artist_name" id="artist_name" value="' .
-            $artist_name .
-            '" placeholder="e.g., Mentalist" required>
-            </div>
-
-             <div class="form-group" id="release_block">
-              <label for="Release title" class="label-block">Release Title *</label>
-              <input type="text" class="artist-popup-input form-control input-field" name="release_title" id="release_title" value="" placeholder="e.g., Let\'s ROKK" required>
-            </div>
-
-
-            <div class="form-group artist_type-group" id="genre_block">
-              <label for="Genre" class="label-block">Genre * </label>
-               <select name="genre" class="artist-popup-input" id="genre" required>
-                <option disabled selected value=""></option>
-                 ' .
-            $genres_options .
-            '
-                </select>
-            </div>
-
-            <div class="form-group artist_type-group" id="lan_block">
-              <label for="Languagee" class="label-block">Language * </label>
-               <select name="language" class="artist-popup-input" id="language" required>
-                    <option value="ar">Arabic</option>
-                    <option value="yue-Hant">Cantonese</option>
-                    <option value="ca">Catalan</option>
-                    <option value="cmn-Hans">Chinese (Simplified)</option>
-                    <option value="cmn-Hant">Chinese (Traditional)</option>
-                    <option value="hr">Croatian</option>
-                    <option value="cs">Czech</option>
-                    <option value="da">Danish</option>
-                    <option value="de-DE">Deutsch</option>
-                    <option value="nl">Dutch</option>
-                    <option selected="selected" value="en-GB">English</option>
-                    <option value="et">Estonian</option>
-                    <option value="fi">Finnish</option>
-                    <option value="fr-FR">French</option>
-                    <option value="el">Greek</option>
-                    <option value="he">Hebrew</option>
-                    <option value="hu">Hungarian</option>
-                    <option value="is">Icelandic</option>
-                    <option value="id">Indonesian</option>
-                    <option value="it-IT">Italian</option>
-                    <option value="ja">Japanese</option>
-                    <option value="ko">Korean</option>
-                    <option value="lo">Lao</option>
-                    <option value="lv">Latvian</option>
-                    <option value="li">Lithuanian</option>
-                    <option value="ms">Malay</option>
-                    <option value="no">Norwegian</option>
-                    <option value="pl">Polish</option>
-                    <option value="pt">Portuguese</option>
-                    <option value="ro">Romanian</option>
-                    <option value="ru">Russian</option>
-                    <option value="sk">Slovak</option>
-                    <option value="es">Spanish</option>
-                    <option value="sv">Swedish</option>
-                    <option value="de-CH">Schweizerdeutsch</option>
-                    <option value="tl">Tagalog</option>
-                    <option value="th">Thai</option>
-                    <option value="tr">Turkish</option>
-                    <option value="uk">Ukrainian</option>
-                    <option value="vi">Vietnamese</option>
-                </select>
-            </div>
-
-            <div class="form-group" id="rel_date_block">
-              <label for="Release date" class="label-block">Release Date *</label>
-              <input type="text" class="artist-popup-input form-control input-field" name="release_date" id="release_date" required readonly>
-            </div>
-
-
-            <div class="form-group" id="copyright_block">
-              <label for="Copyright" class="label-block">Copyright * </label>
-               <select name="copyright" class="artist-popup-input copyright-select" id="copyright" required>
-                 <option disabled selected value=""></option>
-               ' .
-            $copyright_options .
-            '
-                </select><br>
-
-            </div>
-             <div class="form-group copyright-textarea">
-              <label for="Copyright Details" class="label-block">Additional Copyright<br>Information </label>
-             <textarea class="artist-popup-input" placeholder="" rows="4" name="copyright_desc" id="copyright_desc"></textarea>
-
-            </div>
-
-            <div class="form-group form-next-sec"">
-                <a href="#" class="next-btn">Next</a>
-            </div>
-
-
-            </div>
-
-             <div class="add-track-section">
-
-                    <div class="row">
-
-                            <div class="track-container">
-
-                                <div class="form-group artist_type-group">
-                                    <label for="Number of tracks" class="label-block">Number of Tracks: </label>
-                                    <input type="number" class="artist-popup-input form-control input-field num_track" name="num_of_track" id="num_of_track" placeholder="Please enter number of tracks" required onkeyup="genre_track_upload_fields()">
-                                </div>
-
-                            <div class="dynamic-track-container">
-
-                            </div>
-
-                            <div class="form-group release-form-bottom">
-                                <a href="#" class="prev-btn" >Previous</a>
-                                <button type="submit" class="signup-btn cr-btn">Create Release</button>
-                            </div>
-                            <div id="uploadProgressBar"><div class="progress-bar-inner"></div></div>
-                    </div>
-             </div>
-
-            </form>
-            ';
-
-        $response = [
-            "html" => $html,
+        return [
+            'artist_id' => $this->userID(),
+            'release_id' => $release_id,
+            'artist_name' => $requestData[$fields['artist_name']],
+            'track_title' => $requestData[$fields['track_title']],
+            'features' => $requestData[$fields['features']],
+            'composer' => $requestData[$fields['composer']],
+            'lyricist' => $requestData[$fields['lyricist']],
+            'isrc_code' => $requestData[$fields['isrc_code']],
+            'explicit' => $requestData[$fields['explicit']],
+            'track_file_name' => $fileName,
+            'track_file_link' => $fileLink
         ];
-
-        return $html;
     }
 
-    public function extract_music_upload_add_track($record)
+    /**
+     * Get an audio track file and stream it to the client
+     * 
+     * @param string $filename The name of the track file to retrieve
+     * @return \CodeIgniter\HTTP\Response The HTTP response containing the audio file
+     * 
+     * Validates authentication, sanitizes filename, and streams the audio file
+     * with proper MIME type if found. Returns 403 if unauthorized or 404 if not found.
+     */
+    public function getTrack($filename)
     {
-        $html = "";
-        $artist_id = session("artist_id");
+        // Sanitize the track name to prevent directory traversal
+        $filename = basename($filename);
 
-        $html .=
-            '
-            <div class="row">
-
-            <label for="track-details" class="label-block mu-label-heading">Track Info</label>
-
-            <div class="track-container">
-
-             <form id="addTrackForm" action="' .
-            base_url("upload_track_data") .
-            '" class="artist-uform" method="post" enctype="multipart/form-data">
-             ' .
-            csrf_field() .
-            '
-             <input type="hidden" class="artist-popup-input" name="hidden_artist_id" id="hidden_artist_id" value="' .
-            $artist_id .
-            '">
-
-            <div class="form-group artist_type-group">
-                <label for="Number of tracks" class="label-block">Number of tracks: </label>
-                <input type="number" class="artist-popup-input form-control input-field num_track" name="num_of_track" id="num_of_track" placeholder="Please enter number of tracks" required onkeyup="genre_track_upload_fields()">
-            </div>
-
-            <div class="dynamic-track-container">
-
-            </div>
-
-              <div class="form-group">
-                <button type="submit" class="signup-btn" >Add Track</button>
-            </div>
-
-            </form>
-
-            </div>
-            </div>
-
-            ';
-
-        $response = [
-            "html" => $html,
-        ];
-
-        return $html;
+        if (!$this->authenticated()) {
+            return $this->response->setStatusCode(403)->setBody('Access Denied');
+        }else{
+            $path = WRITEPATH . 'uploads/tracks/' . $filename;
+            
+            if (file_exists($path)) {
+                $mime = mime_content_type($path);
+                return $this->response
+                    ->setHeader('Content-Type', $mime)
+                    ->setHeader('Content-Disposition', 'inline; filename="' . $filename . '"')
+                    ->setBody(file_get_contents($path));
+            }
+            
+            return $this->response->setStatusCode(404)->setBody('Audio file not found');
+        }
     }
+
+    /**
+     * Get a release cover image and stream it to the client
+     * 
+     * @param string $filename The name of the image file to retrieve
+     * @return \CodeIgniter\HTTP\Response The HTTP response containing the image file
+     * 
+     * Validates authentication, sanitizes filename, and streams the image file
+     * with proper MIME type if found. Returns 403 if unauthorized or 404 if not found.
+     */
+    public function getReleaseImage($filename)
+    {
+
+        // Sanitize the image name to prevent directory traversal
+        $imageName = basename($filename);
+
+        $path = WRITEPATH . 'uploads/release-images/' . $imageName;
+        
+        if (!$this->authenticated()) {
+            return $this->response->setStatusCode(403)->setBody('Access Denied');
+        }
+        
+        if (file_exists($path)) {
+            $mime = mime_content_type($path);
+            return $this->response
+                ->setHeader('Content-Type', $mime)
+                ->setHeader('Content-Disposition', 'inline; imageName="' . $imageName . '"')
+                ->setBody(file_get_contents($path));
+        }
+        
+        return $this->response->setStatusCode(404)->setBody('File not found');
+    }
+
 
     public function get_all_genres_from_mainDB()
     {
-        $genres = $this->music_upload_model_mainDB->getGenreDataFromMainDB();
-
-        $options_html = "";
-
-        foreach ($genres as $genre) {
-            $genre = trim($genre["genre"]);
-            $options_html .=
-                '<option value="' . $genre . '">' . $genre . "</option>";
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
         }
+    
+        $cacheKey = 'genres_list';
+        
+        // Try to get genres from cache first
+        if (!$genres = $this->cache->get($cacheKey)) {
+            // If not in cache, get from DB
+            $genres = $this->music_upload_model_mainDB->getGenreDataFromMainDB();
+            // Cache genres for 1 hour
+            $this->cache->save($cacheKey, $genres, 3600);
+        }
+    
+        return $this->buildGenreOptions($genres);
+    }
 
-        return $options_html;
+    public function ajax_genres_in_options_onPageLoad()
+    {
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
+        }
+    
+        $cacheKey = 'genres_list';
+        
+        // Try to get genres from cache first
+        if (!$genres = $this->cache->get($cacheKey)) {
+            // If not in cache, get from DB
+            $genres = $this->music_upload_model_mainDB->getGenreDataFromMainDB();
+            // Cache genres for 1 hour
+            $this->cache->save($cacheKey, $genres, 3600);
+        }
+    
+        return $this->buildGenreOptions($genres);
+    }
+    
+    private function buildGenreOptions(array $genres): string 
+    {
+        $options = array_map(function($genre) {
+            $genre = trim($genre['genre']);
+            // Escape the genre value for security
+            $safeGenre = esc($genre);
+            return sprintf('<option value="%s">%s</option>', $safeGenre, $safeGenre);
+        }, $genres);
+    
+        return implode('', $options);
     }
 }
