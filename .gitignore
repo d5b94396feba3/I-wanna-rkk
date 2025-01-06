@@ -68,6 +68,12 @@ writable/**/*.sqlite
 
 php_errors.log
 
+
+#-------------------------
+# Public Upload Files
+#-------------------------
+public/uploads/*
+
 #-------------------------
 # User Guide Temp Files
 #-------------------------
