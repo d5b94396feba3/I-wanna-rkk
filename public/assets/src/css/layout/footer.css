@@ -1,46 +1,10 @@
-/* #dashboard-footer {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 390px; 
-    color: #666666;
-    background: #111111;
-    border-top: 1px solid #333;
-    padding: 15px 38px;
-    z-index: 99;
-    transition: left 0.3s ease-in-out;
-}
- */
-
-/* #dashboard-footer {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    color: #666666;
-    background: #111111;
-    border-top: 1px solid #333;
-    padding: 15px 0px;
-    z-index: 99;
-    transition: left 0.3s ease-in-out;
-    margin: 0px 50px 0px 120px;
-} */
-
-
-/* #dashboard-footer {
-    color: #666666;
-    background: #111111;
-    border-top: 1px solid #333;
-    padding: 15px 0px;
-    transition: left 0.3s ease-in-out;
-    margin: 42px 0px -90px 0px;
-} */
 
 #dashboard-footer {
     color: #666666;
     background: #111111;
     border-top: 1px solid #333;
     padding: 15px 0px;
-    transition: left 0.3s ease-in-out;
+    transition: left 0.1s ease-in-out;
     margin: 76px 5px 0px 2px;
 }
 

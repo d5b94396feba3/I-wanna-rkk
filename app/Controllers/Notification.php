@@ -62,9 +62,7 @@ class Notification extends BaseController
         $data["active_nav"] = "notification";
 
         $userid = $this->userID();
-        $onlyUnread=false;
-
-        $notifications = $this->notification_model->get_notifications($userid, $onlyUnread);
+        $notifications = $this->notification_model->get_header_notifications($userid);
        
         $data['notifications'] = $notifications;
         $data['total_notifications'] = !empty($notifications) ? count($notifications) : 0;
@@ -200,7 +198,13 @@ class Notification extends BaseController
 
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
-        } elseif (
+        }
+        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to update content."
+            );
+        }
+        elseif (
             $this->request->getMethod() === "post" &&
             $validation->withRequest($this->request)->run() && $this->isAdmin()
         ) {
@@ -320,7 +324,13 @@ class Notification extends BaseController
 
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
-        } elseif (
+        }
+        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to update content."
+            );
+        }
+        elseif (
             $this->request->getMethod() === "post"
         ) {
             $notificationId = $this->request->getPost('notification_id');
@@ -329,6 +339,34 @@ class Notification extends BaseController
             $result = $this->notification_model->update_artist_notification_status($notificationId,$read_status,$userid);
 
             $success_msg = "Notification status updated successfully.";
+            $error_msg = "Failed to update Notification, please try again later.";
+
+            if ($result) {
+                return $this->handleResponse(true, $success_msg);
+            } else {
+                return $this->handleResponse(false, $error_msg);
+            }
+        }
+    }
+
+
+    function ajax_update_artist_all_notifications_status(){
+        
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
+        }
+        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to update content."
+            );
+        }
+        elseif (
+            $this->request->getMethod() === "post"
+        ) {
+            $userid = $this->userID();
+            $result = $this->notification_model->update_artist_all_notification_status($userid);
+
+            $success_msg = "All notifications marked as read successfully.";
             $error_msg = "Failed to update Notification, please try again later.";
 
             if ($result) {
@@ -349,27 +387,32 @@ class Notification extends BaseController
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
         }
-
-      // allowed role(s) for this action
-      $allowed_roles = ['admin'];
-      $user_role = session("userrole");
-      $userid = $this->userID();
-
-      if ($this->request->getMethod() === "post") {
-
-            $result = $this->notification_model->delete_notification(
-                $this->request->getPost(),
-                $allowed_roles,
-                $user_role,
-                $userid
+        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to delete content."
             );
-
-            if ($result) {
-                return $this->handleResponse(true, $success_msg);
-            } else {
-                return $this->handleResponse(false, $error_msg);
-            }
         }
+
+        // allowed role(s) for this action
+        $allowed_roles = ['admin'];
+        $user_role = session("userrole");
+        $userid = $this->userID();
+
+        if ($this->request->getMethod() === "post") {
+
+                $result = $this->notification_model->delete_notification(
+                    $this->request->getPost(),
+                    $allowed_roles,
+                    $user_role,
+                    $userid
+                );
+
+                if ($result) {
+                    return $this->handleResponse(true, $success_msg);
+                } else {
+                    return $this->handleResponse(false, $error_msg);
+                }
+            }
 
         return $this->handleResponse(false, 'Invalid request method.');
     }

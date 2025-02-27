@@ -79,58 +79,66 @@ $(document).ready(function() {
         });
     });
 
-     // update release detail confirm popup
+     // update Artist Detail
     $('#updateArtistDetail').on('submit', function(e) {
         e.preventDefault(); 
 
-        Swal.fire({
-            title: '<h2>UPDATE ARTIST INFO</h2>',
-            html: '<p>Are you sure you want to update the artist information?</p>',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, I want to update',
-            cancelButtonText: 'Cancel',
-            customClass: {
-                popup: 'custom-popup',
-                title: 'custom-title',
-                htmlContainer: 'custom-html-container',
-                icon: 'custom-icon',
-                confirmButton: 'custom-confirm-button',
-                cancelButton: 'custom-cancel-button'
-            },
-            buttonsStyling: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                submitFormWithAjax('#updateArtistDetail')
-            }
-        });
+        if(validateArtistFields()){
+
+            Swal.fire({
+                title: '<h2>UPDATE ARTIST INFO</h2>',
+                html: '<p>Are you sure you want to update the artist information?</p>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I want to update',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    popup: 'custom-popup',
+                    title: 'custom-title',
+                    htmlContainer: 'custom-html-container',
+                    icon: 'custom-icon',
+                    confirmButton: 'custom-confirm-button',
+                    cancelButton: 'custom-cancel-button'
+                },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    submitFormWithAjax('#updateArtistDetail')
+                }
+            });
+        }
+
     });
 
-      // update release detail confirm popup
+      // update Person Detail 
     $('#updatePersonDetail').on('submit', function(e) {
         e.preventDefault(); 
 
-        Swal.fire({
-            title: '<h2>UPDATE PERSON INFO</h2>',
-            html: '<p>Are you sure you want to update the person information?</p>',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, I want to update',
-            cancelButtonText: 'Cancel',
-            customClass: {
-                popup: 'custom-popup',
-                title: 'custom-title',
-                htmlContainer: 'custom-html-container',
-                icon: 'custom-icon',
-                confirmButton: 'custom-confirm-button',
-                cancelButton: 'custom-cancel-button'
-            },
-            buttonsStyling: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                submitFormWithAjax('#updatePersonDetail')
-            }
-        });
+        if(validatePersonFields()){
+
+            Swal.fire({
+                title: '<h2>UPDATE PERSON INFO</h2>',
+                html: '<p>Are you sure you want to update the person information?</p>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I want to update',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    popup: 'custom-popup',
+                    title: 'custom-title',
+                    htmlContainer: 'custom-html-container',
+                    icon: 'custom-icon',
+                    confirmButton: 'custom-confirm-button',
+                    cancelButton: 'custom-cancel-button'
+                },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    submitFormWithAjax('#updatePersonDetail')
+                }
+            });
+        }
+
     });
 
        // update release detail confirm popup

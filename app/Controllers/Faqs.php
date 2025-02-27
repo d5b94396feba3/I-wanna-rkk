@@ -201,7 +201,13 @@ class Faqs extends BaseController
 
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
-        } elseif (
+        }
+        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to update content."
+            );
+        }
+        elseif (
             $this->request->getMethod() === "post" && $this->isAdmin()
         ) {
 
@@ -250,7 +256,13 @@ class Faqs extends BaseController
 
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
-        } elseif (
+        }
+        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to update content."
+            );
+        }
+        elseif (
             $this->request->getMethod() === "post" && $this->isAdmin()
         ) {
            
@@ -335,6 +347,11 @@ class Faqs extends BaseController
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
         }
+        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to delete content."
+            );
+        }
         else if ($this->request->getMethod() === "post" && $this->isAdmin()) {
             
             $result = $this->faq_model->delete_faq_section_by_id(
@@ -358,6 +375,11 @@ class Faqs extends BaseController
 
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
+        }
+        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to delete content."
+            );
         }
         else if ($this->request->getMethod() === "post" && $this->isAdmin()) {
 

@@ -72,6 +72,39 @@ class NotificationModel extends Model
         }
     }
 
+    public function get_header_notifications($artistId)
+    {
+
+        try {
+            $this->db->transStart();
+            $builder ="";   
+
+            // assign all new notifications to the artist
+            $this->assign_published_notification_to_single_artist($artistId);
+
+            $builder=$this->all_unread_notification_for_artist($artistId);    
+            $query = $builder->get();
+
+            // Check if the query was successful
+            if ($query === false) {
+                log_message('error', 'Query failed in get_header_notifications: ' . $this->db->getLastQuery());
+                return false;
+            }
+
+            $this->db->transComplete();
+            
+            if ($this->db->transStatus() === false) {
+                return false;
+            }
+
+            return $query->getResultArray();
+            
+        } catch (\Exception $e) {
+            log_message('error', 'Error in get_header_notifications: ' . $e->getMessage());
+            return false;
+        }
+    }
+
   
     public function get_notifications($artistId, $onlyUnread = false)
     {
@@ -79,6 +112,10 @@ class NotificationModel extends Model
         try {
             $this->db->transStart();
             $builder ="";
+
+            // assign all new notifications to the artist
+            $this->assign_published_notification_to_single_artist($artistId);
+
             // check user role using global function
             if (is_admin()) {
                 $builder=$this->all_notification_for_admin($artistId);
@@ -95,18 +132,10 @@ class NotificationModel extends Model
             
             $query = $builder->get();
 
-            if ($query->getNumRows() == 0) {
-
-                // If no notifications found, assign all notifications to the artist
-                $this->assign_published_notification_to_single_artist($artistId);
-                
-                // Rerun the query to get the newly assigned notifications
-                if (is_admin()) {
-                    $builder=$this->all_notification_for_admin($artistId);
-                }elseif ($artistId) {
-                    $builder=$this->all_published_notification_for_artist($artistId);
-                }
-                $query = $builder->get();
+            // Check if the query was successful
+            if ($query === false) {
+                log_message('error', 'Query failed in get_notifications: ' . $this->db->getLastQuery());
+                return false;
             }
 
             $this->db->transComplete();
@@ -126,9 +155,21 @@ class NotificationModel extends Model
     public function all_notification_for_admin($artistId) {
 
         $builder = $this->db->table('artist_notification an')
-        ->select('an.read, an.artist_id, an.notification_id, an.updated, n.id, n.title, n.content, n.imgUrl, n.status, n.types, n.createdAt, n.updatedAt')
+        ->select('an.read, an.artist_id, an.notification_id, an.updated_at as updated, n.id, n.title, n.content, n.imgUrl, n.status, n.types, n.createdAt, n.updatedAt')
+        ->join('notification n', 'n.id = an.notification_id', 'full outer')
+        ->where('an.artist_id', $artistId)
+        ->groupBy(['an.artist_id', 'an.notification_id']);
+
+        return $builder;
+    }
+
+    public function all_unread_notification_for_artist($artistId) {
+
+        $builder = $this->db->table('artist_notification an')
+        ->select('an.read, an.artist_id, an.notification_id, an.updated_at as updated, n.id, n.title, n.content, n.imgUrl, n.status, n.types, n.createdAt, n.updatedAt')
         ->join('notification n', 'n.id = an.notification_id')
-        ->where('an.artist_id', $artistId);
+        ->where(['an.artist_id' => $artistId, 'n.status'=>'published', 'an.read'=>0, 'an.deleted'=>0])
+        ->groupBy(['an.artist_id', 'an.notification_id']);
 
         return $builder;
     }
@@ -136,21 +177,19 @@ class NotificationModel extends Model
     public function all_published_notification_for_artist($artistId) {
 
         $builder = $this->db->table('artist_notification an')
-        ->select('an.read, an.artist_id, an.notification_id, an.updated, n.id, n.title, n.content, n.imgUrl, n.status, n.types, n.createdAt, n.updatedAt')
-        ->join('notification n', 'n.id = an.notification_id')
-        ->where(['an.artist_id' => $artistId, 'n.status'=>'published']);
+        ->select('an.read, an.artist_id, an.notification_id, an.updated_at as updated, n.id, n.title, n.content, n.imgUrl, n.status, n.types, n.createdAt, n.updatedAt')
+        ->join('notification n', 'n.id = an.notification_id', 'full outer') // Attempting full outer join
+        ->where(['an.artist_id' => $artistId, 'n.status'=>'published', 'an.deleted'=>0])
+        ->groupBy(['an.artist_id', 'an.notification_id']);
 
         return $builder;
     }
 
     public function assign_published_notification_to_single_artist($artistId)
     {
-
         try {
-
             if (!$this->is_artist_exists_in_rokk_artist($artistId)) {
-
-                if(!$this->insert_artist_data_from_artist_registration($artistId)){
+                if (!$this->insert_artist_data_from_artist_registration($artistId)) {
                     log_message('error', 'Failed to insert artist in rokk_artist table: ' . $artistId);
                     return false;
                 }
@@ -158,20 +197,31 @@ class NotificationModel extends Model
 
             $data = [];
             date_default_timezone_set("UTC");
-            $currentDateTime = date("Y-m-d");
+            $currentDateTime = date("Y-m-d H:i:s");
 
+            // Get all notification IDs
             $query = $this->db->table('notification')
                 ->select('id')
                 ->get();
 
             if ($query->getResult()) {
                 foreach ($query->getResultArray() as $result) {
-                    $data[] = [
-                        'notification_id' => $result['id'],
-                        'artist_id' => $artistId,
-                        'read' => 0,
-                        'updated' => $currentDateTime,
-                    ];
+                    $notificationId = $result['id'];
+
+                    // Check if the notification already exists for the artist
+                    $exists = $this->db->table('artist_notification')
+                        ->where(['notification_id' => $notificationId, 'artist_id' => $artistId])
+                        ->countAllResults();
+
+                    // Only insert if it does not exist
+                    if ($exists == 0) {
+                        $data[] = [
+                            'notification_id' => $notificationId,
+                            'artist_id' => $artistId,
+                            'read' => 0,
+                            'updated_at' => $currentDateTime,
+                        ];
+                    }
                 }
 
                 if (!empty($data)) {
@@ -262,7 +312,7 @@ class NotificationModel extends Model
         try {
             $data = [];
             date_default_timezone_set("UTC");
-            $currentDateTime = date("Y-m-d");
+            $currentDateTime = date("Y-m-d H:i:s");
 
             // Query the artists table instead of notifications
             $query = $this->db->table('rokk_artist')  
@@ -275,7 +325,7 @@ class NotificationModel extends Model
                         'notification_id' => $notification_id,
                         'artist_id' => $result['artist_id'],  
                         'read' => 0,
-                        'updated' => $currentDateTime,
+                        'updated_at' => $currentDateTime,
                     ];
                 }
 
@@ -480,18 +530,40 @@ class NotificationModel extends Model
 
     }
 
+    public function update_artist_all_notification_status($artistId)
+    {
+
+        // Set the timezone explicitly before using strtotime and date functions
+        date_default_timezone_set("UTC");
+        $currentDateTime = date("Y-m-d H:i:s");
+
+        try {
+            $data = [
+                'read' => 1,
+                'updated_at' => $currentDateTime
+            ];
+            $result = $this->db->table('artist_notification')
+                ->where(['artist_id' => $artistId, 'read' => 0])
+                ->update($data);
+    
+            return $this->db->affectedRows() > 0;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in update_artist_all_notification_status: ' . $e->getMessage());
+            return false;     
+        }
+    }
 
     public function update_artist_notification_status($notificationId, $read_status, $artistId)
     {
 
         // Set the timezone explicitly before using strtotime and date functions
         date_default_timezone_set("UTC");
-        $currentDateTime = date("Y-m-d");
+        $currentDateTime = date("Y-m-d H:i:s");
 
         try {
             $data = [
                 'read' => ($read_status == 0 ) ? 1 : 0,
-                'updated' => $currentDateTime
+                'updated_at' => $currentDateTime
             ];
             $result = $this->db->table('artist_notification')
                 ->where(['notification_id' => $notificationId, 'artist_id' => $artistId])
@@ -510,7 +582,7 @@ class NotificationModel extends Model
             $data = [
                 'notification_id' => $notificationId,
                 'artist_id' => $artistId,
-                'updated' => $currentDateTime,
+                'updated_at' => $currentDateTime,
                 'read' => 1
             ];
             
@@ -529,18 +601,20 @@ class NotificationModel extends Model
         try {
             $id = trim($postData["id"]);
             if (in_array($user_role, $allowed_roles)) {
-                // Admin deleting from the notification table
-                $result = $this->db->table('notification')->where('id', $id)->delete();
+                // Admin soft deleting from the notification table
+                $result = $this->db->table('notification')
+                    ->where('id', $id)
+                    ->update(['deleted' => 1]); // Soft delete
             } elseif ($artistId) {
-                // Artist deleting from the artist_notification table
+                // Artist soft deleting from the artist_notification table
                 $result = $this->db->table('artist_notification')
                     ->where(['notification_id' => $id, 'artist_id' => $artistId])
-                    ->delete();
+                    ->update(['deleted' => 1]); // Soft delete
             } else {
                 // Neither admin nor artist with valid ID
                 return false;
             }
-
+    
             // Check if any rows were affected
             return $this->db->affectedRows() > 0;
         } catch (\Exception $e) {

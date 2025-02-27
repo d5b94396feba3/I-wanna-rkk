@@ -70,5 +70,75 @@ window.check_popup_input_fields = function(id) {
     return isValid ? 1 : 0;
 }
 
+window.validateReleaseFields = function() {
+    let isValid = true;
+    
+    // Get all form values
+    const releaseTitle = $("#release_title").val();
+    const genre = $("#genre").val();
+    const releaseDate = $("#release_date").val();
+    const copyright = $("#copyright").val();
+    const language = $("#language").val();
+    const releaseIcpn = $("#release_icpn").val();
+    const availableMarkets = $("#release_available_markets").val();
+
+    // Validate Release Title
+    if (!releaseTitle || releaseTitle.trim() === '') {
+        showRequiredFieldErrorMsg("#release_title");
+        isValid = false;
+    } else {
+        removeRequiredFieldErrorMsg("#release_title");
+    }
+
+    // Validate Genre
+    if (!genre || genre === '') {
+        showRequiredFieldErrorMsg("#genre");
+        isValid = false;
+    } else {
+        removeRequiredFieldErrorMsg("#genre");
+    }
+
+    // Validate Release Date
+    if (!releaseDate) {
+        showRequiredFieldErrorMsg("#release_date");
+        isValid = false;
+    } else {
+        removeRequiredFieldErrorMsg("#release_date");
+    }
+
+    // Validate Copyright
+    if (!copyright || copyright === '') {
+        showRequiredFieldErrorMsg("#copyright");
+        isValid = false;
+    } else {
+        removeRequiredFieldErrorMsg("#copyright");
+    }
+
+    // Validate Language
+    if (!language || language === '') {
+        showRequiredFieldErrorMsg("#language");
+        isValid = false;
+    } else {
+        removeRequiredFieldErrorMsg("#language");
+    }
+
+    // Validate Release ICPN
+    if (!releaseIcpn || releaseIcpn.trim() === '') {
+        showRequiredFieldErrorMsg("#release_icpn");
+        isValid = false;
+    } else {
+        removeRequiredFieldErrorMsg("#release_icpn");
+    }
+
+    // Validate Available Markets
+    if (!availableMarkets || availableMarkets === 'test') {
+        showRequiredFieldErrorMsg(".markets-select-container");
+        isValid = false;
+    } else {
+        removeRequiredFieldErrorMsg(".markets-select-container");
+    }
+
+    return isValid;
+};
 
 });

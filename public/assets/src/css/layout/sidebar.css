@@ -18,11 +18,11 @@ body {
     flex-direction: column;
     background: linear-gradient(180deg, #000 20%, #111111 100%);
     border-right: 1px solid #383838;
-    transition: margin-left 0.3s ease-in-out;
+    transition: margin-left 0.1s ease-in-out;
 }
 #sidebar.active {
     margin-left: -350px; 
-    transition: margin-left 0.6s ease-in-out;
+    transition: margin-left 0.1s ease-in-out;
     opacity: 0;
 }
 #sidebar img {
@@ -299,7 +299,7 @@ a:active{
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -390px;
-        transition: margin-left 0.3s ease-in-out;
+        transition: margin-left 0.1s ease-in-out;
     }
 
     #sidebar.active {
@@ -354,7 +354,7 @@ a:active{
     color: #ffffff;
     padding: 8px 10px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.1s ease;
 }
 
 .list-menu .dropdown-item:hover {
@@ -377,7 +377,7 @@ a:active{
 }
 
 #musicUploadDropdown svg{
- margin-right:20px;
+    margin-right:20px;
 }
 
 .dropdown-item.active, .dropdown-item{
@@ -504,7 +504,7 @@ a:active{
 
     .main-body-content {
         margin-left: 0 !important;
-        transition: margin-left 0.3s ease-in-out;
+        transition: margin-left 0.1s ease-in-out;
     }
 
 }

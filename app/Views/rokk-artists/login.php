@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!--Google Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
 :root {
@@ -144,8 +145,16 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover, button:active {
   background-color: var(--primary-hover);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff !important;
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    cursor: not-allowed;
+    position: relative;
 }
 
 .login-form {
@@ -236,6 +245,10 @@ button:hover {
     text-decoration: none;
 }
 
+i.load-icon {
+    margin-right: 10px;
+}
+
 </style>
 
 </head>
@@ -271,7 +284,7 @@ button:hover {
 
       <div class="g-recaptcha mt-4 mb-3" data-sitekey="<?= $recaptcha_site_key ?>"></div>
 
-      <button type="submit" class="btn btn-primary">Sign In</button>
+      <button type="submit" class="sign-in btn btn-primary"> Sign In</button>
 
       <div class="form-group">
         <div class="forgot-password">
@@ -299,24 +312,25 @@ button:hover {
 
 <script>
     function togglePass() {
-        var passwordInput = document.getElementById("password");
-        var eyeIcon = document.getElementById("eye-icon");
+        var $passwordInput = $("#password");
+        var $eyeIcon = $("#eye-icon");
 
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            eyeIcon.classList.remove("fa-eye-slash");
-            eyeIcon.classList.add("fa-eye");
+        if ($passwordInput.attr("type") === "password") {
+            $passwordInput.attr("type", "text");
+            $eyeIcon.removeClass("fa-eye-slash").addClass("fa-eye");
         } else {
-            passwordInput.type = "password";
-            eyeIcon.classList.remove("fa-eye");
-            eyeIcon.classList.add("fa-eye-slash");
+            $passwordInput.attr("type", "password"); 
+            $eyeIcon.removeClass("fa-eye").addClass("fa-eye-slash");
         }
     }
 
-    var closeIcon = document.querySelector(".alert-close-icon");
+    $(document).ready(function() {
+        $(".alert-close-icon").on("click", function() {
+            $(this).parent().hide();
+        });
 
-    closeIcon.addEventListener("click", function() {
-        var parentElement = this.parentElement;
-        parentElement.style.display = "none";
+        $("form").on("submit", function() {
+          $(".sign-in").html('<i class="fas fa-spinner fa-spin load-icon"></i> Signing In').prop("disabled", true);
+        });
     });
 </script>

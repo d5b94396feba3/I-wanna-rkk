@@ -17,14 +17,18 @@ class Roles extends BaseConfig
         ],
         'manager' => [
             'level' => 80,
-            'permissions' => ['manage_content']
+            'permissions' => ['manage_own_content', 'manage_settings']    
         ],
         'artist' => [
             'level' => 80,
-            'permissions' => ['manage_own_content']
+            'permissions' => ['manage_own_content', 'manage_own_content']
+        ],
+        'guest' => [
+            'level' => 10, 
+            'permissions' => [] 
         ]
     ];
 
-    public $adminRoles = ['super_admin', 'admin'];
-    public $reservedRoles = ['super_admin', 'admin'];
+    public $adminRoles = ['super_admin', 'admin', 'manager', 'guest'];
+    public $reservedRoles = ['super_admin', 'admin', 'manager', 'guest'];
 }

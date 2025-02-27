@@ -15,6 +15,7 @@
     border: none !important;
     position: relative;
     overflow: hidden;
+    display: none;
 }
 
 .background-masker {
@@ -25,15 +26,16 @@
 @keyframes placeHolderShimmer {
 
     0% {
-        background-position: -800px 0;
+        background-position: 0px 00px;
     }
     100% {
-        background-position: 800px 0;
+        background-position: 8000px 0;
     }
+
 }
 
 .account-animated-background {
-    animation-duration: 2s;
+    animation-duration: 10s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
@@ -238,11 +240,13 @@ window.config = {
     defaultImageUrl: '<?= base_url('assets/images/image-cover.png') ?>'
 };
 </script>
+
 <script src="<?= base_url('assets/src/js/account/index.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/account/alert.js') ?>"></script>
 <!-- <script src="<?= base_url('assets/src/js/account/file-upload.js') ?>"></script> -->
 <script src="<?= base_url('assets/src/js/account/password.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/account/form.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/account-setting/validation.js') ?>"></script>
 
 <div class="main-container">
 
@@ -284,6 +288,7 @@ window.config = {
                </div>
                <div class="account-selected-menu-container secid-1">
                <!-- secid-1 -->
+               <?= $administrator_data ?>
                </div>
                <div class="account-selected-menu-container secid-2">
                <!-- secid-2 -->

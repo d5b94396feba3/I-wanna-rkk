@@ -56,7 +56,7 @@ class AccountSettingModel extends Model
                     ra.status,
                     ad.label,
                     ad.distributor,
-                    ad.vat,
+                    ad.genre,
                     ad.email_management,
                     ad.preferred_rokk_address,
                     ads.file_link,
@@ -241,7 +241,7 @@ class AccountSettingModel extends Model
             $country = trim($postData["country"]);
             $label = trim($postData["label"]);
             $distributor_and_aggregator = trim($postData["distributor_and_aggregator"]);
-            $vat = trim($postData["vat"]);
+            $genre = trim($postData["genre"]);
 
             // Set the timezone explicitly before using strtotime and date functions
             date_default_timezone_set("UTC");
@@ -260,7 +260,7 @@ class AccountSettingModel extends Model
                 "artist_id" => $userid,
                 "label" => $label,
                 "distributor" => $distributor_and_aggregator,
-                "vat" => $vat
+                "genre" => $genre
             ];
 
             // Update or insert rokk_artist

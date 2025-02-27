@@ -22,7 +22,7 @@ $(document).ready(function() {
 window.generate_income_charts_on_page_load=function(){
     const currentMonthIndex = currentDate.getMonth();
     var chart_labels = months.slice(0, currentMonthIndex + 1);
-    var fullYearData = [4, 9, 2, 5.5, 10.5, 19, 4, 9, 12, 4.5, 11.5, 0];
+    var fullYearData = Array.from({length: 12}, () => Math.floor(Math.random() * 0) + 0);;
     var data = fullYearData.slice(0, currentMonthIndex + 1);
 
     generate_income_charts_by_user_selected_option(chart_labels, data);
@@ -46,7 +46,7 @@ window.generate_income_charts_onchange=function (){
     else if(selected_income_charts=='monthly'){
         const currentMonthIndex = currentDate.getMonth();
         chart_labels = months.slice(0, currentMonthIndex + 1);
-        var fullYearData = [4, 9, 2, 5.5, 10.5, 19, 4, 9, 12, 0, 11.5, 7];
+        var fullYearData = Array.from({length: 12}, () => Math.floor(Math.random() * 0) + 0);;
         data = fullYearData.slice(0, currentMonthIndex + 1);
         
     }else if(selected_income_charts=='weekly'){

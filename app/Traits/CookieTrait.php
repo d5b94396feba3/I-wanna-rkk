@@ -4,14 +4,14 @@ namespace App\Traits;
 use App\Models\AuthModel;
 use App\Models\AuthSettingModel;
 use App\Traits\SessionTrait;
-use App\Traits\AuthInitModelTrait;
+use App\Traits\InitModelsTrait;
 
 trait CookieTrait
 {
     // Import SessionTrait for managing user sessions
     use SessionTrait;
-    // Import AuthInitModelTrait for initializing authentication models
-    use AuthInitModelTrait;
+    // Import InitModelsTrait for initializing authentication models
+    use InitModelsTrait;
 
     /**
      * Check if user has cookie set

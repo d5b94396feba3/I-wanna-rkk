@@ -50,9 +50,9 @@ class MusicUploadModel_mainDB extends Model
 
     public function getGenreDataFromMainDB() 
     {
-        $query = $this->db->table('genre') 
-            ->select('*')
-            ->get();
+        $query = $this->db->table('genre')
+        ->select('genre_id, genre_name as genre, prio, parent_id')
+        ->get();
 
         return $query->getNumRows() > 0 ? $query->getResultArray() : false;
     }
@@ -61,7 +61,7 @@ class MusicUploadModel_mainDB extends Model
     {
         try {
             $query = $this->db->table('genre') 
-                ->select('*')
+                ->select('genre_id, genre_name as genre, prio, parent_id')
                 ->where(['id' => $id])
                 ->get();
 

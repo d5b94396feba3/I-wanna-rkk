@@ -259,7 +259,7 @@
       foreach ($artist_release as $i => $release): ?>
           <tr onclick="window.location='<?= base_url('release_detail/'.$release['release_id']) ?>'">
             <td><?= $index ?></td>
-            <td><img src="<?= $release['image_link'] ?>" alt="<?= $release['release_title'] ?>"></td>
+            <td><img src="<?= $release['artwork_link'] ?>" alt="<?= $release['release_title'] ?>"></td>
             <td><?= $release['release_title'] ?></td>
             <td><?= $release['genre'] ?></td>
             <td><?= date('d M, Y', strtotime($release['release_date'])) ?></td>

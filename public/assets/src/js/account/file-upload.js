@@ -2,7 +2,9 @@
 window.uploaded_audio_file_name = '';
 window.uploaded_audio_file_size = 0;
 
+// Document ready function
 $(document).ready(function() {
+    // Define constants
     const $personFileInputContainer = $('#personFileInputContainer');
     const $person_image_link = $('#person_image_link'); 
     const $personPreview = $('#personPreview');
@@ -36,11 +38,14 @@ $(document).ready(function() {
                 $previewElement.html(defaultImage);
                 return;
             }
-
+            // Create a new FileReader instance to read the file
             const reader = new FileReader();
+            // Define the function to be called when the file has been read
             reader.onloadend = () => {
+                // Set the HTML content of the preview element to display the file
                 $previewElement.html(`<img src="${reader.result}" alt="Preview">`);
             };
+            // Start reading the file as a data URL
             reader.readAsDataURL(file);
         };
     }
@@ -50,6 +55,7 @@ $(document).ready(function() {
     handleDragAndDrop($personFileInputContainer, $person_image_link, personPreviewFile);
     $person_image_link.on('change', personPreviewFile);
 
+    // Click event handler for person image upload button
     $(document).on('click', '.person-img-upload-btn', function(e){
         e.preventDefault();
         $('#person_image_link').click();

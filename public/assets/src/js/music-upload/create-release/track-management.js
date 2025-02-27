@@ -1,5 +1,6 @@
 // Define global variables
 window.num_of_track = 1;
+window.savePopupData = false;
 
 $(document).ready(function () {
 
@@ -9,10 +10,11 @@ $(document).ready(function () {
     // Update the global variable when value changes
     $('#num_of_track').on('change', function() {
         window.num_of_track = $(this).val();
+        window.savePopupData = false;
     });
 
     // Define the function globally
-    window.genre_track_upload_fields = function() {
+    window.generate_dynamic_track_fields = function() {
 
         window.num_of_track=$('#num_of_track').val();
     
@@ -41,7 +43,7 @@ $(document).ready(function () {
 
                         <div class="col-md-3 col-sm-12 col-lg-3">
                             <div class="track-input-group">
-                                <label for="track-info-${i}">Track Info *</label>
+                                <label for="track-info-${i}">Track Info (Composer etc.) *</label>
                                 <div class="input-with-icon track-info-box">
                                     <div class="track-info-save-${i}" style="display:none;">
                                         <input type="text" id="track-info-saved-${i}" class="track-info-input" value="Added" readonly>
@@ -52,7 +54,7 @@ $(document).ready(function () {
                                         </span>
                                     </div>
                                     <div class="track-info-unsave-${i}">
-                                        <input type="text" id="track-info-${i}" class="track-info-input" placeholder="Add Info" readonly>
+                                        <input type="text" id="track-info-${i}" class="track-info-input" placeholder="Add details here" readonly>
                                         <span class="add-track-info-btn" data-popup_id=${i}>
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z" fill="white" fill-opacity="0.3"/>
@@ -66,7 +68,7 @@ $(document).ready(function () {
                         <div class="col-md-3 col-sm-12 col-lg-3">
                             <div class="track-input-group">
                                 <label for="audio-file-${i}">Upload Audio File *</label>
-                                <div class="input-with-icon track-upload-box">
+                                <div class="input-with-icon track-upload-box-${i}">
                                     <div class="track-audio-uploaded-${i}" style="display:none;">
                                         <input type="text" id="audio-file-uploaded-${i}" class="track-audio-input" value="Uploaded" readonly>
                                         <span class="check-icon upload-audio-btn" data-popup_id="${i}">
@@ -114,33 +116,39 @@ $(document).ready(function () {
                                 </div>
                                 <div class="popup-form-group">
                                     <label for="composer">Composer *</label>
-                                    <input type="text" name="composer_${i}" id="composer_${i}" value="">
+                                    <input type="text" name="composer_${i}" id="composer_${i}" value="" >
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="popup-form-group">
                                     <label for="lyricist">Lyricist *</label>
-                                    <input type="text" name="lyricist_${i}" id="lyricist_${i}" value="">
+                                    <input type="text" name="lyricist_${i}" id="lyricist_${i}" value="" >
                                 </div>
                                 <div class="popup-form-group">
                                     <label for="isrc">ISRC Code *</label>
-                                    <input type="text" name="isrc_code_${i}" id="isrc_code_${i}" value="" placeholder="XXXX-XXXX">
+                                    <input type="text" name="isrc_code_${i}" id="isrc_code_${i}" value="" >
+                                </div>  
+                                 <div class="popup-form-group">
+                                     <label for="Disc">Disc Number *</label>
+                                    <input type="number" name="track_disc_number_${i}" id="track_disc_number_${i}" value="">
                                 </div>
                             </div>
+                
                             <div class="form-row">
-                                <div class="popup-form-group">
-                                    <label>Explicit *</label>
+                                <div class="popup-form-group isrc-radio-container">
+                                    <label class="isrc-label">I have an ISRC Code </label>
                                     <div class="popup-radio-group">
-                                        <label class="popup-radio-label">
+                                        <label class="popup-radio-label inline-radio">
                                             <input type="radio" name="explicit_${i}" id="explicit_${i}" value="yes">
                                             Yes
                                         </label>
-                                        <label class="popup-radio-label">
+                                        <label class="popup-radio-label inline-radio">
                                             <input type="radio" name="explicit_${i}" id="explicit_${i}" value="no" checked> No
                                         </label>
                                     </div>
                                 </div>
                             </div>
+                           
                         </div>
                         <div class="popup-footer">
                             <button class="save-track-btn" data-btn_id="${i}">SAVE Track</button>

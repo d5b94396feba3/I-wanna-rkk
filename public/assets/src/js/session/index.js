@@ -8,7 +8,7 @@ function checkSession() {
             if (!response.sessionValid) {
                 Swal.fire({
                     title: 'Session Expired',
-                    text: 'Session expired. Please log in again.',
+                    text: 'Session expired. Please login again.',
                     icon: 'warning',
                     showCancelButton: false,
                     confirmButtonText: 'OK',

@@ -121,7 +121,7 @@ label {
     font-size: 14px;
 }
 
-input, select {
+input {
     width: 100%;
     padding: 10px;
     background-color: rgba(255,255,255,0.12);
@@ -137,10 +137,30 @@ input::placeholder {
 }
 
 select {
+    width: 100%;
+    padding: 10px;
+    background-color: #333 !important;
+    border: none;
+    border-radius: 55px !important;
+    color: #ffffff !important;
+    padding-left: 20px;
+    margin-top: 4px;
     appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;
+}
+.custom-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #333 !important;
+    border: none;
+    border-radius: 55px !important;
+    color: #ffffff !important;
+    padding-left: 20px;
+    margin-top: 4px;
+    cursor: pointer;
 }
 
 .form-actions {
@@ -961,6 +981,124 @@ select {
     margin-bottom: 60px !important;
 }
 
+
+.isrc-radio-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.isrc-label {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.popup-radio-group {
+    display: flex;
+    gap: 15px;
+}
+
+.inline-radio {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.inline-radio input[type="radio"] {
+    width: auto;
+    margin: 0;
+    cursor: pointer;
+}
+
+.markets-select-container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 55px;
+    padding: 6px 16px;
+    margin-top: 9px;
+    padding-top: 10px;
+    padding-left: 18px;
+}
+#marketSearch:focus,
+#marketSearch:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+.selected-markets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.market-tag {
+    background-color: rgba(255,131,3,0.2);
+    color: #FF8303;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 1px;
+}
+
+.market-tag .remove-tag {
+    cursor: pointer;
+    color: #FF8303;
+    font-weight: bold;
+}
+
+#marketSearch {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+    padding: 6px;
+    margin: 0;
+}
+
+.markets-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #1E1E1E;
+    border: 1px solid #333;
+    border-radius: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.market-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.market-option:hover {
+    background-color: rgba(255, 131, 3, 0.1);
+}
+
+.flag-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.market-tag .flag-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 2px;
+}
+
 /* mobile responsiveness */
  
 @media (max-width: 868px){
@@ -987,6 +1125,7 @@ window.config = {
     defaultImageUrl: '<?= base_url('assets/images/image-cover.png') ?>',
     artistName : "<?= session()->get('fullName') ?>"
 };
+
 </script>
 
 <script src="<?= base_url('assets/src/js/music-upload/create-release/index.js') ?>"></script>
@@ -997,6 +1136,7 @@ window.config = {
 <script src="<?= base_url('assets/src/js/music-upload/create-release/track-management.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/music-upload/create-release/event-listeners.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/music-upload/create-release/form.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/create-release/market-search.js') ?>"></script>
 
 
 <div class="main-container">
@@ -1055,11 +1195,11 @@ window.config = {
         <div class="upload-form-row">
             <div class="upload-popup-form-group">
                 <label for="artist_name">Band/Artist Name *</label>
-                <input type="text" name="artist_name" id="artist_name" value="<?= esc($artist_data->artist_name); ?>" placeholder="Band/Artist Name">
+                <input type="text" name="artist_name" id="artist_name" value="<?= isset($artist_data->artist_name) ? esc($artist_data->artist_name) : ''; ?>" placeholder="Band/Artist Name">
             </div>
             <div class="upload-popup-form-group">
                 <label for="role">Role *</label>
-                <select id="role">
+                <select id="role" class="role-select" name="artist_type">
                     <?php if(isset($artist_data)): ?>
                         <option value="<?= esc($artist_data->artist_type_from_ai); ?>"><?= esc($artist_data->artist_type_from_ai); ?></option>
                         <?php if(esc($artist_data->artist_type_from_ai) !="Solo Artist"): ?>
@@ -1074,26 +1214,26 @@ window.config = {
                     <?php else: ?>
                         <option value="Unknown">Unknown</option>
                     <?php endif; ?>
-                </select>
+                </select>   
             </div>
             <div class="upload-popup-form-group">
                 <label for="label">Label *</label>
-                <input type="text" id="label" placeholder="e.g. Warner Music">
+                <input type="text" name="label" id="label" value="<?= isset($artist_data->label) ? esc($artist_data->label) : ''; ?>" placeholder="e.g. Warner Music">
             </div>
         </div>
         
         <div class="upload-form-row">
             <div class="upload-popup-form-group">
                 <label for="distributor">Distributor / Aggregator</label>
-                <input type="text" id="distributor" value="" placeholder="e.g. DistroKid">
+                <input type="text" name="distributor" id="distributor" value="<?= isset($artist_data->distributor) ? esc($artist_data->distributor) : ''; ?>" placeholder="e.g. DistroKid">
             </div>
             <div class="upload-popup-form-group">
                 <label for="management-email">Management Email *</label>
-                <input type="email" id="management-email" value="<?= esc($artist_data->official_contact_email); ?>" placeholder="Management Email">
+                <input type="email" name="email_management" id="management-email" value="<?= isset($artist_data->email_management) ? esc($artist_data->email_management) : ''; ?>" placeholder="Management Email">
             </div>
             <div class="upload-popup-form-group">
                 <label for="website">Website</label>
-                <input type="url" id="website" placeholder="https://">
+                <input type="url" name="website" id="website" value="<?= isset($artist_data->website) ? esc($artist_data->website) : ''; ?>" placeholder="https://">
             </div>
         </div>
         
@@ -1125,14 +1265,19 @@ window.config = {
         </div>
     </div>
     <div class="separator mt-20"></div>
+
+
+        <div class="upload-form-row">
+          
+          <div class="upload-popup-form-group">
+              <label for="label">Release Title *</label>
+              <input type="text" name="release_title" id="release_title" value="Faith no more" placeholder="Faith no more">
+          </div>
+
+        </div>
     
         <div class="upload-form-row">
           
-            <div class="upload-popup-form-group">
-                <label for="label">Release Title *</label>
-                <input type="text" name="release_title" id="release_title" value="Faith no more" placeholder="Faith no more">
-            </div>
-
             <div class="upload-popup-form-group">
                 <label for="genre">Genre *</label>
                 <select name="genre" id="genre" required>
@@ -1141,24 +1286,34 @@ window.config = {
                     <?php endforeach; ?>
                 </select>
             </div>
+
+            <div class="upload-popup-form-group">
+              <label for="release_icpn">Release ICPN *</label>
+              <input type="text" name="release_icpn" id="release_icpn" value="" placeholder="e.g. 1234567890123" required>
+           </div>
+
         </div>
-        
+
+    
         <div class="upload-form-row">
             <div class="upload-popup-form-group">
                 <label for="release_date">Release Date *</label>
-                <input type="date" name="release_date" id="release_date" placeholder="06/12/24">
+                <input type="date" name="release_date" id="release_date" value="<?php echo date('Y-m-d'); ?>">
             </div>
             <div class="upload-popup-form-group">
                 <label for="copyright">Copyright *</label>
-                <select name="copyright" id="copyright" required>
-                    <?php
+            <div class="custom-select">
+                <?php
                     date_default_timezone_set("UTC");
                     $current_year = date("Y");
-                    for ($copyright_year = 1964; $copyright_year <= $current_year; $copyright_year++) {
-                        echo '<option value="' . $copyright_year . '">' . $copyright_year . '</option>';
-                    }
-                    ?>
+                    $years = range(1964, $current_year);
+                ?>
+                <select name="copyright" id="copyright" required>
+                    <?php foreach($years as $year): ?>
+                        <option value="<?= $year ?>"><?= $year ?></option>
+                    <?php endforeach; ?>
                 </select>
+            </div>
             </div>
             <div class="upload-popup-form-group">
                 <label for="language">Language *</label>
@@ -1208,6 +1363,25 @@ window.config = {
         </div>
 
         <div class="upload-form-row">
+          
+           <div class="upload-popup-form-group">
+                <label for="release_available_markets">Release Available Markets *</label>
+                <div class="markets-select-container">
+                    <div class="selected-markets" id="selectedMarkets">
+                    </div>
+                    <input type="text" id="marketSearch" value="Worldwide" placeholder="Search countries..." required>
+                    <?php
+                    // Include the country selection dropdown component
+                    // This file contains the HTML for displaying country flags and names
+                    // Used for selecting available markets for the release
+                    include __DIR__ . '/../section/country-select.php'; 
+                    ?>
+                    <input type="hidden" name="release_available_markets" id="release_available_markets" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="upload-form-row">
             <div class="upload-popup-form-group">
                 <label for="copyright_desc">Additional Copyright Information</label>
                 <input type="text" id="copyright_desc" name="copyright_desc" value="" placeholder="e.g. ℗ 2024 Artist Name. All rights reserved.">
@@ -1228,7 +1402,7 @@ window.config = {
     <div class="upload-form-row">
         <div class="upload-popup-form-group">
             <label for="total-number-of-tracks">Total number of Tracks *</label>
-            <input type="number" name="num_of_track" id="num_of_track" placeholder="Please enter number of tracks" required onkeyup="genre_track_upload_fields()">
+            <input type="number" name="num_of_track" id="num_of_track" placeholder="Please enter number of tracks" required onkeyup="generate_dynamic_track_fields()">
         </div>
     </div>
     <div class="dynamic-track-container"></div>
@@ -1253,27 +1427,27 @@ window.config = {
         <div class="details-grid">
             <div class="detail-item">
                 <span class="detail-label">Album Name</span>
-                <span class="detail-value orange review-album-name">Empires Falling</span>
+                <span class="detail-value orange review-album-name"></span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">Artist</span>
-                <span class="detail-value review-artist_name">Peter Moog</span>
+                <span class="detail-value review-artist_name"></span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">Copyright</span>
-                <span class="detail-value review-copyright">1964</span>
+                <span class="detail-value review-copyright"></span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">Release Date</span>
-                <span class="detail-value orange review-release_date">31st May, 2024</span>
+                <span class="detail-value orange review-release_date"></span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">Language</span>
-                <span class="detail-value review-language">English</span>
+                <span class="detail-value review-language"></span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">Genre</span>
-                <span class="detail-value review-genre">Thrash Metal</span>
+                <span class="detail-value review-genre"></span>
             </div>
         </div>
         </div>

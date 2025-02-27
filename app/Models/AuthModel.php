@@ -72,7 +72,7 @@ class AuthModel extends Model
     
             $user = $query->getRow();
     
-            if ($user && password_verify($password, $user->password_hash)) {
+            if ($user && password_verify($password, $user->password_hash) && $this->is_active_account($email)) {
                 // Update last login timestamp
                 $this->updateLastLogin($user->artist_id);
                 
@@ -86,6 +86,21 @@ class AuthModel extends Model
 
         } catch (\Exception $e) {
             log_message('error', 'Login error: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function is_active_account($email){
+        try {
+            $query = $this->db->table('rokk_artist')
+                            ->where('status', 'active')
+                            ->where('official_contact_email', $email)
+                            ->get();
+        
+            return $query->getNumRows() > 0;
+
+        } catch (\Exception $e) {
+            log_message('error', 'Error in is_active_account: ' . $e->getMessage());
             return false;
         }
     }

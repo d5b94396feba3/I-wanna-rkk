@@ -74,6 +74,12 @@ class DirectArtistSupport extends BaseController
             return $this->handleUnauthorized();
         }
 
+        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to update content."
+            );
+        }
+
         if ($this->request->getMethod() !== 'post' || !$validation->withRequest($this->request)->run()) {
             return $this->handleResponse(false, 
                 'Please enter a valid Preferred Rokk Address.'

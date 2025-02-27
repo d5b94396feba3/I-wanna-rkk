@@ -79,23 +79,6 @@ abstract class BaseController extends Controller
     }
 
      /**
-     * Check if the current user is an admin
-     *
-     * @return bool
-     */
-    protected function isAdmin(): bool
-    {
-        if (!$this->authenticated()) {
-            return false;
-        }
-
-        $admin_roles = ['super_admin', 'admin'];
-        $reserved_roles = ['super_admin', 'admin']; 
-        $user_role = session()->get('userrole');
-        return in_array($user_role, $admin_roles);
-    }
-
-     /**
      * Get array of reserved roles
      *
      * @return array
@@ -125,6 +108,38 @@ abstract class BaseController extends Controller
 
         $userid = session()->get('userid');
         return $userid;
+    }
+
+     /**
+     * Get person's full name of the currently logged in account
+     * Returns empty string if not logged in
+     *
+     * @return string
+     */
+    protected function administratorName(): string
+    {
+        if (!$this->authenticated()) {
+            return '';
+        }
+
+        $artist_type = session()->get('administratorName');
+        return $artist_type;
+    }
+
+     /**
+     * Get user role of the currently logged in account
+     * Returns empty string if not logged in
+     *
+     * @return string
+     */
+    protected function administratorRole(): string
+    {
+        if (!$this->authenticated()) {
+            return '';
+        }
+
+        $artist_type = session()->get('userrole');
+        return $artist_type;
     }
 
     

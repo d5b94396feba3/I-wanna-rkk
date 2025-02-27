@@ -41,7 +41,6 @@ $(document).ready(function() {
             return;
         }
 
-
     });
 
     $(document).on('submit', '.updatePersonImageForm', function(e) {
@@ -74,27 +73,34 @@ $(document).ready(function() {
     // update person detail confirm popup
     $('#updatePersonDetail').on('submit', function(e) {
         e.preventDefault(); 
-        Swal.fire({
-            title: '<h2>UPDATE ADMIN INFO</h2>',
-            html: '<p>Are you sure you want to update the admin information?</p>',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, I want to update',
-            cancelButtonText: 'Cancel',
-            customClass: {
-                popup: 'custom-popup',
-                title: 'custom-title',
-                htmlContainer: 'custom-html-container',
-                icon: 'custom-icon',
-                confirmButton: 'custom-confirm-button',
-                cancelButton: 'custom-cancel-button'
-            },
-            buttonsStyling: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                submitFormWithAjax('#updatePersonDetail')
-            }
-        });
+
+        if(validatePersonFields()){
+
+            Swal.fire({
+                title: '<h2>UPDATE ADMIN INFO</h2>',
+                html: '<p>Are you sure you want to update the admin information?</p>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I want to update',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    popup: 'custom-popup',
+                    title: 'custom-title',
+                    htmlContainer: 'custom-html-container',
+                    icon: 'custom-icon',
+                    confirmButton: 'custom-confirm-button',
+                    cancelButton: 'custom-cancel-button'
+                },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    submitFormWithAjax('#updatePersonDetail')
+                }
+            });  
+        }
+
+        return false; // prevent normal form submission
+        
     });
 
     // update account password confirm popup
@@ -121,6 +127,9 @@ $(document).ready(function() {
                 submitFormWithAjax('#accountPasswordForm')
             }
         });
+
+        return false; // prevent normal form submission
+
     });
 
     // update account password confirm popup
@@ -147,6 +156,8 @@ $(document).ready(function() {
                     submitFormWithAjax('#accountDelForm')
                 }
             });
+
+            return false; // prevent normal form submission
     });
 
 

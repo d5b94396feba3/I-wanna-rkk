@@ -11,7 +11,7 @@
     flex-direction: column;
     z-index: 1000;
     border-right: 1px solid #383838;
-    transition: margin-left 0.6s ease-in-out;
+    transition: margin-left 0.1s ease-in-out;
 }
 
 #compact-sidebar .account-info-box {
@@ -52,6 +52,7 @@
 }
 
 #compact-sidebar a {
+    position: relative;
     padding: 12px 10px;
     text-decoration: none;
     font-size: 17px;
@@ -172,21 +173,22 @@
     width: 220px;
     z-index: 1002 !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding:0px 0px 3px 0px;
 }
 
 .dropdown-indicator {
     margin-left: -11px !important;
-    transition: transform 0.3s ease;
+    transition: transform 0.1s ease;
     position: absolute;
     top: 14px;
     color: rgb(81 77 77);
 }
 
 .compact-music-dropdown h3 {
-    padding: 15px 10px 12px 35px;
+    padding: 18px 10px 12px 22px;
     margin: 0;
     border-bottom: 1px solid #464242;
-    font-size: 16px;
+    font-size: 19px;
     color: #fff;
     text-transform: uppercase;
 }
@@ -226,7 +228,7 @@
     align-items: center;
     text-decoration: none;
     font-size:15px !important;
-    padding:0px 0p 0px 0px !important;
+    padding:12px 0px 10px 0px !important;
 }
 
 .compact-music-dropdown a svg {
@@ -248,9 +250,58 @@
 .compact-music-dropdown a.active span{
     padding-left: 7px !important;
 }
-.compact-music-dropdown .create_release.active {
-    margin-left: 0px !important;
+.compact-music-dropdown .sub-music-a.active {
+    margin-left: -22px !important;
 }
+.compact-music-dropdown .create_release.active {
+    margin-left: -16px !important;
+}
+
+.cs-tooltip {
+    display: none; 
+    position: absolute;
+    top: 12px;
+    left: 100px;
+    width: 102px;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 9999;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.cs-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 50%; 
+    left: -10px; 
+    margin-top: -5px; 
+    border-width: 5px; 
+    border-style: solid;
+    border-color: transparent #333 transparent transparent; 
+}
+
+.cs-tooltip.profile {
+    left: 120px;
+    top: 14px;
+}
+
+.cs-tooltip.das {
+    width: 145px;
+    left: 125px;
+}
+.cs-tooltip.logout {
+    top: 13px;
+}
+
+a:hover .cs-tooltip {
+    display: block; /* Show on hover */
+}
+
 /* mobile responsiveness */
 @media (max-width: 768px) {
 

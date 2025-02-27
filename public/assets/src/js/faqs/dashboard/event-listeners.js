@@ -4,8 +4,15 @@ $(document).ready(function() {
     $(document).on('click', '.ac-table-a', function(e) {
         e.preventDefault();
         var pageUrl = $(this).attr('href');
+        var orderBy=$('#faq-orderBy').val();
+        var search = $('#faq-search').val();
+        
         $.ajax({
             url: pageUrl,
+            data: {
+                search: search,
+                sort_column: orderBy,
+            },
             type: 'Get',
             timeout:20000, // 20 seconds
             beforeSend: function(jqXHR) {
@@ -32,9 +39,15 @@ $(document).ready(function() {
     $(document).on('click', '.faq-table-a, .pagination a', function(e) {
         e.preventDefault();
         var pageUrl = $(this).attr('href');
+        var orderBy=$('#faq-orderBy').val();
+        var search = $('#faq-search').val();
 
         $.ajax({
             url: pageUrl,
+            data: {
+                search: search,
+                sort_column: orderBy,
+            },
             type: 'Get',
             timeout:20000, // 20 seconds
             beforeSend: function(jqXHR) {
@@ -78,6 +91,8 @@ $(document).ready(function() {
             var id = $(this).data("id");
             var tbl_index = $(this).data("tbl-index");
             var click_btn='update';
+            // Prevent body scrolling when drawer is open
+            $('body').css('overflow', 'hidden');
             
             window.update_faq_drawer_fields(click_btn,id,tbl_index);
             // update drawer auction btn text and icon
@@ -92,7 +107,8 @@ $(document).ready(function() {
         var id = $(this).data("id");
         var index = $(this).data("tbl-index");
         var click_btn='update';
-
+        // Prevent body scrolling when drawer is open
+        $('body').css('overflow', 'hidden');
         window.update_sec_drawer_fields(click_btn,id,index);
 
         window.update_drawer_sec_action_mark_btn_and_icon(click_btn);
@@ -121,6 +137,7 @@ $(document).ready(function() {
     $('.close-drawer, .close-drawer-btn').on('click', function() {
         $('.faq-details-drawer').removeClass('open');
         $('html').removeClass('open');
+        $('body').css('overflow', 'auto');
     });
 
 });

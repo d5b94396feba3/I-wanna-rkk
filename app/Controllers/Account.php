@@ -7,7 +7,7 @@ use App\Models\AccountModel;
 use CodeIgniter\Controller;
 use App\Models\AccountSettingModel;
 use App\Models\CAPaginationModel;
-use App\Traits\InputFieldsValidationTrait;
+use App\Traits\InputValidationTrait;
 
 class Account extends BaseController
 {
@@ -17,7 +17,7 @@ class Account extends BaseController
     protected $perPage = 5;
     protected $account_setting_model;
     protected $capagination_model;
-    use InputFieldsValidationTrait;
+    use InputValidationTrait;
 
 
     public function __construct()
@@ -36,6 +36,22 @@ class Account extends BaseController
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
         }
+
+        $userid =$this->userID();
+
+        $person_data = $this->account_setting_model->get_person_data_from_rokk_person_by_id($userid);
+    
+        // Prepare data for the view
+        $data['person_data'] = $person_data;
+        // Prepare data for the view
+        $data['roles'] = $this->isAdmin() ?
+            ['Super Admin', 'Admin', 'Manager'] : 
+            ['Artist', 'Manager'];
+        // Render views
+        $administrator_view = view("rokk-artists/account/adminstrator", $data);
+
+        // Add administrator view to data array
+        $data["administrator_data"] = $administrator_view;
 
         $data["artist_password"] = "artist_password";
         return view("rokk-artists/layout/header", $data) .
@@ -57,7 +73,7 @@ class Account extends BaseController
         // Prepare data for the view
         $data['person_data'] = $person_data;
         // Prepare data for the view
-        $data['roles'] = $this->isAdminTrait() ?
+        $data['roles'] = $this->isAdmin() ?
             ['Super Admin', 'Admin', 'Manager'] : 
             ['Artist', 'Manager'];
         // Render views
@@ -117,7 +133,7 @@ class Account extends BaseController
         // Prepare data for the view
         $data['artist_data'] = $artist_data;
         $data['person_data'] = $person_data;
-        $data['isAdmin'] = $this->isAdminTrait();
+        $data['isAdmin'] = $this->isAdmin();
 
         // Render views
         $administrator_view = view("rokk-artists/account/adminstrator", $data);
@@ -202,55 +218,6 @@ class Account extends BaseController
     }
 
 
-    public function update_artist_password_old()
-    {
-        $validation = \Config\Services::validation();
-
-        $validation->setRules([
-            "password" =>
-                'required|min_length[8]|max_length[25]|regex_match[/[a-z]/]|regex_match[/[A-Z]/]|regex_match[/\d/]|regex_match[/[@$!%*?&]/]',
-            "confirm_password" => "required",
-        ]);
-
-        if (!$this->authenticated()) {
-            return $this->handleUnauthorized();
-        }
-
-        if (
-            $this->request->getMethod() === "post" &&
-            $validation->withRequest($this->request)->run()
-        ) {
-            $password = trim($this->request->getPost("password"));
-            $confirm_password = trim(
-                $this->request->getPost("confirm_password")
-            );
-
-            if ($password != $confirm_password) {
-                return $this->handleResponse(false,
-                    "The password you entered does not match your current password. Please try again."
-                );
-            }
-
-            $result = $this->account_model->update_artist_password_by_id(
-                $this->request->getPost()
-            );
-
-            if ($result) {
-                return $this->handleResponse(true,
-                    "Password has been updated successfully."
-                );
-            } else {
-                return $this->handleResponse(false,
-                    "Failed to update password. Please refresh and try again."
-                );
-            }
-        } else {
-            return $this->handleResponse(false,
-                "Please provide a valid password with at least 8 characters, including uppercase and lowercase letters, numbers, and special characters."
-            );
-        }
-    }
-
     public function update_artist_password()
     {
         // Early returns for authentication and validation
@@ -293,6 +260,12 @@ class Account extends BaseController
         // Early returns for authentication and validation
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
+        }
+
+        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
+            return $this->handleResponse(false,
+                "You do not have permission to delete account."
+            );
         }
 
         if ($this->request->getMethod() !== "post" || !$this->validateDeleteAccountFields($this->request)) {

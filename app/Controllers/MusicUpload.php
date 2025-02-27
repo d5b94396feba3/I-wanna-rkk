@@ -6,7 +6,9 @@ use App\Models\MusicUploadModel;
 use App\Models\MusicUploadModel_mainDB;
 use CodeIgniter\Controller;
 use App\Traits\FileUploadTrait;
-use App\Traits\InputFieldsValidationTrait;
+use App\Traits\InputValidationTrait;
+use App\Traits\AWSJSONFormatTrait;
+use App\Traits\S3BucketUploadTrait;
 
 class MusicUpload extends BaseController
 {
@@ -15,8 +17,10 @@ class MusicUpload extends BaseController
     protected $music_upload_model_mainDB;
     protected $session;
     private $cache;
-    use FileUploadTrait;
-    use InputFieldsValidationTrait;
+    use FileUploadTrait,
+        InputValidationTrait,
+        AWSJSONFormatTrait,
+        S3BucketUploadTrait;
 
     public function __construct()
     {
@@ -81,7 +85,9 @@ class MusicUpload extends BaseController
 
         // Handle cover image upload
         $file = $this->request->getFile('image_link');
-        $image_newName = $this->generateFileName($this->userID(), $file->getName());
+        $image_newName = $this->generateFileName($this->userID(), str_replace('-', '_', $file->getName()));
+
+        $currentDateTime = $this->getCurrentDateTime();
 
         if (!$this->handleReleaseImageFileUpload($file, $image_newName)) {
             log_message('error', "Cover Image upload failed: file_name: " . $file->getName());
@@ -94,28 +100,47 @@ class MusicUpload extends BaseController
         $image_link = base_url("release/image/" . $image_newName);
         $release_id = $this->music_upload_model->upload_release_data(
             $this->request->getPost(),
+            $image_newName,
             $image_link,
             $this->userID()
         );
 
         if (!$release_id) {
             return $this->handleResponse(false, 
-                'Failed to upload your release. Please refresh page and try again. 1'
+                'Failed to upload your release. Please refresh page and try again.'
             );
         }
-
-        // Upload tracks
+        // Upload tracks disab;we
         $result = $this->upload_track_data(
             $this->request,
             $release_id,
             $this->request->getPost('num_of_track')
         );
 
+        // $result=true;
+
+        // If tracks were uploaded successfully, upload copy of $post data to S3 bucket
+        if($result){
+
+            if (!$this->handleBatchUploadToS3($release_id)) {
+                // Log error message if S3 bucket upload fails
+                log_message('error', "Failed to upload data to S3 bucket.");
+                
+                // Clean up any partially uploaded data and records
+                $this->handleFailedUpload($release_id);
+
+                // Return error response to user with friendly message 
+                return $this->handleResponse(false, 
+                    'Failed to upload your release. Please refresh page and try again'
+                );  
+            }
+        }
+
         return $this->handleResponse(
             $result,
             $result 
                 ? 'Your release upload was successful.'
-                : 'Failed to upload your release. Please refresh page and try again. 2'
+                : 'Failed to upload your release. Please refresh page and try again.'
         );
     }
 
@@ -170,8 +195,12 @@ class MusicUpload extends BaseController
             return false;
         }
 
+        $duration_ms = $this->getAudioDuration($track_file, $track_index);
+        if ($duration_ms === 0) {
+            return false;
+        }
         // Generate new filename and upload
-        $track_file_newName = $this->generateFileName($userid, $track_file->getName());
+        $track_file_newName = $this->generateFileName($release_id, str_replace('-', '_', $track_file->getName()));
         if (!$this->handleReleaseTrackFileUpload($track_file, $track_file_newName)) {
             log_message('error', "File upload failed for track {$track_index}");
             return false;
@@ -179,7 +208,7 @@ class MusicUpload extends BaseController
 
         // Generate track URL and build data
         $track_link = base_url("audio/track/" . $track_file_newName);
-        $track_data = $this->buildTrackData($fields, $track_file_newName, $track_link, $release_id, $this->request->getPost());
+        $track_data = $this->buildTrackData($fields, $track_file_newName, $duration_ms, $track_link, $release_id, $this->request->getPost());
 
         // Insert track data
         if (!$this->music_upload_model->upload_track_data($track_data)) {
@@ -188,6 +217,43 @@ class MusicUpload extends BaseController
         }
 
         return true;
+    }
+
+    /**
+     * Get audio duration using getID3
+     * 
+     * @param object $track_file The uploaded file object
+     * @param int $track_index The track number (for error logging)
+     * @return int Duration in milliseconds, 0 if error occurs
+     */
+    private function getAudioDuration($track_file, $track_index): int
+    {
+        require_once APPPATH . 'ThirdParty/getid3/getid3.php';
+        try {
+            $getID3 = new \getID3;
+            $fileInfo = $getID3->analyze($track_file->getTempName());
+            
+            // Convert seconds to milliseconds
+            if (isset($fileInfo['playtime_seconds'])) {
+                $duration_ms = round($fileInfo['playtime_seconds'] * 1000);
+            } else {
+                $duration_ms = 0;
+            }
+            
+            if ($duration_ms <= 0) {
+                log_message('error', "Could not determine duration for track {$track_index}. File info: " . 
+                    "Mime type: " . $track_file->getMimeType() . 
+                    ", File size: " . $track_file->getSize() . 
+                    ", Original name: " . $track_file->getName() . 
+                    ", Temp path: " . $track_file->getTempName()
+                );
+                return 0;
+            }
+            return $duration_ms;
+        } catch (\Exception $e) {
+            log_message('error', "getID3 analysis failed for track {$track_index}: " . $e->getMessage());
+            return 0;
+        }
     }
 
     /**
@@ -209,13 +275,14 @@ class MusicUpload extends BaseController
      */
     private function buildTrackFieldNames(string $track_index): array 
     {
-        return [
+        return [    
             'track_title' => "track_title_{$track_index}",
             'features' => "features_{$track_index}",
             'composer' => "composer_{$track_index}",
             'lyricist' => "lyricist_{$track_index}",
             'isrc_code' => "isrc_code_{$track_index}",
             'explicit' => "explicit_{$track_index}",
+            'track_disc_number' => "track_disc_number_{$track_index}",
             'track_file' => "track_file_{$track_index}",
             'artist_name' => "artist_name_{$track_index}",
         ];
@@ -224,7 +291,7 @@ class MusicUpload extends BaseController
     /**
      * Build track data array for database update
      */
-    private function buildTrackData(array $fields, string $fileName, string $fileLink, string $release_id, array $requestData): array
+    private function buildTrackData(array $fields, string $fileName, int $track_duration_ms, string $fileLink, string $release_id, array $requestData): array
     {
         return [
             'artist_id' => $this->userID(),
@@ -235,7 +302,9 @@ class MusicUpload extends BaseController
             'composer' => $requestData[$fields['composer']],
             'lyricist' => $requestData[$fields['lyricist']],
             'isrc_code' => $requestData[$fields['isrc_code']],
-            'explicit' => $requestData[$fields['explicit']],
+            'explicit' => $requestData[$fields['explicit']],                                                                                                                                    
+            'track_disc_number' => $requestData[$fields['track_disc_number']],
+            'track_duration_ms' => $track_duration_ms,
             'track_file_name' => $fileName,
             'track_file_link' => $fileLink
         ];

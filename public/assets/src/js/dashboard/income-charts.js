@@ -15,7 +15,7 @@ $(document).ready(function() {
         const currentMonthIndex = currentDate.getMonth();
         var chart_labels = months.slice(0, currentMonthIndex + 1);
         // var fullYearData = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500];
-        var fullYearData = Array.from({length: 12}, () => Math.floor(Math.random() * 6500) + 500);
+        var fullYearData = Array.from({length: 12}, () => Math.floor(Math.random() * 0) + 0);
         var data = fullYearData.slice(0, currentMonthIndex + 1);
     
         generate_income_charts_by_user_selected_option(chart_labels, data);

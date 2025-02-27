@@ -4,7 +4,7 @@ $(document).ready(function () {
     var clipboard = new ClipboardJS('.copy-preferred-address, .copy-link-icon', {
         text: function(trigger) {
             var address=$('#preferred_rokk_address').val();
-            return address.toLowerCase() + '.rokk-app';
+            return 'https://'+address.toLowerCase() + '.rokk-app';
         }
     });
 

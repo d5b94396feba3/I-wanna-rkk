@@ -49,8 +49,16 @@ $(document).ready(function () {
 
         if(step == 0){
             let distributor = $("#distributor").val();
+            let artist_name = $("#artist_name").val();
             let label = $("#label").val();
             let isValid=true;
+            
+            if (artist_name === '') {
+                showRequiredFieldErrorMsg("#artist_name");
+                isValid=false;
+            } else {
+                removeRequiredFieldErrorMsg("#artist_name");
+            }
 
             if (label === '') {
                 showRequiredFieldErrorMsg("#label");
@@ -67,6 +75,8 @@ $(document).ready(function () {
             let release_date = $("#release_date").val();
             let cover_upload_container = $(".cover-upload-container");
             let image_link = $("#image_link").val();
+            let release_icpn = $("#release_icpn").val();
+            let release_available_markets = $("#release_available_markets").val();
             let isValid=true;
             
             if (release_date === '') {
@@ -76,12 +86,27 @@ $(document).ready(function () {
                 removeRequiredFieldErrorMsg("#release_date");
             }
 
+            if (release_icpn === '') {
+                showRequiredFieldErrorMsg("#release_icpn");
+                isValid=false;
+            } else {
+                removeRequiredFieldErrorMsg("#release_icpn");
+            }
+
+            if (release_available_markets === '') {
+                showRequiredFieldErrorMsg(".markets-select-container");
+                isValid=false;
+            } else {
+                removeRequiredFieldErrorMsg(".markets-select-container");
+            }
+
             if (image_link === '') {
                 showRequiredFieldErrorMsg(cover_upload_container);
                 isValid=false;
             } else {
                 removeRequiredFieldErrorMsg(cover_upload_container);
             }
+
             return isValid;
         }
 
@@ -97,6 +122,10 @@ $(document).ready(function () {
             } else {
                 removeRequiredFieldErrorMsg("#num_of_track");
                 isValid=validateDynamicTrackFields(id);
+            }
+
+            if(!validateDynamicTrackFields(num_of_track)){
+                isValid=false;
             }
 
             return isValid;

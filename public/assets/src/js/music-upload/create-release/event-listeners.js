@@ -3,7 +3,7 @@ $(document).ready(function () {
 $(document).on('click', '.img-upload-button', function(e){
         e.preventDefault();
         $('#image_link').click();
-    });
+});
 
 $(document).on('click', '.audio-upload-icon', function(e){
         e.preventDefault();
@@ -25,8 +25,7 @@ $(document).on('click', '.audio-upload-btn', function(e){
             $(".track-audio-uploaded-" + id).hide();
         }
         
-    });
-
+});
 
 $(document).on('click', '.add-track-info-btn', function(event){
         event.preventDefault();
@@ -36,11 +35,14 @@ $(document).on('click', '.add-track-info-btn', function(event){
 
         trackTitle = $("#track_title_"+id).val();
         popup_track_title_ = $("#popup_track_title_"+id).val();
+        popup_artist_name_ = $("#popup_artist_name_"+id).val();
 
         // Retrieve the artist name from the global config object
         artistName = window.config.artistName;
 
-        $("#popup_artist_name_"+id).val(artistName);
+        if(popup_track_title_===''){
+            $("#popup_artist_name_"+id).val(artistName);
+        }
 
         if(trackTitle!==''){
             $("#popup_track_title_"+id).val(trackTitle);
@@ -78,17 +80,6 @@ $(document).on('click', '.upload-audio-btn', function(event){
 
         id = $(this).data("popup_id");
 
-        trackTitle = $("#track_title_"+id).val();
-        popup_track_title_ = $("#popup_track_title_"+id).val();
-
-        // Retrieve the artist name from the global config object
-        artistName = window.config.artistName;
-
-        $("#popup_artist_name_"+id).val(artistName);
-
-        if(trackTitle!==''){
-            $("#popup_track_title_"+id).val(trackTitle);
-        }
         // CSS for .track-next-btn
         $('.audio-upload-btn-'+id).css({
             padding: '10px 40px',
@@ -153,25 +144,29 @@ $(document).on('click', '.save-track-popup-submit-btn', function (event) {
     $('#saveTrackDataInPopup').hide();
 
      hiddenArtistId = $("#hidden_artist_id").val();
+     popup_artist_name_ = $("#popup_artist_name_"+id).val();    
+
      trackTitle = $("#track_title_"+id).val();
      features = $("#features_"+id).val();
      composer = $("#composer_"+id).val();
      lyricist = $("#lyricist_"+id).val();
      isrcCode = $("#isrc_code_"+id).val();
      explicit = $("#explicit_"+id).val();
-
+     explicit = $("#explicit_"+id).val();
+     track_disc_number = $("#track_disc_number_"+id).val();
+     
      // Retrieve the artist name from the global config object
-     artistName = window.config.artistName;
+     //  artistName = window.config.artistName;
 
       // asigning values to all popup input fields
      for (var i = num_of_track; i > 0; i--) {
-          $("#popup_artist_name_"+i).val(artistName);
-          $("#popup_track_title_"+i).val(trackTitle);
+          $("#popup_artist_name_"+i).val(popup_artist_name_);
           $("#features_"+i).val(features);
           $("#composer_"+i).val(composer);
           $("#lyricist_"+i).val(lyricist);
           $("#isrc_code_"+i).val(isrcCode);
           $("#explicit_"+i).val(explicit);
+          $("#track_disc_number_"+i).val(track_disc_number);
      }
 
 });
@@ -201,7 +196,8 @@ $('.save-track-popup-cancel-btn').on('click', function() {
 // saveTrackDataInPopup yes button
 $(document).on('click', '.save-track-btn', function(event) {
     var id=$(this).data("btn_id");
-    var fieldsChecked=check_popup_input_fields(id)
+
+    var fieldsChecked=window.check_popup_input_fields(id)
 
     if(fieldsChecked){
         // toggle track info icons
@@ -213,9 +209,11 @@ $(document).on('click', '.save-track-btn', function(event) {
 
         num_of_track=$('#num_of_track').val();
 
-        if(num_of_track>1){
+        if(num_of_track>1 && !window.savePopupData){
             $('#saveTrackDataInPopup').show();
         }
+
+        savePopupData=true;
     }
 });
 

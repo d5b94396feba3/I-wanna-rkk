@@ -145,6 +145,22 @@ $routes->group('', function($routes) {
     });
 });
 
+
+// Admin dashboard's Registered Artist Routes
+$routes->group('', function($routes) {
+    // GET endpoints
+    $routes->get("artist_dashboard", "DashboardAdmin::artist_dashboard");
+    $routes->get("DashboardAdmin/ajax_registered_artists_data", "DashboardAdmin::ajax_registered_artists_data");
+    $routes->get("DashboardAdmin/ajax_count_registered_artists_data", "DashboardAdmin::ajax_count_registered_artists_data");
+    $routes->get("DashboardAdmin/ajax_count_link_status_data", "DashboardAdmin::ajax_count_link_status_data");
+    $routes->get("DashboardAdmin/ajax_selected_artist_data", "DashboardAdmin::ajax_selected_artist_data");
+
+    // Throttled endpoints
+    $routes->group('', ['filter' => 'throttle:3,60'], function($routes) {
+        $routes->match(['post', 'get'], "update_artist", "DashboardAdmin::update_artist");
+    });
+});
+
 // Contact Us Routes
 $routes->group('', function($routes) {
     // GET endpoints
@@ -197,7 +213,14 @@ $routes->group('', function($routes) {
     $routes->group('', ['filter' => 'throttle:3,60'], function($routes) {
         $routes->match(['post', 'get'], "update_notification", "Notification::update_notification");
         $routes->post("Notification/ajax_update_artist_notification_status", "Notification::ajax_update_artist_notification_status");
+        $routes->post("Notification/ajax_update_artist_all_notifications_status", "Notification::ajax_update_artist_all_notifications_status");
     });
+});
+
+
+// s3 upload-json
+$routes->group('', function($routes) {
+    $routes->get('upload-json', 'S3UploadController::uploadJson');
 });
 
 // 404 page route

@@ -3,6 +3,8 @@ let currentRequest; // Stores current AJAX request for relase tbl data
 $(document).on('click', '.release-tbl-a, .pagination a', function(e) {
     e.preventDefault();
     var pageUrl = $(this).attr('href');
+    var orderBy=$('#orderBy').val();
+    var search = $('#search').val();
     // Abort any existing request
     if (currentRequest && currentRequest.state() === 'pending') {
         currentRequest.abort();
@@ -11,6 +13,10 @@ $(document).on('click', '.release-tbl-a, .pagination a', function(e) {
     currentRequest = $.ajax({
         url: pageUrl,
         type: 'Get',
+        data: {
+            search: search,
+            sort_column: orderBy,
+        },
         timeout:20000, // 20 seconds
         beforeSend: function(jqXHR) {
             $('.release-table-content').empty();

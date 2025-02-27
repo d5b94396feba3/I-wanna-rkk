@@ -7,12 +7,13 @@ use App\Models\MusicUploadModel_mainDB;
 use App\Models\MusicReleaseModel;
 use CodeIgniter\Controller;
 use App\Traits\FileUploadTrait;
-use App\Traits\InputFieldsValidationTrait;
+use App\Traits\InputValidationTrait;
+use App\Traits\S3BucketUploadTrait;
 
 class MusicRelease extends BaseController
 {
     use FileUploadTrait;
-    use InputFieldsValidationTrait;
+    use InputValidationTrait,S3BucketUploadTrait;
     protected $music_upload_model;
     protected $music_release_model;
     protected $music_upload_model_mainDB;
@@ -100,9 +101,9 @@ class MusicRelease extends BaseController
         $data['topAlbums'] = $topAlbums;
 
         $response = [
-            'topTracks' => view("rokk-artists/dashboard/top-tracks", $data),
-            'topPlaylists' => view("rokk-artists/dashboard/top-playlists", $data),
-            'topAlbums' => view("rokk-artists/dashboard/top-albums", $data)
+            'topTracks' => view("rokk-artists/dashboard/section/top-tracks", $data),
+            'topPlaylists' => view("rokk-artists/dashboard/section/top-playlists", $data),
+            'topAlbums' => view("rokk-artists/dashboard/section/top-albums", $data)
         ];
 
         return $this->response->setJSON($response);
@@ -250,7 +251,7 @@ class MusicRelease extends BaseController
         $file = $this->request->getFile('image_link');
         
         // Prepare new image name
-        $image_newName = $this->generateFileName($release_id, $file->getName());
+        $image_newName = $this->generateFileName($release_id, str_replace('-', '_', $file->getName()));
 
         // Handle file upload
         if (!$this->handleReleaseImageFileUpload($file, $image_newName)) {
@@ -262,12 +263,26 @@ class MusicRelease extends BaseController
 
         $result = $this->music_release_model->update_music_release_cover_image(
             $this->request->getPost(),
+            $image_newName,
             $image_link
         );
 
         // Try to delete old image
         if (!$this->delete_old_release_cover_from_the_folder($old_cover_image_link)) {
             log_message('error', "Failed to delete cover image: {$old_cover_image_link}");
+        }
+
+        if($result){
+
+            $isUpdate=true;
+            if (!$this->handleBatchUploadToS3($release_id,$isUpdate)) {
+                // Log error message if S3 bucket upload fails
+                log_message('error', "Failed to update data to S3 bucket for release: ".$release_id);
+                // Return error response to user with friendly message
+                return $this->handleResponse(false, 
+                    'Failed to update your release. Please refresh page and submit again.'
+                );
+            }
         }
 
         $message = $result 
@@ -332,6 +347,19 @@ class MusicRelease extends BaseController
                 $track_title
             );
 
+            if($result){
+
+                $isUpdate=true;
+                if (!$this->handleBatchUploadToS3($release_id,$isUpdate)) {
+                    // Log error message if S3 bucket upload fails
+                    log_message('error', "Failed to update data to S3 bucket for release: ".$release_id);
+                    // Return error response to user with friendly message
+                    return $this->handleResponse(false, 
+                        'Failed to update your release. Please refresh page and submit again.'
+                    );
+                }
+            }
+
             $message = $result ? "Track title has been updated successfully." : "Failed to update track title. Please try again.";
             $success = $result ? true : false;
         } else {
@@ -355,6 +383,7 @@ class MusicRelease extends BaseController
 
         try {
             $track_index = $this->request->getPost('track_index');
+            $release_id = $this->request->getPost('release_id');
             $track_file_key = "track_file_{$track_index}";
 
             // Validate file
@@ -368,7 +397,7 @@ class MusicRelease extends BaseController
             $track_file = $this->request->getFile($track_file_key);
             $track_file_newName = $this->generateFileName(
                 $this->userID(), 
-                $track_file->getName()
+                str_replace('-', '_', $track_file->getName())
             );
 
             // Handle file upload
@@ -391,6 +420,18 @@ class MusicRelease extends BaseController
                 $track_link, 
                 $this->request->getPost('track_id')
             );
+
+            if($result){
+                $isUpdate=true;
+                if (!$this->handleBatchUploadToS3($release_id,$isUpdate)) {
+                    // Log error message if S3 bucket upload fails
+                    log_message('error', "Failed to update data to S3 bucket for release: ".$release_id);
+                    // Return error response to user with friendly message
+                    return $this->handleResponse(false, 
+                        'Failed to update your release. Please refresh page and submit again.'
+                    );
+                }
+            }
 
             return $this->handleResponse(
                 $result,
@@ -437,6 +478,7 @@ class MusicRelease extends BaseController
         }
 
         $track_index = $this->request->getPost('track_index');
+        $release_id = $this->request->getPost('release_id');
 
         // Build field names
         $fields = $this->buildTrackFieldNames($track_index);
@@ -453,6 +495,19 @@ class MusicRelease extends BaseController
 
         // Update track info
         $result = $this->music_release_model->update_music_track_info($trackData);
+
+        if($result){
+
+            $isUpdate=true;
+            if (!$this->handleBatchUploadToS3($release_id,$isUpdate)) {
+                // Log error message if S3 bucket upload fails
+                log_message('error', "Failed to update data to S3 bucket for release: ".$release_id);
+                // Return error response to user with friendly message
+                return $this->handleResponse(false, 
+                    'Failed to update your release. Please refresh page and submit again.'
+                );
+            }
+        }
 
         $message = $result 
         ? 'Track information updated successfully.'
@@ -473,6 +528,7 @@ class MusicRelease extends BaseController
             'lyricist' => "lyricist_{$track_index}",
             'isrc_code' => "isrc_code_{$track_index}",
             'explicit' => "explicit_{$track_index}",
+            'track_disc_number' => "track_disc_number_{$track_index}",
             'artist_name' => "artist_name_{$track_index}"
         ];
     }
@@ -491,6 +547,7 @@ class MusicRelease extends BaseController
             'composer' => $requestData[$fields['composer']],
             'lyricist' => $requestData[$fields['lyricist']],
             'isrc_code' => $requestData[$fields['isrc_code']],
+            'track_disc_number' => $requestData[$fields['track_disc_number']],
             'explicit' => $requestData[$fields['explicit']]
         ];
     }
@@ -516,6 +573,19 @@ class MusicRelease extends BaseController
             );
 
             if ($result) {
+
+                $release_id=$this->request->getPost('release_id');
+
+                $isUpdate=true;
+                if (!$this->handleBatchUploadToS3($release_id,$isUpdate)) {
+                    // Log error message if S3 bucket upload fails
+                    log_message('error', "Failed to update data to S3 bucket for release: ".$release_id);
+                    // Return error response to user with friendly message
+                    return $this->handleResponse(false, 
+                        'Failed to update your release. Please refresh page and submit again.'
+                    );
+                }
+
                 return $this->handleResponse(true, "Release has been successfully updated.");
             } else {
                 return $this->handleResponse(false, "Failed to update. Please refresh and try again.");

@@ -19,9 +19,9 @@ window.submitNotificationFormViaAjax = function (url){
         url: url,
         type: 'POST',
         data: formData,
-        processData: false, // Don't process the data
-        contentType: false, // Don't set content type (browser will set it)
-        timeout: 20000, // 10 seconds
+        processData: false, 
+        contentType: false,
+        timeout: 20000, // 20 seconds
         beforeSend: function() {
             // Show loading indicator while request is processing
             show_sweet2alert_loader("Processing...");
@@ -37,6 +37,7 @@ window.submitNotificationFormViaAjax = function (url){
                 // Show success message and close drawer
                 window.successMsg(response.message);
                 $('.notification-details-drawer').removeClass('open');
+                load_notification_on_page_load();
             } else {
                 // Show error message
                 window.errorMsg(response.message);
@@ -92,13 +93,19 @@ window.load_notification_dashboard_data = function() {
 
 window.fetchNotificationDashboardData = function (pageUrl){
 
-     // Abort any existing request
-     if (currentRequest && currentRequest.state() === 'pending') {
+    // Abort any existing request
+    if (currentRequest && currentRequest.state() === 'pending') {
         currentRequest.abort();
     }
+    var filter_by=$('#filter_by').val();
+    var search = $('#search').val();
     // Store the new request
     currentRequest = $.ajax({
         url: pageUrl,
+        data: {
+            search: search,
+            filter_by: filter_by,
+        },
         type: 'Get',
         timeout: 20000, // 20 second timeout
         beforeSend: function(jqXHR) {

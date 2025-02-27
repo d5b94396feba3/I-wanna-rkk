@@ -99,14 +99,17 @@ class ContactUs extends BaseController
         $email = \Config\Services::email();
 
         $email->setFrom($post_data['email'], $post_data['full_name']);
-        $email->setTo('artists@rokk.app'); 
+        $email->setTo('support@artist-login.rokk-app.de');
 
         $email->setSubject('ROKK Artist Contact Form Submission: ' . $post_data['subject']);
 
-        $message = "Name: " . $post_data['full_name'] . "\n";
-        $message .= "Email: " . $post_data['email'] . "\n";
-        $message .= "Person ID: " . $person_id . "\n\n";
-        $message .= "Message:\n" . $post_data['message'];
+        $message = sprintf(
+            "Name: %s\nEmail: %s\nPerson ID: %s\n\nMessage:\n%s",
+            $post_data['full_name'],
+            $post_data['email'], 
+            $person_id,
+            $post_data['message']
+        );
 
         $email->setMessage($message);
 

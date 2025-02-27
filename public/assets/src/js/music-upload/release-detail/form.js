@@ -29,7 +29,7 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('submit', '.updateCoverImageForm, #updateReleaseDetail, .updateTrackTitle', function(e) {
+    $(document).on('submit', '.updateCoverImageForm, .updateTrackTitle', function(e) {
         e.preventDefault();
         const $form = $(this);
         const title = $form.hasClass('updateCoverImageForm') ? 'UPDATE COVER IMAGE' :
@@ -38,6 +38,20 @@ $(document).ready(function() {
         
         showSwalConfirmation(title, html, $form);
     });
+
+   
+
+    $(document).on('submit', '#updateReleaseDetail', function(e) {
+        e.preventDefault();
+        if(validateReleaseFields()){
+            const $form = $(this);
+            const title = 'UPDATE RELEASE INFO';
+            const html = 'Are you sure you want to update the release info?';
+            
+            showSwalConfirmation(title, html, $form);
+        }
+    });
+
 
     $(document).on('submit', '.updateTrackInfo', function(e) {
         e.preventDefault();

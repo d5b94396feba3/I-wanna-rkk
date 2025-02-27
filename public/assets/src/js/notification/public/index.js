@@ -121,7 +121,7 @@ window.delete_selected_notification = function (notification_id) {
         timeout:20000, // 10 seconds timeout
         beforeSend: function (jqXHR) {
             // Show loading indicator while request processes
-            const message = "Processing...";
+            const message = "Deleting...";
             window.show_sweet2alert_loader(message);
         },
         success: function(response){

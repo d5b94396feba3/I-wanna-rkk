@@ -11,7 +11,7 @@
     background-position: right center;
     border-radius: 15px;
     color: #FFFFFFCC;
-    margin: -47px 0 0 -60px;
+    margin: -47px 0 0 0px;
     padding: 0;
     transition: background .3s ease, transform .3s ease;
     border: none !important;
@@ -27,22 +27,21 @@
 @keyframes placeHolderShimmer {
 
     0% {
-        background-position: -800px 0;
+        background-position: 0 0;
     }
     100% {
-        background-position: 800px 0;
+        background-position: 2000px 0;
     }
 }
 
 .pro-animated-background {
-    animation-duration: 2s;
+    animation-duration: 2.6s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
-    background: linear-gradient(to right, #131313 47.82%, rgba(17, 17, 17, 0) 100%);
-    background-size: 100% 100%, 100% 100%, contain;
-    background-position: right center;
+    background: linear-gradient(to right, #141414 0%, rgb(17 17 17 / 95%) 100%);
+    background-size: 200% 100%;
     height: 625px !important;
     border-radius: 1px;
     position: relative;
@@ -52,13 +51,18 @@
     overflow-y: hidden;
     background: rgba(30, 30, 30, 0.67);
     margin-top: 15px;
-    padding: 35px 66px 30px 35px;
-    height: 100% !important;
+    padding: 35px 0px 30px 0px;
     overflow-x: hidden;
     height: 30vh !important;
     border-radius: 10px;
     margin-left: 12px;
+    width: 97.5%;
 }
+
+.pro-selected-menu-container {
+    padding-left: 35px;
+}
+
 .main-container p {
     line-height: 1.6rem;
     color: #888;

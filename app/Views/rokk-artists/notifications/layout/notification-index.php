@@ -324,6 +324,7 @@ window.delete_selected_notification = function (notification_id) {
         }
         if (response.success) {
             window.successMsg(response.message);
+            window.load_notification_on_page_load();
         }else{
             window.errorMsg(response.message);
         }
@@ -372,6 +373,7 @@ window.update_artist_notification_status = function (notification_id,read_status
             if (response.success) {
                 window.successMsg(response.message);
                 $('.notification-details-drawer').removeClass('open');
+                window.load_notification_on_page_load();
             }else{
                 window.errorMsg(response.message);
             }

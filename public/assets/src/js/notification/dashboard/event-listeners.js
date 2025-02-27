@@ -30,6 +30,9 @@ $(document).on('click', '.add-notificaton-btn', function(event) {
     
     // Set ID to 0 since this is a new notification
     var id = 0;
+
+    // Prevent body scrolling when drawer is open
+    $('body').css('overflow', 'hidden');
     
     // Update the drawer fields with empty values for new notification
     window.update_notification_drawer_fields(click_btn, id);
@@ -48,7 +51,8 @@ $(document).on('click', '.edit-notificaton-btn', function(event) {
     var id = $(this).data("id");
     // Set click type to 'update' for editing existing notification
     var click_btn = 'update';
-
+    // Prevent body scrolling when drawer is open
+    $('body').css('overflow', 'hidden');
     // Update drawer fields and buttons for edit mode
     window.update_notification_drawer_fields(click_btn, id);
     // Update the drawer action button and icon to show update mode
@@ -60,18 +64,15 @@ $(document).on('click', '.edit-notificaton-btn', function(event) {
 });
 
 // Close drawer when clicking close button or icon
-$(document).on('click', '.close-drawer', function() {
+$(document).on('click', '.close-drawer, .close-drawer-btn', function() {
     $('.notification-details-drawer').removeClass('open');
-});
-
-$(document).on('click', '.close-drawer-btn', function() {
-    $('.notification-details-drawer').removeClass('open');
+    $('body').css('overflow', 'auto');
 });
 
 // Close notification and FAQ popups
 $(document).on('click', '.close-btn', function() {
     $('#NotifcationPOPUP').hide();
-    $('#fAQSecPopup').hide();
+    $('body').css('overflow', 'auto');
 });
 
 // Handle delete notification from drawer
@@ -99,6 +100,7 @@ $(document).on('click', '.drawer-delete-btn', function(event) {
     }).then((result) => {
         if (result.isConfirmed) {
             window.delete_selected_notification(notification_id);
+            $('body').css('overflow', 'auto');
         }
     });
 });
@@ -111,6 +113,9 @@ $(document).on('click', '.drawer-actions-submit-btn', function(event) {
     if (!window.validateNotificationForm()) {
         return false;
     }
+
+    $('body').css('overflow', 'auto');
+
 
     var url = window.location.origin + '/add_notification';
 
@@ -146,6 +151,9 @@ $(document).on('click', '.drawer-actions-update-btn', function(event) {
     if (!window.validateNotificationForm()) {
         return false;
     }
+
+    $('body').css('overflow', 'auto');
+
 
     var url = window.location.origin + '/update_notification';
 

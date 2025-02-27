@@ -26,7 +26,7 @@ trait AuthTrait
     }
 
 
-    protected function isAdminTrait()
+    protected function isAdmin()
     {
         $userRole = session('userrole');
         $config = config('Roles');

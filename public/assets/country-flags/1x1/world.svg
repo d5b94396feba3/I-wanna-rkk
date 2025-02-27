@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <rect width="512" height="512" fill="#2196f3"/>
+    <g fill="none" stroke="#ffffff">
+        <!-- Main circle/globe -->
+        <circle cx="256" cy="256" r="180" stroke-width="24"/>
+        
+        <!-- Curved latitude lines -->
+        <path d="M106 186c40-40 160-40 300 0" stroke-width="16"/>
+        <path d="M106 256c40-40 160-40 300 0" stroke-width="16"/>
+        <path d="M106 326c40-40 160-40 300 0" stroke-width="16"/>
+        
+        <!-- Longitude lines -->
+        <path d="M256 76v360" stroke-width="16"/>
+        <path d="M186 96c0 80-10 160 0 320" stroke-width="16"/>
+        <path d="M326 96c0 80 10 160 0 320" stroke-width="16"/>
+    </g>
+    
+    <!-- Optional: Add subtle highlight for 3D effect -->
+    <path d="M256 76a180 180 0 0 1 0 360" fill="rgba(255,255,255,0.1)" stroke="none"/>
+</svg>

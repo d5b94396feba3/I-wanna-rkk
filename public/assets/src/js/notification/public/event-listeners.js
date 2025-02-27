@@ -17,6 +17,9 @@ $(document).on('click', '.notification-list-item', function() {
     // Extract notification details from DOM
     var title = $notification.find('.notification-list-title span').text();
     var id = $notification.find('.notification-checkbox input').attr('id').replace('notification-', '');
+
+    // Prevent body scrolling when drawer is open
+    $('body').css('overflow', 'hidden');
     
     // Determine read status - '0' if active/unread, '1' if read
     var read = $(this).hasClass('active') ? '0' : '1';
@@ -45,6 +48,7 @@ $(document).on('click', '.notification-list-item', function() {
 // Close drawer - also using event delegation
 $(document).on('click', '.close-drawer', function() {
     $('.notification-details-drawer').removeClass('open');
+    $('body').css('overflow', 'auto');
 });
 
 // Handle mark as unread - using event delegation
@@ -52,7 +56,7 @@ $(document).on('click', '.mark-btn', function() {
     var $drawer = $('.notification-details-drawer');
     var notification_id = $drawer.attr('data-current-id');
     var read_status = $drawer.attr('data-read-status');
-
+    $('body').css('overflow', 'auto');
     if (notification_id && read_status !== undefined) {
         window.update_artist_notification_status(notification_id, read_status);
     } else {
@@ -88,6 +92,9 @@ $(document).on('click', '.delete', function(event) {
             // This will make an AJAX call to delete the notification from the database
             // and show a success/error message via SweetAlert2
             window.delete_selected_notification(notification_id);
+
+            $('body').css('overflow', 'auto');
+
         }
     });
 });

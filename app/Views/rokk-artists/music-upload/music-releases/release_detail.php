@@ -118,7 +118,7 @@ label {
     font-size: 14px;
 }
 
-input, select {
+input {
     width: 100%;
     padding: 10px;
     background-color: rgba(255,255,255,0.12);
@@ -134,10 +134,30 @@ input::placeholder {
 }
 
 select {
+    width: 100%;
+    padding: 10px;
+    background-color: #333 !important;
+    border: none;
+    border-radius: 55px !important;
+    color: #ffffff !important;
+    padding-left: 20px;
+    margin-top: 4px;
     appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;
+}
+.custom-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #333 !important;
+    border: none;
+    border-radius: 55px !important;
+    color: #ffffff !important;
+    padding-left: 20px;
+    margin-top: 4px;
+    cursor: pointer;
 }
 
 .btn-back{
@@ -998,6 +1018,129 @@ svg.right-arrow {
     gap: 10px;
 }
 
+.isrc-radio-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.isrc-label {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.popup-radio-group {
+    display: flex;
+    gap: 15px;
+}
+
+.inline-radio {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.inline-radio input[type="radio"] {
+    width: auto;
+    margin: 0;
+    cursor: pointer;
+}
+
+.main-container {
+    padding: 10px 5px 30px 80px !important;
+}
+
+
+.markets-select-container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 55px;
+    padding: 6px 16px;
+    margin-top: 9px;
+    padding-top: 10px;
+    padding-left: 18px;
+}
+#marketSearch:focus,
+#marketSearch:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+.selected-markets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.market-tag {
+    background-color: rgba(255,131,3,0.2);
+    color: #FF8303;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 1px;
+}
+
+.market-tag .remove-tag {
+    cursor: pointer;
+    color: #FF8303;
+    font-weight: bold;
+}
+
+#marketSearch {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+    padding: 6px;
+    margin: 0;
+}
+
+.markets-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #1E1E1E;
+    border: 1px solid #333;
+    border-radius: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.market-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.market-option:hover {
+    background-color: rgba(255, 131, 3, 0.1);
+}
+
+.flag-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.market-tag .flag-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+
 /* mobile responsiveness */
 
 @media (max-width: 868px){
@@ -1031,7 +1174,7 @@ window.config = {
 <script src="<?= base_url('assets/src/js/music-upload/release-detail/progress-bar.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/music-upload/release-detail/event-listeners.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/music-upload/release-detail/form.js') ?>"></script>
-
+<script src="<?= base_url('assets/src/js/music-upload/create-release/market-search.js') ?>"></script>
 
 <div class="main-container">
     <div class="music-upload-progress-bar">
@@ -1083,18 +1226,18 @@ window.config = {
             <form action="<?= base_url('update_music_release_cover_image') ?>" class="updateCoverImageForm" method="post" enctype="multipart/form-data">
                 <?= csrf_field() ?>
                 <input type="hidden" name="release_id" id="release_id" value="<?= esc($release_detail->release_id); ?>">
-                <input type="hidden" name="old_cover_image_link" id="old_cover_image_link" value="<?= $release_detail->image_link; ?>">
+                <input type="hidden" name="old_cover_image_link" id="old_cover_image_link" value="<?= $release_detail->artwork_link; ?>">
                 <div class="cover-upload-box" id="imageFileContainer">
                     <div class="image-placeholder" id="preview">
-                        <?php if (!empty($release_detail->image_link)): ?>
-                            <img src="<?= $release_detail->image_link; ?>" alt="Release cover">
+                        <?php if (!empty($release_detail->artwork_link)): ?>
+                            <img src="<?= $release_detail->artwork_link; ?>" alt="Release cover">
                         <?php else: ?>
                             <img src="<?php echo base_url('assets/images/image-cover.png');?>" alt="Upload icon">
                         <?php endif; ?>
                     </div>
                     <div class="upload-content">
                         <button class="img-upload-button">Upload Cover Image</button>
-                        <input type="file" name="image_link" id="image_link" value="<?= $release_detail->image_link; ?>" accept="image/*" style="display: none;" onchange="previewFile()" required>
+                        <input type="file" name="image_link" id="image_link" value="<?= $release_detail->artwork_link; ?>" accept="image/*" style="display: none;" onchange="previewFile()" required>
                         <p class="upload-instructions">
                             At least 800 x 800px recommended. PNG or JPG is allowed.<br>
                             Drag and Drop the image.
@@ -1115,15 +1258,23 @@ window.config = {
                     <label for="label">Release Title *</label>
                     <input type="text" name="release_title" id="release_title" value="<?= $release_detail->release_title; ?>" placeholder="Faith no more">
                 </div>
+            </div>
+
+            <div class="upload-form-row">
+                <div class="upload-popup-form-group">
+                    <label for="release_icpn">Release ICPN *</label>
+                    <input type="text" name="release_icpn" id="release_icpn" value="<?= $release_detail->release_icpn; ?>" placeholder="e.g. 1234567890123">
+                </div>
 
                 <div class="upload-popup-form-group">
                     <label for="genre">Genre *</label>
-                    <select name="genre" id="genre" required>
+                    <select name="genre" id="genre">
                         <option value="<?= $release_detail->genre; ?>" selected><?= $release_detail->genre; ?></option>
                     </select>
                 </div>
             </div>
-            
+
+
             <div class="upload-form-row">
                 <div class="upload-popup-form-group">
                     <label for="release_date">Release Date *</label>
@@ -1131,16 +1282,18 @@ window.config = {
                 </div>
                 <div class="upload-popup-form-group">
                     <label for="copyright">Copyright *</label>
-                    <select name="copyright" id="copyright" required>
-                        <option value="<?= $release_detail->copyright; ?>" selected><?= $release_detail->copyright; ?></option>
+                    <div class="custom-select">
                         <?php
-                        date_default_timezone_set("UTC");
-                        $current_year = date("Y");
-                        for ($copyright_year = 1964; $copyright_year <= $current_year; $copyright_year++) {
-                            echo '<option value="' . $copyright_year . '">' . $copyright_year . '</option>';
-                        }
+                            date_default_timezone_set("UTC");
+                            $current_year = date("Y");
+                            $years = range(1964, $current_year);
                         ?>
-                    </select>
+                        <select name="copyright" id="copyright">
+                            <?php foreach($years as $year): ?>
+                                <option value="<?= $year ?>"><?= $year ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="upload-popup-form-group">
                     <label for="language">Language *</label>
@@ -1188,7 +1341,7 @@ window.config = {
                         'vi' => 'Vietnamese'
                     );
                     ?>
-                    <select name="language" id="language" required>
+                    <select name="language" id="language">
                         <option value="<?= $release_detail->language; ?>" selected><?= $languages[$release_detail->language]; ?></option>
                         <?php foreach ($languages as $code => $name): ?>
                             <option value="<?= $code ?>"><?= $name ?></option>
@@ -1199,10 +1352,28 @@ window.config = {
 
             <div class="upload-form-row">
                 <div class="upload-popup-form-group">
+                    <label for="release_available_markets">Release Available Markets *</label>
+                    <div class="markets-select-container">
+                        <div class="selected-markets" id="selectedMarkets"></div>
+                        <input type="text" id="marketSearch" value="<?= $release_detail->release_available_markets; ?>" placeholder="Search countries...">
+                        <?php 
+                        // Include the country selection dropdown component
+                        // This file contains the HTML for displaying country flags and names
+                        // Used for selecting available markets for the release
+                        include __DIR__ . '/../section/country-select.php'; 
+                        ?>
+                        <input type="hidden" name="release_available_markets" id="release_available_markets" value="test">
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload-form-row">
+                <div class="upload-popup-form-group">
                     <label for="copyright_desc">Additional Copyright Information</label>
                     <input type="text" id="copyright_desc" name="copyright_desc" value="<?= $release_detail->copyright_desc; ?>" placeholder="e.g. ℗ 2024 Artist Name. All rights reserved.">
                 </div>
             </div>
+
             <button type="submit" class="release-info-update-btn">Update</button>  
         </form>
         
@@ -1249,7 +1420,7 @@ window.config = {
                     </div>
                     <div class="col-md-3 col-sm-12 col-lg-3">
                         <div class="track-input-group">
-                            <label for="track-info-2">Track Info *</label>
+                            <label for="track-info-2">Track Info (Composer etc.) </label>
                             <div class="input-with-icon">
                                 <div class="track-info-save-<?= $index+1; ?>" style="display:none;">
                                     <input type="text" id="track-info-1" value="Added" readonly>
@@ -1260,7 +1431,7 @@ window.config = {
                                     </span>
                                 </div>
                                 <div class="track-info-unsave-<?= $index+1; ?>">
-                                    <input type="text" id="track-info-2" placeholder="Update Info" readonly>
+                                    <input type="text" id="track-info-2" placeholder="Update details here" readonly>
                                     <span class="add-info-popup-btn" data-popup_id=<?= $index+1; ?>>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z" fill="white" fill-opacity="0.3"/>
@@ -1272,7 +1443,7 @@ window.config = {
                     </div>
                         <div class="col-md-3 col-sm-12 col-lg-3">
                             <div class="track-input-group">
-                                <label for="audio-file-2">Update Audio File *</label>
+                                <label for="audio-file-2">Update Audio File</label>
                                 <div class="input-with-icon">
                                     <div class="track-audio-uploaded-<?= $index+1; ?>" style="display:none;">
                                         <input type="text" id="audio-file-1" value="Uploaded" readonly>
@@ -1338,17 +1509,21 @@ window.config = {
                                         <label for="isrc">ISRC Code *</label>
                                         <input type="text" value="<?= $track['isrc_code']; ?>" name="isrc_code_<?= $index+1; ?>" id="isrc_code_<?= $index+1; ?>" value="" placeholder="XXXX-XXXX">
                                     </div>
+                                    <div class="popup-form-group">
+                                     <label for="Disc">Disc Number *</label>
+                                     <input type="number" value="<?= $track['track_disc_number']; ?>" name="track_disc_number_<?= $index+1; ?>" id="track_disc_number_<?= $index+1; ?>" placeholder="e.g. 1, 2, 3">
+                                    </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="popup-form-group">
-                                        <label>Explicit *</label>
+                                    <div class="popup-form-group isrc-radio-container">
+                                        <label class="isrc-label">I have an ISRC Code </label>
                                         <div class="popup-radio-group">
-                                            <label class="popup-radio-label">
-                                                <input type="radio" name="explicit_<?= $index+1; ?>" id="explicit_<?= $index+1; ?>" value="yes" <?= $track['explicit'] == 'yes' ? 'checked' : ''; ?>>
+                                            <label class="popup-radio-label inline-radio">
+                                                <input type="radio" name="explicit_<?= $index+1; ?>" id="explicit_<?= $index+1; ?>" value="yes">
                                                 Yes
                                             </label>
-                                            <label class="popup-radio-label">
-                                                <input type="radio" name="explicit_<?= $index+1; ?>" id="explicit_<?= $index+1; ?>" value="no" <?= $track['explicit'] == 'no' ? 'checked' : ''; ?>> No
+                                            <label class="popup-radio-label inline-radio">
+                                                <input type="radio" name="explicit_<?= $index+1; ?>" id="explicit_<?= $index+1; ?>" value="no" checked> No
                                             </label>
                                         </div>
                                     </div>

@@ -25,6 +25,7 @@
   <script src="<?= base_url('assets/src/js/header/header.js') ?>"></script>
   <script src="<?= base_url('assets/src/js/header/notification.js') ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
 
 <script type="text/javascript">
     // Set shouldBeOpen flag to true if current page is music releases or create release

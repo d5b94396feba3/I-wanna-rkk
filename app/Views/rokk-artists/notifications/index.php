@@ -31,23 +31,22 @@
 @keyframes placeHolderShimmer {
 
     0% {
-        background-position: -800px 0;
+        background-position: 0 0;
     }
     100% {
-        background-position: 800px 0;
+        background-position: 2000px 0;
     }
 }
 
 .account-animated-background {
-    animation-duration: 2s;
+    animation-duration: 2.6s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
-    background: linear-gradient(to right, #111 47.82%, rgba(17, 17, 17, 0) 100%);
-    background-size: 100% 100%, 100% 100%, contain;
-    background-position: right center;
-    height: 100vh !important;
+    background: linear-gradient(to right, #141414 0%, rgb(17 17 17 / 95%) 100%);
+    background-size: 200% 100%;
+    height: 750px !important;
     border-radius: 1px;
     position: relative;
 }

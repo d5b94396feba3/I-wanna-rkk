@@ -16,6 +16,8 @@ $(document).ready(function() {
         var form = $('.faq-details-drawer #FAQSecForm')[0];
         var active_section='faq-sec';
         var url = `${baseLocation}/update_faq_section`;
+
+        $('body').css('overflow', 'auto');
     
         // Set confirmation dialog text based on form type (add vs update)
         var form_type = $('#faqsec-hidden').val();
@@ -71,6 +73,8 @@ $(document).ready(function() {
         var active_section='faq-question';
         var url = `${baseLocation}/update_faq_question`;
     
+        $('body').css('overflow', 'auto');
+
         // Set confirmation dialog text based on form type (add vs update)
         var form_type = $('#faq-hidden').val();
         var title="";

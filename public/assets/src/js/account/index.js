@@ -11,12 +11,13 @@
         
         // Hide all account menu containers initially
         $('.account-selected-menu-container').hide();
+        $('#account-content-placeholder').hide();
 
         // Show the first section of the account page by default
-        $('.secid-1').show();
+        $('.secid-1').hide();
         // Creating an array of promises for each AJAX request
         const promises = [
-            load_account_administrator_data_onPageLoad(),
+            // load_account_administrator_data_onPageLoad(),
             load_artist_connected_account_data_OnPageLoad(),
             load_password_deletion_data_onPageLoad()
         ];
@@ -24,7 +25,8 @@
         // Wait for all AJAX requests to complete before hiding the loader
         Promise.all(promises)
             .then(() => {
-                // $("#ajax_loader").fadeOut("slow");
+                $('#account-content-placeholder').hide();
+                $('.secid-1').show();
             })
             .catch((error) => {
                 console.log("Error:", error);
@@ -33,6 +35,7 @@
         setTimeout(function() {
             $('.alert').fadeOut('slow');
         }, 2000);
+        
 
         // Add click event handler for account navigation links
         $('.account-nav-link').on('click', function(e) {
@@ -68,7 +71,7 @@
             type: 'get',
             timeout:20000, // 20 seconds
             beforeSend: function (jqXHR) {
-                $('#account-content-placeholder').show();
+                // $('#account-content-placeholder').show();
             },
             success: function(response) {
                 $('.secid-1').html(response.administrator_data);

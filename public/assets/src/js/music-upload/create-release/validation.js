@@ -24,13 +24,24 @@ window.validateDynamicTrackFields = function(num_of_track) {
         let isValid = true;
 
         for (let i = 1; i <= num_of_track; i++) {
+            
             let trackTitle = $("#track_title_"+i).val();
+            let popup_artist_name_ = $("#popup_artist_name_"+i).val();
+            let popupTrackTitle = $("#popup_track_title_"+i).val(); 
             let features = $("#features_"+i).val(); 
             let composer = $("#composer_"+i).val();
             let lyricist = $("#lyricist_"+i).val();
             let isrcCode = $("#isrc_code_"+i).val();
             let explicit = $("#explicit_"+i).val();
+            let track_disc_number = $("#track_disc_number_"+i).val();
             let track_file = $(`#track_file_${i}`).val();
+
+            if (popup_artist_name_ === '') {
+                showRequiredFieldErrorMsg("#popup_artist_name_" + i);
+                isValid = false;
+            } else {
+                removeRequiredFieldErrorMsg("#popup_artist_name_" + i);
+            }
 
             if (trackTitle === '') {
                 showRequiredFieldErrorMsg("#track_title_" + i);
@@ -38,6 +49,14 @@ window.validateDynamicTrackFields = function(num_of_track) {
             } else {
                 removeRequiredFieldErrorMsg("#track_title_" + i);
             }
+
+            if (popupTrackTitle === '') {
+                showRequiredFieldErrorMsg("#popup_track_title_" + i);
+                isValid = false;
+            } else {
+                removeRequiredFieldErrorMsg("#popup_track_title_" + i);
+            }
+
             if (composer === '') {
                 showRequiredFieldErrorMsg("#composer_" + i);
                 showRequiredFieldErrorMsg(".track-info-box");
@@ -62,17 +81,27 @@ window.validateDynamicTrackFields = function(num_of_track) {
                 removeRequiredFieldErrorMsg("#isrc_code_" + i);
                 removeRequiredFieldErrorMsg(".track-info-box");
             }
+            if (track_disc_number === '') {
+                showRequiredFieldErrorMsg("#track_disc_number_"+i);
+                showRequiredFieldErrorMsg(".track-info-box");
+                isValid = false;
+            } else {
+                removeRequiredFieldErrorMsg("#track_disc_number_"+i);
+                removeRequiredFieldErrorMsg(".track-info-box");
+            }
             if (track_file === '') {
                 showRequiredFieldErrorMsg("#track_file_"+i);
-                showRequiredFieldErrorMsg(".track-upload-box");
+                showRequiredFieldErrorMsg(".track-upload-box-"+i);
                 isValid = false;
             } else {
                 removeRequiredFieldErrorMsg("#track_file_"+i);
-                removeRequiredFieldErrorMsg(".track-upload-box");
+                removeRequiredFieldErrorMsg(".track-upload-box-"+i);
             }
         }
         return isValid;
-    }
+}
+
+
 
 // Define the function globally
 window.validateTrackInputField= function(id) {
@@ -89,21 +118,32 @@ window.validateTrackInputField= function(id) {
 
 // Define the function globally
 window.check_popup_input_fields = function(id) {
-        const fields = ['composer', 'lyricist', 'isrc_code'];
-        let isValid = true;
-    
-        fields.forEach(field => {
-            const value = $(`#${field}_${id}`).val().trim();
-            if (value === '') {
-                showRequiredFieldErrorMsg(`#${field}_${id}`);
-                isValid = false;
-            } else {
-                removeRequiredFieldErrorMsg(`#${field}_${id}`);
+    const fields = ['popup_artist_name', 'composer', 'lyricist', 'isrc_code', 'track_disc_number','popup_track_title'];
+    let isValid = true;
+
+    fields.forEach(field => {
+        const value = $(`#${field}_${id}`).val();
+        if (value === '') {
+            showRequiredFieldErrorMsg(`#${field}_${id}`);
+            isValid = false;
+        } else {
+            if(field=='popup_track_title')
+            {
+              update_track_title(value, id);
             }
-        });
-    
-        return isValid ? 1 : 0;
+            removeRequiredFieldErrorMsg(`#${field}_${id}`);
+        }
+    });
+
+    return isValid ? 1 : 0;
+}
+
+window.update_track_title = function(value, id) {
+    let track_value=$(`#track_title_${id}`).val(value); 
+    if(track_value !=''){
+        $(`#track_title_${id}`).val(value); 
     }
+}
 
 
 });

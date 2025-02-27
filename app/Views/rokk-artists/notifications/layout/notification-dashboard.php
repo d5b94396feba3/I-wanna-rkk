@@ -448,7 +448,7 @@
 
 <?php }else: ?>
 <div class="no-result-container">
-   <p class="no-result-message">No notification found.</p>
+   <p class="no-result-message">You haven't missed anything yet! We'll let you know as soon as there's something new.</p>
 </div>
 <?php endif; ?>
 
@@ -484,6 +484,7 @@ window.delete_selected_notification = function (id) {
           if (response.success) {
               window.successMsg(response.message);
               $('.notification-details-drawer').removeClass('open');
+              window.load_notification_on_page_load();
           } else {
               window.errorMsg(response.message);
           }

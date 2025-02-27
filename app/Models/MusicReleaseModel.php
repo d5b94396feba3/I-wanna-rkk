@@ -132,7 +132,7 @@ class MusicReleaseModel extends Model
 
             $query = $this->db
                 ->table("artist_track")
-                ->select("artist_track.*, artist_release.image_link, artist_release.artist_name, artist_release.genre, artist_release.release_date, artist_release.release_title")
+                ->select("artist_track.*, artist_release.artwork_link, artist_release.artist_name, artist_release.genre, artist_release.release_date, artist_release.release_title")
                 ->join("artist_release", "artist_release.release_id = artist_track.release_id")
                 ->where(["artist_track.artist_id" => $artist_id])
                 ->limit($limit)
@@ -154,7 +154,7 @@ class MusicReleaseModel extends Model
         try {
             $query = $this->db
             ->table("artist_track")
-            ->select("artist_track.*, artist_release.image_link, artist_release.artist_name, artist_release.genre, artist_release.language, artist_release.release_date, artist_release.release_title, artist_release.copyright, artist_release.copyright_desc, artist_release.updated, artist_release.status")
+            ->select("artist_track.*, artist_release.artwork_link, artist_release.artist_name, artist_release.genre, artist_release.language, artist_release.release_date, artist_release.release_title, artist_release.copyright, artist_release.copyright_desc, artist_release.updated, artist_release.status")
             ->join("artist_release", "artist_release.release_id = artist_track.release_id")
             ->where(["artist_track.track_id" => $track_id, "artist_release.release_id" => $release_id])
             ->limit($limit)
@@ -173,7 +173,7 @@ class MusicReleaseModel extends Model
         try {
             $query = $this->db
             ->table("artist_track")
-            ->select("artist_track.*, artist_release.image_link, artist_release.artist_name, artist_release.genre, artist_release.language, artist_release.release_date, artist_release.release_title, artist_release.copyright, artist_release.copyright_desc, artist_release.updated, artist_release.status")
+            ->select("artist_track.*, artist_release.artwork_link, artist_release.artist_name, artist_release.genre, artist_release.language, artist_release.release_date, artist_release.release_title, artist_release.copyright, artist_release.copyright_desc, artist_release.updated, artist_release.status")
             ->join("artist_release", "artist_release.release_id = artist_track.release_id")
             ->where(["artist_track.track_id" => $track_id, "artist_release.release_id" => $release_id])
             ->limit($limit)
@@ -192,7 +192,7 @@ class MusicReleaseModel extends Model
         try {
             $query = $this->db
             ->table("artist_track")
-            ->select("artist_track.*, artist_release.image_link, artist_release.artist_name, artist_release.genre, artist_release.language, artist_release.release_date, artist_release.release_title, artist_release.copyright, artist_release.copyright_desc, artist_release.updated, artist_release.status")
+            ->select("artist_track.*, artist_release.artwork_link, artist_release.artist_name, artist_release.genre, artist_release.language, artist_release.release_date, artist_release.release_title, artist_release.copyright, artist_release.copyright_desc, artist_release.updated, artist_release.status")
             ->join("artist_release", "artist_release.release_id = artist_track.release_id")
             ->where(["artist_track.track_id" => $track_id, "artist_release.release_id" => $release_id])
             ->limit($limit)
@@ -267,7 +267,7 @@ class MusicReleaseModel extends Model
         }
     }
 
-    public function update_music_release_cover_image($postData,$image_link)
+    public function update_music_release_cover_image($postData, $image_newName, $image_link)
     {
         try {
             $release_id = trim($postData["release_id"]);
@@ -277,7 +277,8 @@ class MusicReleaseModel extends Model
             $updated = date("Y/m/d");
 
             $data = [
-                "image_link" => $image_link,
+                "artwork_file_name" => $image_newName,
+                "artwork_link" => $image_link,
                 "updated" => $updated,
             ];
 
@@ -315,6 +316,7 @@ class MusicReleaseModel extends Model
                 'lyricist' => $trackData['lyricist'],
                 'isrc_code' => $trackData['isrc_code'],
                 'explicit' => $trackData['explicit'],
+                'track_disc_number' => $trackData['track_disc_number'],
                 'updated' => $updated
             ];
 
@@ -406,7 +408,8 @@ class MusicReleaseModel extends Model
             $release_date = trim($postData["release_date"]);
             $copyright = trim($postData["copyright"]);
             $copyright_desc = trim($postData["copyright_desc"]);
-
+            $release_icpn = trim($postData["release_icpn"]);
+            $release_available_markets = trim($postData["release_available_markets"]);
             // Set the timezone explicitly before using strtotime and date functions
             date_default_timezone_set("UTC");
             $updated = date("Y/m/d");
@@ -416,6 +419,8 @@ class MusicReleaseModel extends Model
                 "genre" => $genre,
                 "language" => $language,
                 "release_date" => $release_date,
+                "release_icpn" => $release_icpn,
+                "release_available_markets" => $release_available_markets,
                 "copyright" => $copyright,
                 "copyright_desc" => $copyright_desc,
                 "updated" => $updated,

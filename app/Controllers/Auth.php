@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\AuthModel;
 use App\Models\AccountSettingModel;
 use CodeIgniter\Controller;
-use App\Traits\InputFieldsValidationTrait;
+use App\Traits\InputValidationTrait;
 
 class Auth extends BaseController
 {
@@ -16,7 +16,7 @@ class Auth extends BaseController
     protected $account_setting_model;
     protected $throttler;
 
-    use InputFieldsValidationTrait;
+    use InputValidationTrait;
 
 
     public function __construct()
@@ -30,19 +30,21 @@ class Auth extends BaseController
 
     public function index()
     {
-        $data['active_nav'] = 'dashbaord';
-        // get recaptcha site key from env
-        $data['recaptcha_site_key'] = getenv('RECAPTCHA_SITE_KEY');
+        $data = [
+            'release_detail' => '',
+            'active_nav' => 'dashbaord',
+            'recaptcha_site_key' => getenv('RECAPTCHA_SITE_KEY')
+        ];
 
         if (!$this->authenticated()) {
             return view('rokk-artists/login', $data);
-            
-        } else {
-            // load the view
-            return view('rokk-artists/layout/header', $data)
-            . view('rokk-artists/dashboard/index', $data)
-            . view('rokk-artists/layout/footer');
         }
+        
+        $view = is_admin() ? 'rokk-artists/dashboard/admin_index' : 'rokk-artists/dashboard/user_index';
+        
+        return view('rokk-artists/layout/header', $data)
+            . view($view, $data)
+            . view('rokk-artists/layout/footer');
 
     }
 
@@ -258,8 +260,8 @@ class Auth extends BaseController
     {
         $email = \Config\Services::email();
     
-        $email->setFrom('info@coldstorageservice.com', "ROKK ARTIST"); 
-        $email->setTo($userEmail); 
+        $email->setFrom('support@artist-login.rokk-app.de', "ROKK ARTIST"); 
+        $email->setTo($userEmail);
     
         $email->setSubject('NEW PASSWORD FOR YOUR ROKK ACCOUNT');
     
