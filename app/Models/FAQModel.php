@@ -125,96 +125,6 @@ class FAQModel extends Model
         }
     }
 
-    public function update_faq_section($postData)
-    {
-        try {
-
-            $name = trim($postData["name"]);
-            $url = trim($postData["url"]);
-            $prio = trim($postData["prio"]);
-
-            $hidden_type = trim($postData["faqsec-hidden"]);
-            $id = trim($postData["faqsec-hidden-id"]);
-        
-            // Set the timezone explicitly before using strtotime and date functions
-            date_default_timezone_set("UTC");
-            $updated = date("Y/m/d");
-
-            $data = [
-                "name" => $name,
-                "url" => $url,
-                "prio" => $prio,
-                "updated" => $updated,
-            ];
-
-            if ($hidden_type === "update") {
-                $query = $this->db
-                    ->table("faq_section")
-                    ->where("id", $id)
-                    ->update($data);
-            } else {
-                $query = $this->db
-                    ->table("faq_section")
-                    ->insert($data);
-            }
-
-            return $this->db->affectedRows() > 0;
-        } catch (\Exception $e) {
-            // Log the error
-            log_message(
-                "error",
-                "Error in add_faq_section: " . $e->getMessage()
-            );
-            return false;
-        }
-    }
-
-    public function update_faq_question($postData)
-    {
-        try {
-            $faq_section_id = trim($postData["faq_section_id"]);
-            $question = trim($postData["question"]);
-            $answer = trim($postData["answer"]);
-            $prio = trim($postData["prio"]);
-            $updated_by = trim($postData["updated_by"]);
-
-            $hidden_type = trim($postData["faq-hidden"]);
-            $id = trim($postData["faq-hidden-id"]);
-        
-            // Set the timezone explicitly before using strtotime and date functions
-            date_default_timezone_set("UTC");
-            $updated = date("Y/m/d");
-
-            $data = [
-                "faq_section_id" => $faq_section_id,
-                "question" => $question,
-                "answer" => $answer,
-                "prio" => $prio,
-                "updated" => $updated,
-                "updated_by" => $updated_by,
-            ];
-
-            if ($hidden_type === "update") {
-                $query = $this->db
-                    ->table("faq_question")
-                    ->where("id", $id)
-                    ->update($data);
-            } else {
-                $query = $this->db
-                    ->table("faq_question")
-                    ->insert($data);
-            }
-
-            return $this->db->affectedRows() > 0;
-        } catch (\Exception $e) {
-            // Log the error
-            log_message(
-                "error",
-                "Error in update_faq_question: " . $e->getMessage()
-            );
-            return false;
-        }
-    }
 
     function get_selected_faq_sec_dashboard_data($id){
 
@@ -249,41 +159,6 @@ class FAQModel extends Model
             return false;     
         }
 
-    }
-
-    public function delete_faq_section_by_id($postData)
-    {
-        try {
-            $id = trim($postData["id"]);
-
-            $query = $this->db->table('faq_section')
-                ->where(['id' => $id])
-                ->delete();
-                log_message('info', 'delete_faq_section_by_id: ' . $id);
-
-            return $this->db->affectedRows() > 0;
-        } catch (\Exception $e) {
-            // Log the error 
-            log_message('error', 'Error in delete_faq_section_by_id: ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function delete_faq_question_by_id($postData)
-    {
-        try {
-
-            $id = trim($postData["id"]);
-
-            // Delete the section
-            $result = $this->db->table('faq_question')->where('id', $id)->delete();
-
-            return $this->db->affectedRows() > 0;
-        } catch (\Exception $e) {
-            // Log the error 
-            log_message('error', 'Error in delete_faq_question_by_id: ' . $e->getMessage());
-            return false;
-        }
     }
 
 

@@ -145,22 +145,6 @@ $routes->group('', function($routes) {
     });
 });
 
-
-// Admin dashboard's Registered Artist Routes
-$routes->group('', function($routes) {
-    // GET endpoints
-    $routes->get("artist_dashboard", "DashboardAdmin::artist_dashboard");
-    $routes->get("DashboardAdmin/ajax_registered_artists_data", "DashboardAdmin::ajax_registered_artists_data");
-    $routes->get("DashboardAdmin/ajax_count_registered_artists_data", "DashboardAdmin::ajax_count_registered_artists_data");
-    $routes->get("DashboardAdmin/ajax_count_link_status_data", "DashboardAdmin::ajax_count_link_status_data");
-    $routes->get("DashboardAdmin/ajax_selected_artist_data", "DashboardAdmin::ajax_selected_artist_data");
-
-    // Throttled endpoints
-    $routes->group('', ['filter' => 'throttle:3,60'], function($routes) {
-        $routes->match(['post', 'get'], "update_artist", "DashboardAdmin::update_artist");
-    });
-});
-
 // Contact Us Routes
 $routes->group('', function($routes) {
     // GET endpoints
@@ -178,35 +162,16 @@ $routes->group('', function($routes) {
     $routes->get("faqs", "Faqs::index");
     $routes->get("faqs_dashboard", "Faqs::faqs_dashboard");
     $routes->get("Faqs/ajax_faq_question_index_data", "Faqs::ajax_faq_question_index_data");
-    $routes->get("Faqs/ajax_faq_section_dashboard_data", "Faqs::ajax_faq_section_dashboard_data"); 
-    $routes->get("Faqs/ajax_faq_question_dashboard_data", "Faqs::ajax_faq_question_dashboard_data");
-    $routes->get("Faqs/ajax_selected_faq_question_dashboard_data", "Faqs::ajax_selected_faq_question_dashboard_data");
-    $routes->get("Faqs/ajax_selected_faq_sec_dashboard_data", "Faqs::ajax_selected_faq_sec_dashboard_data");
-
-    // Throttled endpoints
-    $routes->group('', ['filter' => 'throttle:3,60'], function($routes) {
-        $routes->match(['post', 'get'], "update_faq_section", "Faqs::update_faq_section");
-        $routes->match(['post', 'get'], "update_faq_question", "Faqs::update_faq_question");
-    });
-
-    // POST endpoints
-    $routes->post("Faqs/delete_faq_section", "Faqs::delete_faq_section");
-    $routes->post("Faqs/delete_faq_question", "Faqs::delete_faq_question");
 });
 
 // Notification Routes
 $routes->group('', function($routes) {
     // GET endpoints
     $routes->get("notification", "Notification::index");
-    $routes->get("notification_dashboard", "Notification::notification_dashboard");
-    $routes->get("Notification/ajax_notification_dashboard_data", "Notification::ajax_notification_dashboard_data");
-    $routes->get("Notification/ajax_selected_notification_data", "Notification::ajax_selected_notification_data");
     $routes->get("Notification/ajax_artist_notification_index", "Notification::ajax_artist_notification_index");
     $routes->get("Notification/notification_header", "Notification::notification_header");
-    $routes->get("Notification/(:num)", "Notification::release_detail_index/$1");
 
     // POST endpoints
-    $routes->post("add_notification", "Notification::add_notification");
     $routes->post("Notification/delete_notification", "Notification::delete_notification");
 
     // Throttled endpoints

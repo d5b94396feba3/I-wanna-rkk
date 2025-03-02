@@ -73,12 +73,6 @@ class AccountSetting extends BaseController
             return $this->handleUnauthorized();
         }
 
-        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
-        }
-
         if ($this->request->getMethod() !== "post" || !$this->validatePersonProfileImg($this->request)) {
             return $this->handleResponse(false, 'File upload failed. Please refresh and try again.');
         }
@@ -121,11 +115,6 @@ class AccountSetting extends BaseController
             return $this->handleUnauthorized();
         }
 
-        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
-        }
 
         if ($this->request->getMethod() !== "post" || !$this->validateArtistLogoImg($this->request)) {
             return $this->handleResponse(false, 'File upload failed. Please refresh and try again.');
@@ -166,12 +155,6 @@ class AccountSetting extends BaseController
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
         }
-
-        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
-        }
     
         if ($this->request->getMethod() !== "post" || !$this->validateArtistSettingFields($this->request)) {
             return $this->handleResponse(false,
@@ -198,12 +181,6 @@ class AccountSetting extends BaseController
         // Early returns for authentication and validation
         if (!$this->authenticated()) {  
             return $this->handleUnauthorized();
-        }
-
-        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
         }
 
         $role = $this->request->getPost("role");
@@ -244,12 +221,6 @@ class AccountSetting extends BaseController
         // Early returns for authentication and validation
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
-        }
-
-        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
         }
 
         if ($this->request->getMethod() !== "post" || !$this->validateSocialMediaFields($this->request)) {

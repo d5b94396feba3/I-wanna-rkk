@@ -134,156 +134,6 @@ class Notification extends BaseController
         return view("rokk-artists/notifications/layout/notification-dashboard", $data);
     }
 
-
-    public function add_notification()
-    {
-
-        $validation = \Config\Services::validation();
-
-        $route="notification_dashboard";
-        $success_msg="";
-        $success_msg = "Notification has been added successfully.";
-        $error_msg="Failed to submit the form, try again.";
-
-        $validation->setRules([
-            "title" => "required|max_length[255]",
-            "imgUrl" => "max_length[255]",
-            "content" => "required|max_length[1000]",
-            "types" => "required|max_length[15]",
-            "status" => "required|max_length[15]"
-        ]);
-
-        if (!$this->authenticated()) {
-            return $this->handleUnauthorized();
-        } elseif (
-            $this->request->getMethod() === "post" &&
-            $validation->withRequest($this->request)->run() && $this->isAdmin()
-        ) {
-
-            $result = $this->notification_model->add_notification(
-                $this->request->getPost()
-            );
-
-            if ($result) {
-                return $this->handleResponse(true, $success_msg);
-            } else {
-                return $this->handleResponse(false, $error_msg);
-            }
-
-        } else {
-                // Log validation errors
-                $errors = $validation->getErrors();
-                $errorString = implode(" ", $errors);
-                return $this->handleResponse(false, $errorString);
-        }
-    }
-
-
-    public function update_notification()
-    {
-
-        $validation = \Config\Services::validation();
-
-        $route="notification_dashboard";
-        $success_msg="Notification updated successfully.";
-        $error_msg="Failed to submit the form, try again.";
-
-        $validation->setRules([
-            "title" => "required|max_length[255]",
-            "imgUrl" => "max_length[255]",
-            "content" => "required|max_length[1000]",
-            "types" => "required|max_length[15]",
-            "status" => "required|max_length[15]"
-        ]);
-
-        if (!$this->authenticated()) {
-            return $this->handleUnauthorized();
-        }
-        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
-        }
-        elseif (
-            $this->request->getMethod() === "post" &&
-            $validation->withRequest($this->request)->run() && $this->isAdmin()
-        ) {
-
-            $result = $this->notification_model->update_notification(
-                $this->request->getPost()
-            );
-
-            if ($result) {
-                return $this->handleResponse(true, $success_msg);
-            } else {
-                return $this->handleResponse(false, $error_msg);
-            }
-
-        } else {
-                // Log validation errors
-                $errors = $validation->getErrors();
-                $errorString = implode(" ", $errors);
-                return $this->handleResponse(false, $errorString);
-        }
-    }
-
-
-    public function submit_notification()
-    {
-
-        $validation = \Config\Services::validation();
-
-        $route="notification_dashboard";
-        $hidden_type = $this->request->getPost("request-type");
-        $request_type="add";
-        $success_msg="";
-        if($hidden_type==$request_type){
-            $success_msg = "Notification has been added successfully.";
-        }else{
-            $success_msg = "Notification has been updated successfully.";
-        }
-        $error_msg="Failed to submit the form, try again.";
-
-        $validation->setRules([
-            "title" => "required|max_length[255]",
-            "imgUrl" => "max_length[255]",
-            "content" => "required|max_length[1000]",
-            "types" => "required|max_length[15]",
-            "status" => "required|max_length[15]"
-        ]);
-
-        if (!$this->authenticated()) {
-            return $this->handleUnauthorized();
-        } elseif (
-            $this->request->getMethod() === "post" &&
-            $validation->withRequest($this->request)->run() && $this->isAdmin()
-        ) {
-
-            $result = $this->notification_model->submit_notification(
-                $this->request->getPost()
-            );
-
-            if ($result) {
-                return redirect()
-                ->to($route)
-                ->with("success-msg", $success_msg);
-                
-            } else {
-                return redirect()
-                    ->to($route)
-                    ->with("error-msg", $error_msg);
-            }
-
-        } else {
-                // Log validation errors
-                $errors = $validation->getErrors();
-                $errorString = implode(" ", $errors);
-                return redirect()
-                    ->to($route)
-                    ->with("error-msg", "Form validation failed, try again." . $errorString);
-        }
-    }
-
     function ajax_selected_notification_data(){
         
         if (!$this->authenticated()) {
@@ -325,11 +175,6 @@ class Notification extends BaseController
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
         }
-        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
-        }
         elseif (
             $this->request->getMethod() === "post"
         ) {
@@ -354,11 +199,6 @@ class Notification extends BaseController
         
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
-        }
-        elseif ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to update content."
-            );
         }
         elseif (
             $this->request->getMethod() === "post"
@@ -387,12 +227,6 @@ class Notification extends BaseController
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
         }
-        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to delete content."
-            );
-        }
-
         // allowed role(s) for this action
         $allowed_roles = ['admin'];
         $user_role = session("userrole");
@@ -400,19 +234,19 @@ class Notification extends BaseController
 
         if ($this->request->getMethod() === "post") {
 
-                $result = $this->notification_model->delete_notification(
-                    $this->request->getPost(),
-                    $allowed_roles,
-                    $user_role,
-                    $userid
-                );
+            $result = $this->notification_model->delete_notification(
+                $this->request->getPost(),
+                $allowed_roles,
+                $user_role,
+                $userid
+            );
 
-                if ($result) {
-                    return $this->handleResponse(true, $success_msg);
-                } else {
-                    return $this->handleResponse(false, $error_msg);
-                }
+            if ($result) {
+                return $this->handleResponse(true, $success_msg);
+            } else {
+                return $this->handleResponse(false, $error_msg);
             }
+        }
 
         return $this->handleResponse(false, 'Invalid request method.');
     }

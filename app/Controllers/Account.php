@@ -262,12 +262,6 @@ class Account extends BaseController
             return $this->handleUnauthorized();
         }
 
-        if ($this->isAdmin() && !$this->hasPermission('manage_content')) {
-            return $this->handleResponse(false,
-                "You do not have permission to delete account."
-            );
-        }
-
         if ($this->request->getMethod() !== "post" || !$this->validateDeleteAccountFields($this->request)) {
             return $this->handleResponse(false,
                 "Please provide your current password to delete your account."

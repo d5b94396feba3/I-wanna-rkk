@@ -39,11 +39,9 @@ class Auth extends BaseController
         if (!$this->authenticated()) {
             return view('rokk-artists/login', $data);
         }
-        
-        $view = is_admin() ? 'rokk-artists/dashboard/admin_index' : 'rokk-artists/dashboard/user_index';
-        
+                
         return view('rokk-artists/layout/header', $data)
-            . view($view, $data)
+            . view('rokk-artists/dashboard/user_index', $data)
             . view('rokk-artists/layout/footer');
 
     }
