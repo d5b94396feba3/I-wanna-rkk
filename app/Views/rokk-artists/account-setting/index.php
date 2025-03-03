@@ -1,7 +1,7 @@
 <style type="text/css">
 
 #dashboard-footer {
-    margin: 0px 55px 0px 111px !important;
+    margin: 0px 55px 0px 111px;
 }
 
 .separator {

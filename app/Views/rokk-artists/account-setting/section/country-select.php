@@ -1,5 +1,5 @@
 
-        <div class="countries-dropdown" id="countriesDropdown" style="display: none;">
+<div class="countries-dropdown" id="countriesDropdown" style="display: none;">
         <div class="country-search-wrapper">
         <input type="text" class="country-search-input" placeholder="Search countries...">
         </div>

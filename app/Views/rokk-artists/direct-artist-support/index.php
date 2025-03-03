@@ -1,9 +1,4 @@
 <style type="text/css">
-
-    #dashboard-footer {
-        margin: 0px 55px 0px 111px !important;
-    }
-
     .card-box{
         background: rgba(30, 30, 30, 0.67);
         padding: 30px 0px 35px 25px;
@@ -579,12 +574,13 @@ p.show-result.show-das-heading {
 
 
 @media query and (max-width: 768px) {
-    .das-container-height {
-        height: 100%;
-    }
     #dashboard-footer {
         margin: 0px 0px 0px 0px !important;
     }
+    .das-container-height {
+        height: 788px !important;
+    }
+    
 }
 
 </style>
@@ -602,24 +598,6 @@ p.show-result.show-das-heading {
             <!-- Preferred ROKK Address Card -->
             <div class="row mb-4">
                 <div class="col-md-12 mb-30">
-                <?php if (isset($_SESSION["success-msg"])) { ?>
-                    <div class="custom-alert alert alert-success mt-4">
-                        <i class="fas fa-check-circle"></i>
-                        <?php
-                        echo $_SESSION["success-msg"];
-                        unset($_SESSION["success-msg"]);
-                        ?>
-                    </div>
-                <?php } ?>
-                <?php if (isset($_SESSION["error-msg"])) { ?>
-                    <div class="custom-error-alert alert alert-danger mt-4">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <?php
-                        echo $_SESSION["error-msg"];
-                        unset($_SESSION["error-msg"]);
-                        ?>
-                </div>
-                <?php } ?>
                     <div class="card-box widget-style height-100-p das-container-height">
                         <div class="widget-data">
                             <div class="weight-500 font-14">Preferred ROKK Address</div>
@@ -707,53 +685,55 @@ p.show-result.show-das-heading {
     </div>
     <div class="row mt-1">
          <!-- Income Chart Card -->
-                <div class="col-md-6 mb-30">
-                    <div class="card-box widget-style height-100-p">
-                            <div class="widget-data">
-                                <div class="weight-500 font-14">
-                                    INCOME <span id="currentDateIncome"></span>
-                                    <div class="h4 mb-0" id="currentIncome">$0.00</div>
-                                    <select class="das-select income-charts" onchange="generate_income_charts_onchange()">
-                                        <option value="monthly" selected>Monthly</option>
-                                        <option value="weekly">Weekly</option>
-                                        <option value="yearly">Yearly</option>
-                                    </select>
-                                </div>
-                                <div class="text-success">40% 
-                                    <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="progress-data" style="width: 100%; height: 200px;">
-                                <canvas id="incomeChart"></canvas>
-                            </div>
-                    </div>
-                </div>
-
-            <!-- Users Chart Card -->
-                <div class="col-md-6 mb-30">
-                    <div class="card-box widget-style height-100-p">
-                            <div class="widget-data">
-                                <div class="weight-500 font-14">
-                                    USERS <span id="currentDate"></span>
-                                </div>
-                                <div class="h4 mb-0" id="currentUsers">0.00</div>
-                                <select class="das-select users-charts" onchange="generate_users_charts_onchange()">
+            <div class="col-md-6 mb-30">
+                <div class="card-box widget-style height-100-p">
+                        <div class="widget-data">
+                            <div class="weight-500 font-14">
+                                INCOME <span id="currentDateIncome"></span>
+                                <div class="h4 mb-0" id="currentIncome">$0.00</div>
+                                <select class="das-select income-charts" onchange="generate_income_charts_onchange()">
                                     <option value="monthly" selected>Monthly</option>
                                     <option value="weekly">Weekly</option>
                                     <option value="yearly">Yearly</option>
                                 </select>
-                                <div class="text-success">+71 
-                                    <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
-                                    </svg>
-                                </div>
                             </div>
-                            <div class="progress-data" style="width: 100%; height: 200px;">
-                                <canvas id="UsersChart"></canvas>
+                            <div class="text-success">40% 
+                                <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
+                                </svg>
                             </div>
-                    </div>
+                        </div>
+                        <div class="progress-data" style="width: 100%; height: 200px;">
+                            <canvas id="incomeChart"></canvas>
+                        </div>
                 </div>
-    </div>
-</div>
+            </div>
+
+            <!-- Users Chart Card -->
+            <div class="col-md-6 mb-30">
+                <div class="card-box widget-style height-100-p">
+                        <div class="widget-data">
+                            <div class="weight-500 font-14">
+                                USERS <span id="currentDate"></span>
+                            </div>
+                            <div class="h4 mb-0" id="currentUsers">0.00</div>
+                            <select class="das-select users-charts" onchange="generate_users_charts_onchange()">
+                                <option value="monthly" selected>Monthly</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                            <div class="text-success">+71 
+                                <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="progress-data" style="width: 100%; height: 200px;">
+                            <canvas id="UsersChart"></canvas>
+                        </div>
+                </div>
+            </div>
+     </div>
+
+
+

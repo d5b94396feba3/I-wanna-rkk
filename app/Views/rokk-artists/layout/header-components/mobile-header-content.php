@@ -16,9 +16,12 @@
         <div class="notification-dropdown">
             <i class="fas fa-chevron-down dropdown-indicator"></i>
             <div class="notification-header">
-                <h3>Notifications</h3>
+            <h3><span class="header-notification-count">0</span> New Notifications</h3>
+                <a href="<?php echo base_url("notification"); ?>" class="view-more">
+                 View more <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            <div class="mobile-notifications-items">
+            <div class="desktop-notifications-items">
             </div>
         </div>
     </div>

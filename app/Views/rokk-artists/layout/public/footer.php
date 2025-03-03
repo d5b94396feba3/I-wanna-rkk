@@ -3,10 +3,11 @@
     padding: 15px 38px;
     color: #666666;
     position: static;
-    margin-left: 0px;
+    /* margin-left: 0px; */
     border-top: 1px solid #333333;
     transition: margin-left 0.3s ease-in-out;
-    margin-bottom: -58px;
+    /* margin-bottom: -58px; */
+    margin: 0px 55px 0px 111px !important;
 }
 
 .footer-content {
@@ -389,6 +390,9 @@ input#release_date {
     }
     .main-container {
         padding: 0px 32px 0px 33px !important;
+    }
+    #dashboard-footer {
+        margin: 0px 0px 0px 0px !important;
     }
 }
 

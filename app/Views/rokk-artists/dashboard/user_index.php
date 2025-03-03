@@ -1,8 +1,8 @@
 <style type="text/css">
 
-    #dashboard-footer {
+    /* #dashboard-footer {
         margin: 60px 0px -25px 0px;
-    }
+    } */
 
     .card-box{
         background: rgba(30, 30, 30, 0.67);

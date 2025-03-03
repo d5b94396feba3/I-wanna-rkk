@@ -1,6 +1,6 @@
 <div class="sidebar-overlay"></div>
-  <!-- ======= Footer ======= -->
-  <footer id="dashboard-footer">
+<!-- ======= Footer ======= -->
+<footer id="dashboard-footer">
   <div class="footer-content">
     <div class="copyright">
       © <?php echo date('Y'); ?> ROKK. All Right Reserved.
@@ -18,47 +18,29 @@
   </div>
 </footer>
 
-
-  <div id="ajax_loader">
-      <i class="fa fa-spinner fa-spin"></i>
-  </div>
-
-  <script src="<?php echo base_url(
-      "assets/src/new/vendor/aos/aos.js"
-  ); ?>"></script>
-  <script src="<?php echo base_url(
-      "assets/src/new/vendor/bootstrap/js/bootstrap.bundle.min.js"
-  ); ?>"></script>
-  <script async defer src="<?php echo base_url(
-      "assets/src/new/js/main.js"
-  ); ?>"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<div id="ajax_loader">
+    <i class="fa fa-spinner fa-spin"></i>
 </div>
+
+<script src="<?php echo base_url("assets/src/new/vendor/aos/aos.js"); ?>"></script>
+<script src="<?php echo base_url("assets/src/new/vendor/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
+<script async defer src="<?php echo base_url("assets/src/new/js/main.js"); ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </body>
 </html>
 
-
 <script>
-
-//load css and custom select dropdown js
-
+// Load CSS and custom select dropdown JS
 document.addEventListener("DOMContentLoaded", function() {
-
-function loadCSS(e) {
+  function loadCSS(e) {
     var t = document.createElement("link");
     (t.type = "text/css"), (t.rel = "stylesheet"), (t.href = e), document.head.appendChild(t);
-}
-loadCSS("<?php echo base_url("assets/src/vendor/aos/aos.css"); ?>"),
-    loadCSS("<?php echo base_url(
-        "assets/src/vendor/bootstrap-icons/bootstrap-icons.css"
-    ); ?>"),
-    loadCSS("<?php echo base_url(
-        "assets/src/vendor/remixicon/remixicon.css"
-    ); ?>"),
-    loadCSS("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i");
+  }
+  loadCSS("<?php echo base_url("assets/src/vendor/aos/aos.css"); ?>"),
+  loadCSS("<?php echo base_url("assets/src/vendor/bootstrap-icons/bootstrap-icons.css"); ?>"),
+  loadCSS("<?php echo base_url("assets/src/vendor/remixicon/remixicon.css"); ?>"),
+  loadCSS("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i");
 });
-
-
 </script>

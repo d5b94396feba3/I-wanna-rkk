@@ -1,7 +1,4 @@
 <style>
-#dashboard-footer {
-    margin: 0px 55px 0px 111px !important;
-}
 
 #account-content-placeholder {
     background: linear-gradient(to right, rgba(40, 40, 40, 0) 47.82%, rgba(17, 17, 17, 0) 100%);

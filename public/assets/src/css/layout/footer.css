@@ -5,7 +5,7 @@
     border-top: 1px solid #333;
     padding: 15px 0px;
     transition: left 0.1s ease-in-out;
-    margin: 76px 5px 0px 2px;
+    margin: 40px 0px 0px 0px;
 }
 
 #dashboard-footer.active {
@@ -386,7 +386,7 @@
         margin: 0px 0px 0px 0px !important;
     }
     
-    .copyright {
+    .copyright{
         width: 100%;
         text-align: center;
     }
@@ -401,6 +401,8 @@
         margin-top: 43px;
     }
     .main-container {
+        margin-top: 0px !important;
         padding: 0px 32px 0px 33px !important;
+        z-index: -1 !important;
     }
   }
