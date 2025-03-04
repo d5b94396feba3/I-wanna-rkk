@@ -1,5 +1,5 @@
 <style>
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .password-toggle {
@@ -117,16 +117,14 @@
         padding-top: 10px !important;
         padding-bottom: 6px;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
    
 }
 
 </style>
-<!-- <script src="<?= base_url('assets/src/js/account/alert.js') ?>"></script> -->
-<!-- <script src="<?= base_url('assets/src/js/account/password.js') ?>"></script> -->
-<!-- <script src="<?= base_url('assets/src/js/account/form.js') ?>"></script> -->
+
 
 <?php
     $userid = session('userid');

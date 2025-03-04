@@ -1,8 +1,8 @@
 <style type="text/css">
 
-    /* #dashboard-footer {
-        margin: 60px 0px -25px 0px;
-    } */
+    #main-footer {
+        margin: 40px 0px -25px 0px;
+    }
 
     .card-box{
         background: rgba(30, 30, 30, 0.67);
@@ -297,7 +297,7 @@ h2 svg {
         margin-top: 28px;
     }
 
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
 }

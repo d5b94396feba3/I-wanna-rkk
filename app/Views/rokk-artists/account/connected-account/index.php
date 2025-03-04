@@ -1,5 +1,5 @@
 <style>
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .ac-table {
@@ -171,7 +171,7 @@
    .pagination a, .pagination .current-page {
         padding: 0px 3px !important;
     }
-  #dashboard-footer {
+  #main-footer {
     margin: 0px 0px 0px 0px !important;
   }
 }

@@ -1,6 +1,6 @@
 <div class="sidebar-overlay"></div>
 <!-- ======= Footer ======= -->
-<footer id="dashboard-footer">
+<footer id="main-footer">
   <div class="footer-content">
     <div class="copyright">
       © <?php echo date('Y'); ?> ROKK. All Right Reserved.

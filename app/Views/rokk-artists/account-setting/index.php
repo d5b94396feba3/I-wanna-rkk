@@ -1,6 +1,6 @@
 <style type="text/css">
 
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px;
 }
 
@@ -486,10 +486,11 @@ svg.right-arrow {
 .genries-select-container {
     position: relative;
     background-color: rgba(255, 255, 255, 0.12);
-    border-radius: 55px;
-    padding: 6px 16px;
+    border-radius: 16px;
+    padding: 6px 16px 8px 16px;
     margin-top: 9px;
 }
+
 #genreSearch:focus,
 #genreSearch:active {
     outline: none;
@@ -527,7 +528,7 @@ svg.right-arrow {
     color: #ffffff;
     width: 100%;
     padding: 5px;
-    margin: 0;
+    margin: 0px 0px 0px 18px;
 }
 
 .genries-dropdown {
@@ -605,7 +606,6 @@ svg.right-arrow {
     color: #ffffff;
     width: 100%;
     padding: 5px;
-    margin: 0;
     cursor: pointer;
 }
 
@@ -701,6 +701,10 @@ svg.right-arrow {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.country-search-wrapper .cs-icon{
+  left:3px;
+}
+
 .country-search-input {
     width: 100%;
     padding: 8px 12px;
@@ -708,6 +712,7 @@ svg.right-arrow {
     background: rgba(255, 255, 255, 0.01);
     color: #fff;
     font-size: 14px;
+    margin:0px 0px 0px 15px !important;
 }
 
 .country-search-input:focus {
@@ -719,6 +724,19 @@ svg.right-arrow {
     color: rgba(255, 255, 255, 0.5);
 }
 
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top:2px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 2px;
+    pointer-events: none;
+    opacity: 0.3;
+}
 
 /* mobile responsiveness */
 
@@ -730,7 +748,7 @@ svg.right-arrow {
         width: 100% !important;
     }
     input, select {
-        width: 414px !important;
+        width: 100% !important;
     }
     .cover-upload-box {
         display: block !important;
@@ -770,12 +788,19 @@ svg.right-arrow {
         width: 21px !important;
     }
     .main-container{
-        margin-top: 4px !important;
+        margin-top: -35px !important;
         padding: 0px 0px 0px 0px !important;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
+    input, .genre-tag{
+        font-size: 12px;
+    }
+    .upload-popup-form-group:last-child {
+        margin-right: 20px;
+    }
+    
 }
 
 </style>

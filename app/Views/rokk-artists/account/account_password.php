@@ -1,5 +1,5 @@
 <style>
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .password-toggle-icon {
@@ -146,7 +146,7 @@ label.label-block.act-label-heading {
     #accountPasswordForm .new-pass{
         margin-bottom: -41px !important;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
 }

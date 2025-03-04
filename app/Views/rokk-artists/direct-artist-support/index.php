@@ -573,14 +573,13 @@ p.show-result.show-das-heading {
 }
 
 
-@media query and (max-width: 768px) {
-    #dashboard-footer {
-        margin: 0px 0px 0px 0px !important;
-    }
+@media (max-width: 768px) {
     .das-container-height {
-        height: 788px !important;
+        height: 750px !important;
     }
-    
+    .mrt-25{
+        margin-top: 25px;
+    }
 }
 
 </style>
@@ -685,7 +684,7 @@ p.show-result.show-das-heading {
     </div>
     <div class="row mt-1">
          <!-- Income Chart Card -->
-            <div class="col-md-6 mb-30">
+            <div class="col-md-6 mb-30 mrt-25">
                 <div class="card-box widget-style height-100-p">
                         <div class="widget-data">
                             <div class="weight-500 font-14">
@@ -710,7 +709,7 @@ p.show-result.show-das-heading {
             </div>
 
             <!-- Users Chart Card -->
-            <div class="col-md-6 mb-30">
+            <div class="col-md-6 mb-30 mrt-25">
                 <div class="card-box widget-style height-100-p">
                         <div class="widget-data">
                             <div class="weight-500 font-14">

@@ -81,16 +81,6 @@
 
         </div>
 
-
-        <?php if(is_admin()): ?>
-            <a href="<?php echo base_url("faqs_dashboard"); ?>" class="<?php echo isset($active_nav) && $active_nav == "frequently-asked-questions" ? "active" : ""; ?>">
-            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.5007 22.9168C6.74768 22.9168 2.08398 18.2531 2.08398 12.5002C2.08398 6.74719 6.74768 2.0835 12.5007 2.0835C18.2536 2.0835 22.9173 6.74719 22.9173 12.5002C22.9173 18.2531 18.2536 22.9168 12.5007 22.9168ZM12.5007 20.8335C17.103 20.8335 20.834 17.1026 20.834 12.5002C20.834 7.89779 17.103 4.16683 12.5007 4.16683C7.89828 4.16683 4.16732 7.89779 4.16732 12.5002C4.16732 17.1026 7.89828 20.8335 12.5007 20.8335ZM13.5423 10.9377V15.6252H14.584V17.7085H10.4173V15.6252H11.459V13.021H10.4173V10.9377H13.5423ZM14.0632 8.3335C14.0632 9.19644 13.3636 9.896 12.5007 9.896C11.6377 9.896 10.9382 9.19644 10.9382 8.3335C10.9382 7.47055 11.6377 6.771 12.5007 6.771C13.3636 6.771 14.0632 7.47055 14.0632 8.3335Z" />
-            </svg>
-            <span class="cs-tooltip faqs">FAQs</span> <!-- Tooltip element -->
-
-        </a>
-        <?php else: ?>
         <a href="<?php echo base_url("faqs"); ?>" class="<?php echo isset($active_nav) && $active_nav == "frequently-asked-questions" ? "active" : ""; ?>">
             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.5007 22.9168C6.74768 22.9168 2.08398 18.2531 2.08398 12.5002C2.08398 6.74719 6.74768 2.0835 12.5007 2.0835C18.2536 2.0835 22.9173 6.74719 22.9173 12.5002C22.9173 18.2531 18.2536 22.9168 12.5007 22.9168ZM12.5007 20.8335C17.103 20.8335 20.834 17.1026 20.834 12.5002C20.834 7.89779 17.103 4.16683 12.5007 4.16683C7.89828 4.16683 4.16732 7.89779 4.16732 12.5002C4.16732 17.1026 7.89828 20.8335 12.5007 20.8335ZM13.5423 10.9377V15.6252H14.584V17.7085H10.4173V15.6252H11.459V13.021H10.4173V10.9377H13.5423ZM14.0632 8.3335C14.0632 9.19644 13.3636 9.896 12.5007 9.896C11.6377 9.896 10.9382 9.19644 10.9382 8.3335C10.9382 7.47055 11.6377 6.771 12.5007 6.771C13.3636 6.771 14.0632 7.47055 14.0632 8.3335Z" />
@@ -98,21 +88,12 @@
             <span class="cs-tooltip faqs">FAQs</span> <!-- Tooltip element -->
 
         </a>
-        <?php endif; ?>
 
-        <?php if(is_admin()): ?>
-            <a href="<?php echo base_url("notification_dashboard"); ?>" class="<?php echo isset($active_nav) && $active_nav == "notification" ? "active" : ""; ?>">
-            <i class="ri-notification-3-line"></i>
-            <span class="cs-tooltip notification">Notification</span> <!-- Tooltip element -->
-
-        </a>
-        <?php else: ?>
         <a href="<?php echo base_url("notification"); ?>" class="<?php echo isset($active_nav) && $active_nav == "notification" ? "active" : ""; ?>">
             <i class="ri-notification-3-line"></i>
             <span class="cs-tooltip notification">Notification</span> <!-- Tooltip element -->
 
         </a>
-        <?php endif; ?>
 
         <a href="<?php echo base_url("contact"); ?>" class="<?php echo isset($active_nav) && $active_nav == "contact" ? "active" : ""; ?>">
 

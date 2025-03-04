@@ -1,5 +1,5 @@
 <style type="text/css">
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .card-box {
@@ -34,7 +34,7 @@
 .progress-data {
     margin-top: 0px;
 }
-#releaseDate, #releaseDateIncome, #totalIncomeDate, #followersDate, #LastMonthDate {
+#releaseDate{
     color: rgba(255,255,255,0.2);
     padding-left: 10px;
     font-weight: 400 !important;
@@ -353,8 +353,18 @@ h2 svg {
     .mmt-24{
         margin-top: 24px;
     }
-    #dashboard-footer {
-        margin: 0px 0px 0px 0px !important;
+    #main-footer {
+        margin: 50px 0px 0px 0px !important;
+    }
+    .search-filter-wrapper {
+        display: block;
+    }
+    .search-input input {
+        width: 100%;
+        margin-bottom: 18px;
+    }
+    #releaseDate{
+       padding: 0px 45px 0px 0px;
     }
 }
 

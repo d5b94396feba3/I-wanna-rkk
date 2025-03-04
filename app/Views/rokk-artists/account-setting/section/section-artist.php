@@ -91,8 +91,14 @@
                 <label for="genre">Genre *</label>
                 <div class="genries-select-container">
                 <div class="selected-genries" id="selectedGenries"></div>
-                <input type="text" id="genreSearch" value="<?= isset($artist_data->genre) ? $artist_data->genre : ''; ?>" placeholder="Search genre...">
-                
+                <div class="search-input-wrapper">
+                    <span class="search-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5 2C5.805 2 2 5.805 2 10.5S5.805 19 10.5 19c2.25 0 4.305-.75 5.95-2.01l5.25 5.25 1.5-1.5-5.25-5.25C19.25 14.805 20 12.75 20 10.5 20 5.805 16.195 2 10.5 2zM10.5 17C7.465 17 5 14.535 5 10.5S7.465 4 10.5 4 16 6.465 16 10.5 13.535 17 10.5 17z" fill="#FFFFFF"/>
+                        </svg>
+                    </span>
+                    <input type="text" id="genreSearch" value="<?= isset($artist_data->genre) ? $artist_data->genre : ''; ?>" placeholder="Search genre...">
+                </div>
                 <div class="genries-dropdown" id="genriesDropdown" style="display: none;">
                     <?php foreach($genres as $genre): ?>
                         <div class="genre-option" data-value="<?= $genre['genre'] ?>">

@@ -1,5 +1,5 @@
 <style type="text/css">
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 
@@ -121,7 +121,7 @@ label {
     font-size: 14px;
 }
 
-input {
+input, textarea {
     width: 100%;
     padding: 10px;
     background-color: rgba(255,255,255,0.12);
@@ -132,7 +132,8 @@ input {
     margin-top: 4px;
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #555;
 }
 
@@ -1014,12 +1015,17 @@ select {
 .markets-select-container {
     position: relative;
     background-color: rgba(255, 255, 255, 0.12);
-    border-radius: 55px;
+    border-radius: 16px !important;
     padding: 6px 16px;
     margin-top: 9px;
     padding-top: 10px;
     padding-left: 18px;
 }
+
+#copyright_desc{
+    border-radius: 16px !important;
+}
+
 #marketSearch:focus,
 #marketSearch:active {
     outline: none;
@@ -1057,7 +1063,8 @@ select {
     color: #ffffff;
     width: 100%;
     padding: 6px;
-    margin: 0;
+    margin: 0px 0px 0px 18px;
+    font-size: 15px;
 }
 
 .markets-dropdown {
@@ -1099,22 +1106,56 @@ select {
     margin-right: 2px;
 }
 
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top:2px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 2px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
 /* mobile responsiveness */
  
 @media (max-width: 868px){
     .main-container {
-        margin-top: 0px !important;
+        margin-top: -30px !important;
         padding: 0px 10px 0px 0px !important;
-    }
-    .progress-step {
-        display: block !important;
     }
     .track-input-group label {
         margin-top: 10px;
     }
-    #dashboard-footer {
-        margin: 0px 0px 0px 0px !important;
+    #main-footer {
+        margin: 50px 0px 0px 0px !important;
     }
+    .music-upload-progress-bar {
+        display: block;
+        width: auto;
+    }
+    .upload-form-row {
+        display: block;
+    }
+    .upload-popup-form-group:last-child {
+        margin-right: 10px;
+    }
+    .upload-popup-form-group {
+        flex: 1;
+        margin-right: 10px;
+        padding-top: 7px;
+    }
+    input, select{
+        font-size: 12px;
+    }
+    .btn-next, .create-release-form-btn {
+        padding: 6px 35px;
+        font-size: 12px;
+    }
+
 }
 
 </style>
@@ -1367,9 +1408,15 @@ window.config = {
            <div class="upload-popup-form-group">
                 <label for="release_available_markets">Release Available Markets *</label>
                 <div class="markets-select-container">
-                    <div class="selected-markets" id="selectedMarkets">
+                    <div class="selected-markets" id="selectedMarkets"></div>
+                    <div class="search-input-wrapper">
+                        <span class="search-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 2C5.805 2 2 5.805 2 10.5S5.805 19 10.5 19c2.25 0 4.305-.75 5.95-2.01l5.25 5.25 1.5-1.5-5.25-5.25C19.25 14.805 20 12.75 20 10.5 20 5.805 16.195 2 10.5 2zM10.5 17C7.465 17 5 14.535 5 10.5S7.465 4 10.5 4 16 6.465 16 10.5 13.535 17 10.5 17z" fill="#FFFFFF"/>
+                            </svg>
+                        </span>
+                        <input type="text" id="marketSearch" value="Worldwide" placeholder="Search countries..." required>
                     </div>
-                    <input type="text" id="marketSearch" value="Worldwide" placeholder="Search countries..." required>
                     <?php
                     // Include the country selection dropdown component
                     // This file contains the HTML for displaying country flags and names
@@ -1384,7 +1431,7 @@ window.config = {
         <div class="upload-form-row">
             <div class="upload-popup-form-group">
                 <label for="copyright_desc">Additional Copyright Information</label>
-                <input type="text" id="copyright_desc" name="copyright_desc" value="" placeholder="e.g. ℗ 2024 Artist Name. All rights reserved.">
+                <textarea type="text" id="copyright_desc" name="copyright_desc" value="" placeholder="e.g. ℗ 2024 Artist Name. All rights reserved." rows="2"></textarea>
             </div>
         </div>
         

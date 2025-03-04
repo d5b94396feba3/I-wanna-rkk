@@ -1,6 +1,6 @@
 <style>
 
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 
@@ -122,7 +122,7 @@
         padding: 6px 12px;
         font-size: 12px;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
 }

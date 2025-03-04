@@ -8,7 +8,7 @@ $(document).ready(function() {
     const $sidebar = $("#sidebar");
     const $sidebarActive = $("#sidebar a.active").not(".list-dropdown a");
     const $compactSidebar = $("#compact-sidebar");
-    const $dashboardFooter = $("#dashboard-footer");
+    const $mainFooter = $("#main-footer");
     const $sidebarToggle = $(".sidebar-toggle");
     const $compactMusicDropdown = $('.compact-music-dropdown');
     const windowWidth = $(window).width();
@@ -97,7 +97,7 @@ $(document).ready(function() {
             // Toggle the compact sidebar for desktop layout
             $compactSidebar.toggle();
             // Toggle the active class for the dashboard footer for desktop layout
-            $dashboardFooter.toggleClass("active");
+            $mainFooter.toggleClass("active");
             
             // Determine the margin left for the main content based on its current state
             const marginLeft = $mainContent.hasClass("active") ? '322px' : '50px';

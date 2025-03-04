@@ -1,5 +1,5 @@
 <style type="text/css">
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .separator {
@@ -341,6 +341,9 @@ select {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.country-search-wrapper .cs-icon{
+  left:3px;
+}
 .country-search-input {
     width: 100%;
     padding: 8px 12px;
@@ -348,6 +351,7 @@ select {
     background: rgba(255, 255, 255, 0.01);
     color: #fff;
     font-size: 14px;
+    margin:0px 0px 0px 15px;
 }
 
 .country-search-input:focus {
@@ -388,7 +392,7 @@ select {
         font-size: 14px;
         margin-top: 10px !important;
     }
-    #dashboard-footer {
+    #main-footer {
     margin: 0px 0px 0px 0px !important;
   }
 }
@@ -409,7 +413,7 @@ select {
            <?= csrf_field() ?>
             <input type="hidden" name="person_id" id="person_id" value="<?= isset($person_data->person_id) ? esc($person_data->person_id) : ''; ?>">
             <input type="hidden" name="old_image_link" id="old_image_link" value="<?= isset($person_data->person_img_link) ? $person_data->person_img_link : ''; ?>">
-            <input type="hidden" name="page" id="page" value="account-administrator">
+            <input type="hidden" name="page" id="page1" value="account-administrator">
             <div class="cover-upload-box" id="personFileInputContainer">
                 <div class="image-placeholder" id="personPreview">
                     <?php if (!empty($person_data->person_img_link)): ?>

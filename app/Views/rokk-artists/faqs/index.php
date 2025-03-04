@@ -1,5 +1,5 @@
 <style>
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .header-scrolled {
@@ -52,10 +52,6 @@
     height: 750px !important;
     border-radius: 1px;
     position: relative;
-}
-
-.main-container {
-    padding: 7px 37px 30px 112px !important;
 }
 
 .main-container p {
@@ -301,7 +297,7 @@
         height: 361px;
         margin-bottom:20px;
     }
-    #dashboard-footer {
+    #main-footer {
         position: static !important;
         width: 100%;
     }
@@ -309,7 +305,7 @@
         top: 74px;
         position: static !important;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
 }

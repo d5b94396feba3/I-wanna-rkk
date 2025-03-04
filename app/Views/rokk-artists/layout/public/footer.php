@@ -1,12 +1,12 @@
 <style>
-#dashboard-footer {
+#main-footer {
     padding: 15px 38px;
     color: #666666;
     position: static;
-    /* margin-left: 0px; */
+    margin-left: 0px;
     border-top: 1px solid #333333;
     transition: margin-left 0.3s ease-in-out;
-    /* margin-bottom: -58px; */
+    margin-bottom: -58px;
     margin: 0px 55px 0px 111px !important;
 }
 
@@ -371,7 +371,7 @@ input#release_date {
 /* mobile responsiveness */
 
 @media (max-width: 768px){
-    #dashboard-footer {
+    #main-footer {
         left: 0;
         margin-left: 0px;
         position: absolute;
@@ -391,7 +391,7 @@ input#release_date {
     .main-container {
         padding: 0px 32px 0px 33px !important;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
 }
@@ -403,7 +403,7 @@ input#release_date {
 
   <!-- ======= Footer ======= -->
 
-  <footer id="dashboard-footer">
+  <footer id="main-footer">
   <div class="footer-content">
     <div class="copyright">
       © <?php echo date('Y'); ?> ROKK. All Right Reserved.

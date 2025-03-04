@@ -33,7 +33,7 @@ body {
     transform: rotate(180deg);
 }       
 #sidebar a {
-    padding: 15px 10px;
+    padding: 8px 10px !important;
     text-decoration: none;
     font-size: 19px;
     color: #ffffffbf;
@@ -272,7 +272,7 @@ a:active{
 .main-body-content.active{
     margin-left: 100px;
 }
-#dashboard-footer.active{
+#main-footer.active{
     margin-left: 0px;
 }
 
@@ -348,14 +348,6 @@ a:active{
     margin-bottom: 10px;
 }
 
-.list-menu .dropdown-item {
-    display: flex;
-    align-items: center;
-    color: #ffffff;
-    padding: 8px 10px;
-    border-radius: 5px;
-    transition: background-color 0.1s ease;
-}
 
 .list-menu .dropdown-item:hover {
     background-color: #2a2a2a;
@@ -382,6 +374,7 @@ a:active{
 
 .dropdown-item.active, .dropdown-item{
     background-color:transparent !important;
+    width: 280px;
 }
 .list-dropdown {
     background-color: transparent !important;
@@ -411,7 +404,8 @@ a:active{
     color: #ffffff;
     padding: 8px 10px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    font-size: 15px !important;
+    margin-left: 35px;
 }
 
 .list-menu .dropdown-item:hover {
@@ -453,13 +447,8 @@ a:active{
     margin-left: 2px !important;
 }
 
-.dropdown-item.sidebar_music_releases {
-    margin-left: -3px !important;
-}
-
-
 .list-dropdown a{
-    padding: 10px 10px !important;
+    padding: 8px 10px !important;
 }
 
 /* mobile responsiveness */
@@ -505,6 +494,12 @@ a:active{
     .main-body-content {
         margin-left: 0 !important;
         transition: margin-left 0.1s ease-in-out;
+    }
+
+    .sidebar-footer-top {
+        margin-top: 0px;
+        width: 100%;
+        position: static;
     }
 
 }

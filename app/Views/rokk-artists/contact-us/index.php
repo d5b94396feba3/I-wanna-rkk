@@ -1,6 +1,6 @@
 <style type="text/css">
 
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 
@@ -310,8 +310,11 @@ select {
     .contact-form-group {
         margin-right: 0px !important;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
+    }
+    .contact-btn {
+        padding: 7px 40px;
     }
 }
 

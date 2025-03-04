@@ -1,14 +1,12 @@
-
-#dashboard-footer {
+#main-footer {
     color: #666666;
     background: #111111;
     border-top: 1px solid #333;
-    padding: 15px 0px;
+    padding: 15px 0px 15px 0px;
     transition: left 0.1s ease-in-out;
     margin: 40px 0px 0px 0px;
 }
-
-#dashboard-footer.active {
+#main-footer.active {
     left: 120px; 
 }
   .footer-content {
@@ -375,15 +373,10 @@
   /* mobile responsiveness */
   
   @media (max-width: 768px){
-    #dashboard-footer {
-        left: 0;
+    #main-footer {
         width: 100%;
         padding: 15px;
-        bottom: 0;
-    }
-
-    #dashboard-footer {
-        margin: 0px 0px 0px 0px !important;
+        margin: 20px 0px 0px 0px !important;
     }
     
     .copyright{

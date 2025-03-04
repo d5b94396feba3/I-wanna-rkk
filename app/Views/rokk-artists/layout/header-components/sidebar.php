@@ -71,7 +71,7 @@
             <ul class="list-menu" id="musicUploadDropdownMenu">
                 <li>
                     <a class="dropdown-item sidebar_music_releases <?php echo isset($active_nav) && $active_nav == "music_releases" ? "active" : ""; ?>" href="<?php echo base_url("music_releases"); ?>">
-                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="21" height="21" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.625 4.77241V12.5C15.625 14.2259 14.226 15.625 12.5 15.625C10.7741 15.625 9.37504 14.2259 9.37504 12.5C9.37504 10.7741 10.7741 9.37499 12.5 9.37499C12.8652 9.37499 13.2159 9.43766 13.5417 9.55282V2.13477C18.8056 2.65739 22.9167 7.09859 22.9167 12.5C22.9167 18.253 18.253 22.9167 12.5 22.9167C6.74707 22.9167 2.08337 18.253 2.08337 12.5C2.08337 7.09859 6.1945 2.65739 11.4584 2.13477V4.23114C7.34763 4.74373 4.16671 8.25039 4.16671 12.5C4.16671 17.1024 7.89767 20.8333 12.5 20.8333C17.1024 20.8333 20.8334 17.1024 20.8334 12.5C20.8334 9.00272 18.679 6.00863 15.625 4.77241Z" />
                         </svg>
                         Your Releases
@@ -79,7 +79,7 @@
                 </li>
                 <li>
                     <a class="dropdown-item sidebar_create_release <?php echo isset($active_nav) && $active_nav == "create_release" ? "active" : ""; ?>" href="<?php echo base_url("create_release"); ?>">
-                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="21" height="21" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.45837 9.4585V5.29183H11.5417V9.4585H15.7084V11.5418H11.5417V15.7085H9.45837V11.5418H5.29171V9.4585H9.45837ZM10.5 20.9168C4.74707 20.9168 0.083374 16.2531 0.083374 10.5002C0.083374 4.74719 4.74707 0.0834961 10.5 0.0834961C16.253 0.0834961 20.9167 4.74719 20.9167 10.5002C20.9167 16.2531 16.253 20.9168 10.5 20.9168ZM10.5 18.8335C15.1024 18.8335 18.8334 15.1026 18.8334 10.5002C18.8334 5.89779 15.1024 2.16683 10.5 2.16683C5.89767 2.16683 2.16671 5.89779 2.16671 10.5002C2.16671 15.1026 5.89767 18.8335 10.5 18.8335Z" />
                         </svg>
                         Create Release

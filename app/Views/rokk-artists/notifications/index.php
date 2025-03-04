@@ -1,5 +1,5 @@
 <style>
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .separator {
@@ -286,7 +286,7 @@ input:checked + .toggle-slider:before {
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-    #dashboard-footer {
+    #main-footer {
         position: static !important;
         width: 100%;
     }
@@ -295,10 +295,10 @@ input:checked + .toggle-slider:before {
         position: static !important;
     }
     .main-container{
-        margin-top: 6px !important;
+        margin-top: -20px !important;
         padding: 0px 30px 0px 42px !important;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
 }

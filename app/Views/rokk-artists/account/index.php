@@ -209,6 +209,20 @@ label.label-block.acccount-header-title {
     justify-content: left !important;
 }
 
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top:2px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 2px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
 @media (max-width: 768px) {
 
     .main-container {
@@ -222,10 +236,17 @@ label.label-block.acccount-header-title {
         font-size: 15px;
     }
     #updatePersonDetail input, select {
-        width: 368px !important;
+        min-width: 268px !important;
+        font-size: 12px;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
+    }
+    .genre-tag{
+        font-size: 12px;
+    }
+    .upload-popup-form-group:last-child {
+        margin-right: 20px;
     }
 }
 

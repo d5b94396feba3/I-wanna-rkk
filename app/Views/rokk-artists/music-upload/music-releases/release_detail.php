@@ -1,5 +1,5 @@
 <style type="text/css">
-#dashboard-footer {
+#main-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .separator {
@@ -118,7 +118,7 @@ label {
     font-size: 14px;
 }
 
-input {
+input, textarea {
     width: 100%;
     padding: 10px;
     background-color: rgba(255,255,255,0.12);
@@ -129,7 +129,8 @@ input {
     margin-top: 4px;
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #555;
 }
 
@@ -1055,7 +1056,7 @@ svg.right-arrow {
 .markets-select-container {
     position: relative;
     background-color: rgba(255, 255, 255, 0.12);
-    border-radius: 55px;
+    border-radius: 16px;
     padding: 6px 16px;
     margin-top: 9px;
     padding-top: 10px;
@@ -1098,7 +1099,12 @@ svg.right-arrow {
     color: #ffffff;
     width: 100%;
     padding: 6px;
-    margin: 0;
+    margin: 0px 0px 0px 18px;
+    font-size: 15px;
+}
+
+#copyright_desc{
+    border-radius: 16px !important;
 }
 
 .markets-dropdown {
@@ -1140,6 +1146,24 @@ svg.right-arrow {
     margin-right: 6px;
 }
 
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top:2px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 2px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+input[type="text"] {
+    padding-left: 30px;
+}
+
 
 /* mobile responsiveness */
 
@@ -1151,7 +1175,7 @@ svg.right-arrow {
     .track-input-group label {
         margin-top: 10px;
     }
-    #dashboard-footer {
+    #main-footer {
         margin: 0px 0px 0px 0px !important;
     }
 }
@@ -1355,7 +1379,14 @@ window.config = {
                     <label for="release_available_markets">Release Available Markets *</label>
                     <div class="markets-select-container">
                         <div class="selected-markets" id="selectedMarkets"></div>
-                        <input type="text" id="marketSearch" value="<?= $release_detail->release_available_markets; ?>" placeholder="Search countries...">
+                        <div class="search-input-wrapper">
+                            <span class="search-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.5 2C5.805 2 2 5.805 2 10.5S5.805 19 10.5 19c2.25 0 4.305-.75 5.95-2.01l5.25 5.25 1.5-1.5-5.25-5.25C19.25 14.805 20 12.75 20 10.5 20 5.805 16.195 2 10.5 2zM10.5 17C7.465 17 5 14.535 5 10.5S7.465 4 10.5 4 16 6.465 16 10.5 13.535 17 10.5 17z" fill="#FFFFFF"/>
+                                </svg>
+                            </span>
+                            <input type="text" id="marketSearch" value="<?= $release_detail->release_available_markets; ?>" placeholder="Search countries...">
+                        </div>
                         <?php 
                         // Include the country selection dropdown component
                         // This file contains the HTML for displaying country flags and names
@@ -1370,7 +1401,7 @@ window.config = {
             <div class="upload-form-row">
                 <div class="upload-popup-form-group">
                     <label for="copyright_desc">Additional Copyright Information</label>
-                    <input type="text" id="copyright_desc" name="copyright_desc" value="<?= $release_detail->copyright_desc; ?>" placeholder="e.g. ℗ 2024 Artist Name. All rights reserved.">
+                    <textarea type="text" id="copyright_desc" name="copyright_desc" value="" placeholder="e.g. ℗ 2024 Artist Name. All rights reserved." rows="2"></textarea>
                 </div>
             </div>
 
@@ -1426,7 +1457,7 @@ window.config = {
                                     <input type="text" id="track-info-1" value="Added" readonly>
                                     <span class="check-icon">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z" fill="#FF8303"/>
+                                            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z" fill="#FF8303"/>
                                         </svg>
                                     </span>
                                 </div>
