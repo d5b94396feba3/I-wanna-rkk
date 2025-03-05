@@ -70,7 +70,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0px 0px;
-    margin:45px 0px 25px 0px;
+    margin:5px 0px 25px 0px;
 }
 
 .main-nav-item {

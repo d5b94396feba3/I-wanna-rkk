@@ -22,7 +22,7 @@ $(document).ready(function () {
         $this.addClass('active');
 
         // Handle panel visibility and layout
-        if (targetPanel === 'all' || targetPanel === 1 || targetPanel === 2) {
+        if (targetPanel === 'all' || targetPanel === 2) {
             $tabContent.show();
             $allPanels
                 .show()
