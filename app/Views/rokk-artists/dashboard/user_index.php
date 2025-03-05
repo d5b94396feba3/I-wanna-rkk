@@ -46,7 +46,7 @@
         margin-right: 0px;
         margin-top: -94px;
     }
-    .followers-chart-link a{
+    .Listeners-chart-link a{
         color: rgba(255, 255, 255, 0.5);
         font-size: 17px;
         float: right;
@@ -131,7 +131,7 @@
         font-size: 12px;
     }
 
-    .trend-box-followers{
+    .trend-box-Listeners{
         background: #f443361a;
         padding: 13px 30px;
         border-radius: 13px;
@@ -156,7 +156,7 @@
     }
 
 
-    .followers-metric .large-number{
+    .Listeners-metric .large-number{
         margin-top: 64px;
     }
 
@@ -384,7 +384,7 @@ h2 svg {
                                 </div>
                                 <div class="h4 mb-0" id="currentListeners">0.000</div>
                                 <div class="chart-link"> <a href="#"><i class="ri-arrow-right-up-line"></i></a></div>
-                                <div class="text-success">+71 <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/></svg></div>
+                                <div class="text-success"><!--+ --> 0 <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/></svg></div>
                                 </div>
                                 <div class="progress-data" style="width: 100%; height: 200px;">
                                 <canvas id="listenersChart"></canvas>
@@ -419,36 +419,36 @@ h2 svg {
                         <div class="card-box  metric-card">
                             <h2 class="weight-500 font-14">DIRECT ARTIST SUPPORT</h2>
                             <div class="d-flex flex-wrap align-items-center metric-content">
-                                <div class="widget-data main-metric followers-metric">
+                                <div class="widget-data main-metric Listeners-metric">
                                     <div class="large-number">0.00</div>
                                     <div class="trend-box-das">
                                     <div class="trend-das positive">
-                                       +2 <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <!--+ --> 0 <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
                                     </svg>
                                     </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="followers-chart-link"><a href="#"> <i class="ri-arrow-right-up-line"></i></a></div>
+                            <div class="Listeners-chart-link"><a href="#"> <i class="ri-arrow-right-up-line"></i></a></div>
                         </div>
                         
                     </div>
                     <div class="col-md-6 mb-30 mt-4">
                         <div class="card-box  metric-card">
-                            <h2 class="weight-500 font-14">FOLLOWERS</h2>
+                            <h2 class="weight-500 font-14">LISTENERS</h2>
                             <div class="d-flex flex-wrap align-items-center metric-content">
-                                <div class="widget-data main-metric followers-metric">
+                                <div class="widget-data main-metric Listeners-metric">
                                     <div class="large-number">0.00</div>
-                                    <div class="trend-box-followers">
-                                    <div class="trend negative">-10 <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <div class="trend-box-Listeners">
+                                    <div class="trend negative"><!--- --> 0 <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1 1L6.5 6.5L10.2727 2.33333L18 11" stroke="#E45263" stroke-width="1.5"/>
                                         </svg>
                                     </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="followers-chart-link"><a href="#"> <i class="ri-arrow-right-up-line"></i></a></div>
+                            <div class="Listeners-chart-link"><a href="#"> <i class="ri-arrow-right-up-line"></i></a></div>
                         </div>
                     </div>
                 </div>
@@ -464,7 +464,7 @@ h2 svg {
                                 </div>
                                 <div class="h4 mb-0" id="currentIncome">$0.00</div>
                                 <div class="chart-link"><a href="#"> <i class="ri-arrow-right-up-line"></i></a></div>
-                                <div class="text-success">40% <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <div class="text-success">0% <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
                                 </svg>
                             </div>

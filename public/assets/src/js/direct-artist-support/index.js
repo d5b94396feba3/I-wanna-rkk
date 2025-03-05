@@ -6,8 +6,6 @@ $(document).ready(function () {
     // Creating an array of promises for each AJAX request
     const promises = [
         window.load_artist_direct_artist_support_data_OnPageLoad(),
-        window.generate_users_charts_on_page_load(),
-        window.generate_income_charts_on_page_load()
     ];
 
     // Wait for all AJAX requests to complete before hiding the loader

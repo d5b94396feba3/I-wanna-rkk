@@ -13,7 +13,17 @@ $(document).ready(function() {
     const formattedDate =currentDate.toLocaleDateString('en-US', options).replace(/(\w+)\s(\d+)/, '$1, $2').toUpperCase();
     document.getElementById('currentDate').textContent =formattedDate;
     document.getElementById('currentDateIncome').textContent = formattedDate;
-    document.getElementById('LastMonthDate').textContent = currentDate.toLocaleDateString('en-US', { month: 'long' });
+    
+    // 1. Create a date object for the first day of last month
+    const lastMonth = new Date(
+        currentDate.getFullYear(),  // Current year
+        currentDate.getMonth() - 1, // Current month minus 1
+        1                          // First day of the month
+    );
+
+    // 2. Convert the date to month name (like "August")
+    document.getElementById('LastMonthDate').textContent = 
+        lastMonth.toLocaleDateString('en-US', { month: 'long' });
     
     // document.getElementById('currentIncome').textContent = '$197,50';
 

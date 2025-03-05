@@ -4,7 +4,7 @@
     </p>
     <p>between
     </p>
-    <p>FAIRMUSIC GmbH<br>
+    <p>FAIRMUSIC AG<br>
     In der Dumpf 12<br>
     D-66130 Saarbrücken<br>
     – hereinafter also referred to as "FAIRMUSIC" or the "COMPANY" –

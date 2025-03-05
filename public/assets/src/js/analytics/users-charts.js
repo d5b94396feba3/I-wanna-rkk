@@ -11,7 +11,7 @@ $(document).ready(function() {
     // const currentDate = new Date();
     const options = { year: 'numeric', month: 'short' };
     const formattedDate =currentDate.toLocaleDateString('en-US', options).replace(/(\w+)\s(\d+)/, '$1, $2').toUpperCase();
-    document.getElementById('LastMonthDate').textContent = currentDate.toLocaleDateString('en-US', { month: 'long' });
+    // document.getElementById('LastMonthDate').textContent = currentDate.toLocaleDateString('en-US', { month: 'long' });
 
 });
 

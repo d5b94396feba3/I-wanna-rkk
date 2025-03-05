@@ -1,4 +1,8 @@
 <style type="text/css">
+
+    #main-footer {
+        margin: 0px 55px 0px 111px !important;
+    }
     .card-box{
         background: rgba(30, 30, 30, 0.67);
         padding: 30px 0px 35px 25px;
@@ -18,7 +22,6 @@
     .widget-data {
         width: 100%;
     }
-
     .h4 {
         font-size: 48px;
         font-weight: 500;
@@ -27,21 +30,12 @@
         font-family: 'TitlingGothicFBComp-Medium',sans-serif;
         font-stretch: condensed;
     }
-
-    .chart-link a{
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 17px;
-        float: right;
-        margin-right: 20px;
-        margin-top: -94px;
-    }
     .copy-prokk-address{
         font-size: 17px;
         float: right;
         margin-right: 12px;
         margin-top: -28px;
         padding: 5px 5px;
-
     }
 
     .copy-prokk-address a{
@@ -59,248 +53,6 @@
         color: #ff8303 !important;
     }
 
-    .metric-chart-link a{
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 17px;
-        float: right;
-        margin-right: 0px;
-        margin-top: -94px;
-    }
-    .followers-chart-link a{
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 17px;
-        float: right;
-        margin-right: 0px;
-        margin-top: -170px;
-    }
-    .text-success {
-        color: #4caf50 !important;
-        font-size: 14px;
-        font-size: 12px;
-        float: right;
-        margin-right: 20px;
-        margin-top: -40px;
-        background: #4caf500f;
-        padding: 5px 12px;
-        border-radius: 13px;
-    }
-    .progress-data {
-        width: 100%;
-        height: 200px;
-        margin-top: 20px;
-    }
-    #currentDate, #currentDateIncome, #totalIncomeDate, #followersDate, #LastMonthDate {
-        color: #9999997d;
-        padding-left: 10px;
-    }
-    .metric-card {
-        position: relative;
-        padding: 26px;
-        height: 200px;
-    }
-    .metric-card:hover
-    {
-        background: linear-gradient(0deg, #1a1a1a 100%, rgba(0, 0, 0, 0) 27.82%), linear-gradient(0deg, #151515, #333333);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .large-number {
-        font-size: 48px;
-        font-weight: 600;
-        color: #FF8303;
-        font-stretch: condensed;
-        letter-spacing: -0.04em;
-    }
-    .medium-number {
-        font-size: 36px;
-        font-weight: bold;
-        color: #FF8303;
-    }
-
-    .metric-label {
-        font-size: 14px;
-        color: #999;
-        margin-top: -5px;
-    }
-
-    .trend {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .trend-box-das{
-        background: #4caf500f;
-        padding: 13px 28px;
-        border-radius: 13px;
-        width: 50px;
-        margin-top: 7px;
-        margin-left: -3px;
-    }
-
-    .trend.positive {
-        color: #4caf50;
-        bottom: 0;
-        left: 7px;
-        top: 104px;
-        font-size: 12px;
-    }
-
-    .trend-box-followers-positive{
-        background: #4caf500f;
-        padding: 13px 30px;
-        border-radius: 13px;
-        width: 50px;
-        margin-top: -48px;
-        margin-left: -3px;
-        float: right;
-    }
-
-    .followers-negative {
-        color: #f44336;
-        bottom: 0;
-        top: 80px;
-        right: 31px;
-    }
-    .followers-positive {
-        color: #4caf50;
-        bottom: 0;
-        top: 80px;
-        right: 31px;
-    }
-
-    .trend-box-lmi-negative{
-        background: #f443361a;
-        padding: 13px 30px;
-        border-radius: 13px;
-        width: 50px;
-        margin-top: -48px;
-        margin-left: -3px;
-        float: right;
-    }
-
-    .trend-box-lmi-positive{
-        background: #4caf500f;
-        padding: 13px 30px;
-        border-radius: 13px;
-        width: 50px;
-        margin-top: -48px;
-        margin-left: -3px;
-        float: right;
-    }
-
-    .trend.lmi-negative {
-        color: #f44336;
-        bottom: 0;
-        top: 80px;
-        right: 31px;
-    }
-
-    .trend.lmi-positive {
-        color: #4caf50;
-        bottom: 0;
-        top: 80px;
-        right: 31px;
-    }
-
-    .das .large-number{
-        margin-top: 0px;
-    }
-
-    .metric-content {
-        justify-content: space-between;
-    }
-
-    .main-metric, .secondary-metric {
-        flex: 1;
-    }
-
-    .top-list {
-        margin-top: 15px;
-    }
-
-.list-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    background: rgba(30, 30, 30, 0.67);
-    border-radius: 12px;
-}
-
-.list-item:hover {
-    background: linear-gradient(0deg, #1a1a1a 100%, rgba(0, 0, 0, 0) 27.82%), linear-gradient(0deg, #151515, #333333);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.item-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.item-info {
-    flex-grow: 1;
-}
-
-.item-title {
-    color:rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    font-weight:500;
-}
-
-.item-subtitle {
-    color: #999999;
-    font-size: 12px;
-}
-
-.fas.fa-arrow-right {
-    color: #999999;
-}
-
-h2 svg {
-    margin-right: 7px;
-}
-
-.rt-link-icon {
-    float: right;
-    margin-right: 0px;
-    color: rgba(255, 255, 255, 0.5);
-}
-.rt-link-icon:hover {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.das-user-count {
-    position: relative;
-}
-.das-user-count::after {
-    content: '';
-    position: absolute;
-    top: 22px;
-    right: 0;
-    width: 1px;
-    height: 80%;
-    background-color: #ffffff1f;
-}
-.widget-data.secondary-metric {
-    margin: -37px 0px 0px 26px;
-}
-
-.weight-500 {
-    font-weight: 500 !important;
-    color: rgba(255,255,255,0.8);
-    font-size: 17px;
-    font-family: 'TitlingGothicFBComp-Medium',sans-serif;
-    letter-spacing: 0.1em;
-    font-stretch: condensed;
-    text-transform: uppercase;
-}
 .das-select {
     background-color: rgb(255 255 255 / 0%) !important;
     color: rgba(255, 255, 255, 0.6);
@@ -346,22 +98,21 @@ h2 svg {
 
 @keyframes placeHolderShimmer {
     0% {
-        background-position: -800px 0;
+        background-position: 0 0;
     }
     100% {
-        background-position: 800px 0;
+        background-position: 8000px 0;
     }
 }
 .das-animated-background {
-    animation-duration: 2s;
+    animation-duration: 4.6s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
-    background: linear-gradient(to right, #111 47.82%, rgba(17, 17, 17, 0) 100%);
-    background-size: 100% 100%, 100% 100%, contain;
-    background-position: right center;
-    min-height: 545px;
+    background: linear-gradient(to right, #141414 0%, rgb(17 17 17 / 95%) 100%);
+    background-size: 200% 100%;
+    height: 545px !important;
     border-radius: 1px;
     position: relative;
 }
@@ -395,7 +146,7 @@ p.das-info {
     color: #fff;
     border: 1px solid transparent;
     border-radius: 50px;
-    margin: 0px 20px 10px 0px !important;
+    margin: 0px 10px 10px 0px !important;
     padding: 8px 0px 10px 24px !important;
     font-size: 18px;
     text-transform: lowercase;
@@ -580,20 +331,22 @@ p.show-result.show-das-heading {
     .mrt-25{
         margin-top: 25px;
     }
+    #main-footer {
+        margin: 0px 0px 0px 0px !important;
+    }
+    
 }
 
 </style>
 
 
 <script src="<?= base_url('assets/src/js/direct-artist-support/index.js') ?>"></script>
-<script src="<?= base_url('assets/src/js/direct-artist-support/income-charts.js') ?>"></script>
-<script src="<?= base_url('assets/src/js/direct-artist-support/users-charts.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/direct-artist-support/clipboard.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/direct-artist-support/alert.js') ?>"></script>
 
 <div class="main-container">
     <div class="row">
-        <div class="col-md-8 mb-30">
+        <div class="col-md-12 col-sm-12 col-lg-12 mb-30">
             <!-- Preferred ROKK Address Card -->
             <div class="row mb-4">
                 <div class="col-md-12 mb-30">
@@ -622,117 +375,5 @@ p.show-result.show-das-heading {
                 </div>
             </div>
         </div>
-
-        <!-- Right Column -->
-        <div class="col-md-4 mb-30">
-            <!-- Followers Card -->
-            <div class="row">
-                <div class="col-md-12 mb-15">
-                    <div class="card-box height-100-p metric-card">
-                        <h2 class="weight-500 font-14">FOLLOWERS <span id="followersDate">SINCE <?= isset($_SESSION['joinyear']) ? $_SESSION['joinyear'] : '' ?></span></h2>
-                        <div class="d-flex flex-wrap align-items-center metric-content">
-                            <div class="widget-data main-metric das">
-                                <div class="large-number">0.00</div>
-                                <div class="trend-box-followers-positive">
-                                    <div class="trend followers-positive">+44 
-                                        <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Total Income Card -->
-            <div class="row mt-4">
-                <div class="col-md-12 mb-15">
-                    <div class="card-box height-100-p metric-card">
-                        <h2 class="weight-500 font-14">TOTAL INCOME <span id="totalIncomeDate">SINCE <?= isset($_SESSION['joinyear']) ? $_SESSION['joinyear'] : '' ?></span></h2>
-                        <div class="d-flex flex-wrap align-items-center metric-content">
-                            <div class="widget-data main-metric das">
-                                <div class="large-number">$0.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Last Month Income Card -->
-            <div class="row mt-4">
-                <div class="col-md-12 mb-15">
-                    <div class="card-box height-100-p metric-card">
-                        <h2 class="weight-500 font-14">LAST MONTH INCOME <span id="LastMonthDate">AUGUST</span></h2>
-                        <div class="d-flex flex-wrap align-items-center metric-content">
-                            <div class="widget-data main-metric das">
-                                <div class="large-number">$0.00</div>
-                                <div class="trend-box-lmi-negative">
-                                    <div class="trend lmi-negative">-10 
-                                        <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1 1L6.5 6.5L10.2727 2.33333L18 11" stroke="#E45263" stroke-width="1.5"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="row mt-1">
-         <!-- Income Chart Card -->
-            <div class="col-md-6 mb-30 mrt-25">
-                <div class="card-box widget-style height-100-p">
-                        <div class="widget-data">
-                            <div class="weight-500 font-14">
-                                INCOME <span id="currentDateIncome"></span>
-                                <div class="h4 mb-0" id="currentIncome">$0.00</div>
-                                <select class="das-select income-charts" onchange="generate_income_charts_onchange()">
-                                    <option value="monthly" selected>Monthly</option>
-                                    <option value="weekly">Weekly</option>
-                                    <option value="yearly">Yearly</option>
-                                </select>
-                            </div>
-                            <div class="text-success">40% 
-                                <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="progress-data" style="width: 100%; height: 200px;">
-                            <canvas id="incomeChart"></canvas>
-                        </div>
-                </div>
-            </div>
-
-            <!-- Users Chart Card -->
-            <div class="col-md-6 mb-30 mrt-25">
-                <div class="card-box widget-style height-100-p">
-                        <div class="widget-data">
-                            <div class="weight-500 font-14">
-                                USERS <span id="currentDate"></span>
-                            </div>
-                            <div class="h4 mb-0" id="currentUsers">0.00</div>
-                            <select class="das-select users-charts" onchange="generate_users_charts_onchange()">
-                                <option value="monthly" selected>Monthly</option>
-                                <option value="weekly">Weekly</option>
-                                <option value="yearly">Yearly</option>
-                            </select>
-                            <div class="text-success">+71 
-                                <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 11L6.5 5.5L10.2727 9.66667L18 1" stroke="#03D973" stroke-width="1.5"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="progress-data" style="width: 100%; height: 200px;">
-                            <canvas id="UsersChart"></canvas>
-                        </div>
-                </div>
-            </div>
-     </div>
-
-
-
+</div>
