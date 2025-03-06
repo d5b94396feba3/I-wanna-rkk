@@ -125,7 +125,10 @@ span.note {
         font-size: 12px;
     }
     #main-footer {
-        margin: 0px 0px 0px 0px !important;
+        margin: 30px 0px 0px 0px !important;
+    }
+    .pro-right-sidebar {
+        height: 23vh !important;
     }
 }
 

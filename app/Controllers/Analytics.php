@@ -9,7 +9,6 @@ class Analytics extends BaseController
 {
 
     protected $account_model;
-    protected $perPage = 35;
 
     public function __construct()
     {

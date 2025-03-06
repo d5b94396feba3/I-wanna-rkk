@@ -138,6 +138,7 @@
 
 p.das-info {
     color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 30px;
 }
 
 .das-input {
@@ -162,7 +163,7 @@ p.das-info {
     font-size: 13px !important;
     color: #d3d3d3;
     background: linear-gradient(0deg, #111 100%, rgba(0, 0, 0, 0) 27.82%), linear-gradient(0deg, #0b0b0b, #080808);
-    height: 266px !important;
+    height: 306px !important;
     overflow-y: scroll !important;
     padding:15px 10px 19px 15px;
 }
@@ -246,7 +247,8 @@ p.show-result.show-das-heading {
 }
 
 .das-container-height {
-    height: 650px;
+    height: auto;
+    max-height: 750px;
 }
 
 /* sweetalert2 style */
@@ -326,13 +328,21 @@ p.show-result.show-das-heading {
 
 @media (max-width: 768px) {
     .das-container-height {
-        height: 750px !important;
+        height: auto !important;
     }
     .mrt-25{
         margin-top: 25px;
     }
     #main-footer {
         margin: 0px 0px 0px 0px !important;
+    }
+    .copy-input-container {
+        display: block !important;
+        align-items: center;
+        width: 100%;
+    }
+    .copy-btn{
+        margin-top: 10px !important;
     }
     
 }

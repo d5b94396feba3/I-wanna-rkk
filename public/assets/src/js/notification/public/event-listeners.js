@@ -1,5 +1,6 @@
-// Use event delegation for dynamically loaded content
+
 /**
+ * Open Drawer
  * Event handler for clicking on a notification list item
  * Uses event delegation to handle dynamically loaded notifications
  * 

@@ -8,6 +8,8 @@ $(document).ready(function() {
     const $ajaxLoader = $('#ajax_loader');
     let currentNotificationRequest; // Stores current AJAX request for notification data
     let updateNotificationRequest;
+    const url = window.notificationUrl || window.location.origin + '/Notification/notification_header';
+
 
     // Event delegation for notification toggles
     $(document).on('click', '#notificationToggle, #notificationToggleMobile, #compact-music-dropdown', function(e) {
@@ -46,17 +48,33 @@ $(document).ready(function() {
                 show_inline_notification_loader();
             },
             success: function(response) {
+                if (!response || typeof response !== 'object') {
+                    console.error('Invalid response received');
+                    return;
+                }
 
                 // Update CSRF token if provided in response
                 if (response.csrf_hash) {
                     $('input[name="csrf_ar"]').val(response.csrf_hash);
                 }
-                // Handle success/error response
+
                 if (response.success) {
+                    // Always load base notifications
                     load_notification_on_page_load();
+
+                    // Check if its on the notifications page
+                    const isNotificationPage = new URL(window.location.href)
+                        .pathname
+                        .toLowerCase()
+                        .includes('notification');
+
+                    // Load page notifications if on notifications page
+                    if (isNotificationPage) {
+                        alert(isNotificationPage)
+                        window.load_artist_notifications_on_page_load();
+                    }
                 } else {
-                    // Show error message
-                    errorMsg(response.message);
+                    errorMsg(response.message || 'An error occurred');
                 }
             },
             error: function(error) {
@@ -67,7 +85,6 @@ $(document).ready(function() {
     
     // Load notifications function
     window.load_notification_on_page_load = function() {
-        const url = window.notificationUrl || window.location.origin + '/Notification/notification_header';
         // Abort any existing request
         if (currentNotificationRequest && currentNotificationRequest.state() === 'pending') {
             currentNotificationRequest.abort();

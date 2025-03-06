@@ -108,7 +108,7 @@
 }
 .notification-list-content p {
     margin: 0;
-    font-size: 17px;
+    font-size: 14px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -327,28 +327,6 @@ input:checked + .toggle-slider:before {
         </label>
     </div>
 </div>   
-
-   <?php
-      if(isset($_SESSION['success-msg']))
-      { ?>
-   <div class="alert alert-success mt-4" style="width: 38% !important;">
-      <?php echo $_SESSION['success-msg'];
-         unset($_SESSION['success-msg']);
-         ?>
-      <span class="alert-close-icon" style="cursor: pointer;">&times;</span>
-   </div>
-   <?php   }  ?>
-   <?php
-      if(isset($_SESSION['error-msg']))
-      { ?>
-   <div class="alert alert-danger" style="width: 50% !important;">
-      <?php echo $_SESSION['error-msg'];
-         unset($_SESSION['error-msg']);
-         ?>
-      <span class="alert-close-icon" style="cursor: pointer;">&times;</span>
-   </div>
-   <?php   }  ?>
-    
     <div id="notification-content-placeholder">
         <div class="account-animated-background">
             <div class="background-masker"></div>

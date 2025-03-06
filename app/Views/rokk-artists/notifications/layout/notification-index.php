@@ -47,11 +47,7 @@
         margin-bottom: 0px;
     }
     .notification-list-content {
-        font-size: 14px;
-        color: #666;
-    }
-    .notification-list-message{
-        font-size: 14px;
+        font-size: 13px;
         color: #666;
     }
     .list-right-arrow {
@@ -210,7 +206,6 @@
     .drawer-actions button:hover i{
         color: #fff;
     }
-    
     .notification-list-message{
         display: none;
     }
@@ -237,7 +232,12 @@
                         <span><?= esc($notification['title']) ?></span>
                     </div>
                     <div class="notification-list-content">
-                        <p class="mb-0"><?= date('F j, Y', strtotime($notification['createdAt'])) ?></p>
+                        <p class="mb-0 publish-date"><?= date('F j, Y', strtotime($notification['createdAt'])) ?></p>
+                        <?php
+                         $content=$notification['content'];
+                         $content = substr($content, 0, 100) . '...';
+                        ?>
+                        <p class="notification-message mb-0"><?= $content; ?></p>
                     </div>
                     <div class="notification-list-message">
                         <p class="mb-0"><?= $notification['content']; ?></p>
@@ -253,11 +253,11 @@
         <div class="col-md-12 col-sm-12">
             <div class="notification-list-item-noresult">
                 <div class="notification-list-title">
-                    <span>No Notification Available</span>
+                    <span>No Notifications</span>
                 </div>
                 <div class="notification-list-content">
                     <div class="show-less-content active">
-                        <p class="mb-3">There are no Notification available.</p>
+                        <p class="mb-3">You have no new notifications</p>
                     </div>
                 </div>
             </div>

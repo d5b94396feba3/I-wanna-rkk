@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 98%;
+    width: 70%;
 }
 
 .das-input.das-preferred-address {
@@ -39,6 +39,7 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    margin-top: -10px;
 }
 
 .copy-btn:hover {
@@ -58,6 +59,11 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+.das-container.das-active-address {
+    padding: 0px 0px 10px 0px;
+}
+
 </style>
 
 
@@ -72,7 +78,7 @@ else if($artist_link_status=="requested"){
 else if($artist_link_status=="confirmed"){
     $artist_link_status_heading = "<span class='status-active'>Congratulations! The ROKK address you requested has been confirmed.</span>";
 }
-
+// $artist_link_status='confirmed';ßs
 $artist_id = trim($record->artist_id);
 $preferred_rokk_address = strtolower($record->preferred_rokk_address);
 
