@@ -90,14 +90,18 @@ $routes->group('', function($routes) {
 // MusicRelease routes
 $routes->group('', function($routes) {
     // GET endpoints
-    $routes->get("release_detail/(:num)", "MusicRelease::release_detail_index/$1");
-    
+    $routes->get("release/detail/(:num)", "MusicRelease::release_detail_index/$1");
+    // GET endpoints
+    $routes->get("artist/releases/(:num)", "MusicRelease::artist_release_detail/$1");
+
     // MusicRelease AJAX endpoints
     $routes->group('MusicRelease', function($routes) {
         $routes->get("ajax_music_release_pending_data_onPageLoad", 
             "MusicRelease::ajax_music_release_pending_data_onPageLoad");
         $routes->get("artist_release_table_data",
             "MusicRelease::artist_release_table_data");
+        $routes->get("artist_releases",
+            "MusicRelease::artist_releases");
         $routes->get("ajax_artist_top_track_stats",
             "MusicRelease::ajax_artist_top_track_stats");
         $routes->get("ajax_selected_top_track_data",
@@ -108,12 +112,20 @@ $routes->group('', function($routes) {
             "MusicRelease::ajax_selected_top_playlists_data");
     });
 
+     // ReleaseCharts AJAX endpoints
+     $routes->group('ReleaseCharts', function($routes) {
+        $routes->get("ajax_all_releases_chart_data", 
+            "ReleaseCharts::ajax_all_releases_chart_data");
+    });
+
     // Throttled POST endpoints
     $routes->group('', ['filter' => 'throttle:3,60'], function($routes) {
         $routes->post("update_music_release_cover_image",
             "MusicRelease::update_music_release_cover_image");
         $routes->post("update_music_release_detail",
             "MusicRelease::update_music_release_detail");
+        $routes->post("update_music_release_status",
+            "MusicRelease::update_music_release_status");
         $routes->post("update_release_track_title",
             "MusicRelease::update_release_track_title");
         $routes->post("update_release_track_info",

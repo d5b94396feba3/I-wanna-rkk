@@ -37,10 +37,21 @@ class MusicRelease extends BaseController
         if (!$this->authenticated()) {
             return $this->handleUnauthorized();
         }
-        // Get the artist data
-        $artist_release = $this->music_release_model->get_artist_all_release_data_from_artist_release_tbl();
 
+        $artist_id = $this->userID();
+        // Get the artist data
+        $artist_release = $this->music_release_model->get_artist_all_release_data_from_artist_release_tbl($artist_id);
+
+        // Retrieve the count of music releases by status for the given artist ID
+        $publish_count = $this->music_release_model->get_music_release_status_data('Published', $artist_id);
+        $pending_count = $this->music_release_model->get_music_release_status_data('Pending', $artist_id);
+        $draft_count = $this->music_release_model->get_music_release_status_data('Draft', $artist_id);
+
+        // Assign the retrieved data to the view data array
         $data['artist_release'] = $artist_release;
+        $data['publish_count'] = $publish_count;
+        $data['pending_count'] = $pending_count;
+        $data['draft_count'] = $draft_count;
 
         return view("rokk-artists/layout/header", $data) .
             view("rokk-artists/music-upload/music-releases/index", $data) .
@@ -194,9 +205,13 @@ class MusicRelease extends BaseController
 
         $sort_column = $this->request->getGet("sort_column") ?? "release_id";
         $order = $this->request->getGet("order") ?? "asc";
+
+        $artist_id = $this->userID();
+
+        $filterBy = $this->request->getGet("filterBy") ?? '';
         
          // Get the artist data
-        $artist_release = $this->music_release_model->get_artist_release_data_from_artist_release_tbl($search,$filterBy,$per_page,$sort_column,$order);
+        $artist_release = $this->music_release_model->get_selected_artist_releases($artist_id,$search,$filterBy,$per_page,$sort_column,$order);
 
         $data["sort_column"] = $sort_column;
         $data["order"] = $order;
@@ -228,8 +243,36 @@ class MusicRelease extends BaseController
             return $this->handleUnauthorized();
         }
         $status="Pending";
-        $release_data= $this->music_release_model->get_music_release_status_data($status);
+        $artist_id=$this->userID();
+        $release_data= $this->music_release_model->get_music_release_status_data($status,$artist_id);
         echo $release_data;
+    }
+
+    public function update_music_release_status()
+    {
+        $data["active_nav"] = "music-upload";
+
+        if (!$this->authenticated()) {
+            return $this->handleUnauthorized();
+        }
+
+        if ($this->request->getMethod() !== 'post') {
+            return $this->handleResponse(false, 
+                "Invalid request method."
+            );
+        }
+
+        $result = $this->music_release_model->update_music_release_status(
+            $this->request->getPost()
+        );
+
+        if ($result) {
+            $release_id=$this->request->getPost('release_id');
+            return $this->handleResponse(true, "Release has been successfully updated.");
+        } else {
+            return $this->handleResponse(false, "Failed to update. Please refresh and try again.");
+        }
+
     }
 
     public function update_music_release_cover_image()

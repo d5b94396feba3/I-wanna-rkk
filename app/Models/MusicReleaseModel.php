@@ -40,12 +40,13 @@ class MusicReleaseModel extends Model
     protected $afterDelete = [];
 
 
-    public function get_artist_all_release_data_from_artist_release_tbl()
+    public function get_artist_all_release_data_from_artist_release_tbl($artist_id)
     {
         try {
             $query = $this->db
                 ->table("artist_release")
                 ->select("*")
+                ->where('artist_id',$artist_id)
                 ->get();
 
                 return $query->getNumRows() > 0 ? $query->getResultArray() : false;
@@ -53,19 +54,25 @@ class MusicReleaseModel extends Model
             // Log the error 
             log_message(
                 "error",
-                "Error in getArtistDataByID: " . $e->getMessage()
+                "Error in get_artist_all_release_data_from_artist_release_tbl: " . $e->getMessage()
             );
             return false;
         }
     }
  
-    public function get_artist_release_data_from_artist_release_tbl($search='', $filterBy='', $per_page=10, $sort_column = 'release_id', $order = 'asc')
+    public function get_selected_artist_releases($artist_id=null,$search='', $filterBy='', $per_page=10, $sort_column = 'release_id', $order = 'asc')
     {
 
         $query = $this->select("*");
 
         if (!empty($search)) {
             $query->like('release_title', $search, 'after');
+        }
+
+        if (!empty($filterBy)) {
+            $query->where(["artist_id" => $artist_id, 'status' => $filterBy]);
+        }else{
+            $query->where(["artist_id" => $artist_id]);
         }
 
         // Validate and apply sorting
@@ -226,13 +233,45 @@ class MusicReleaseModel extends Model
         }
     }
 
-    public function get_music_release_status_data($status)
+    public function update_music_release_status($postData)
     {
         try {
 
+            $release_id = trim($postData["release_id"]);
+            $status = trim($postData["status"]);
+
+            // Set the timezone explicitly before using strtotime and date functions
+            date_default_timezone_set("UTC");
+            $updated = date("Y/m/d");
+
+            $data = [
+                "status" => $status,
+                "updated" => $updated,
+            ];
+
+            $query = $this->db
+            ->table("artist_release")
+            ->where("release_id", $release_id)
+            ->update($data);
+
+            return $this->db->affectedRows() > 0;
+        } catch (\Exception $e) {
+            // Log the error
+            log_message(
+                "error",
+                "Error in update_music_release_status: " .
+                    $e->getMessage()
+            );
+            return false;
+        }
+    }
+
+    public function get_music_release_status_data($status, $artist_id)
+    {
+        try {
             $query = $this->db
                 ->table("artist_release")
-                ->where(["status" => $status])
+                ->where(["status" => $status, "artist_id" => $artist_id])
                 ->countAllResults();
 
             return $query;

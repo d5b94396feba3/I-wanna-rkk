@@ -1,9 +1,9 @@
 <div class="desktop-header-content">
     <h1>
         <?php if($active_nav=="music_releases"): ?>
-            Music Upload<span id='header-active-tilte'>- Your releases</span>
+            Music Upload<span id='header-active-tilte'>- Update Release</span>
         <?php elseif($active_nav=="create_release"): ?>
-            Music Upload<span id='header-active-tilte'>- Create Releases</span>
+            Music Upload<span id='header-active-tilte'>- Create Release</span>
         <?php else: ?>
             <?= isset($active_nav) ? preg_replace('/-/', ' ', $active_nav) : "Dashboard" ?>
         <?php endif; ?>

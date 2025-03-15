@@ -1,5 +1,5 @@
 <style type="text/css">
-#main-footer {
+#dashboard-footer {
     margin: 0px 55px 0px 111px !important;
 }
 .card-box {
@@ -34,7 +34,7 @@
 .progress-data {
     margin-top: 0px;
 }
-#releaseDate{
+#releaseDate, #releaseDateIncome, #totalIncomeDate, #followersDate, #LastMonthDate {
     color: rgba(255,255,255,0.2);
     padding-left: 10px;
     font-weight: 400 !important;
@@ -353,18 +353,8 @@ h2 svg {
     .mmt-24{
         margin-top: 24px;
     }
-    #main-footer {
-        margin: 50px 0px 0px 0px !important;
-    }
-    .search-filter-wrapper {
-        display: block;
-    }
-    .search-input input {
-        width: 100%;
-        margin-bottom: 18px;
-    }
-    #releaseDate{
-       padding: 0px 45px 0px 0px;
+    #dashboard-footer {
+        margin: 0px 0px 0px 0px !important;
     }
 }
 
@@ -373,13 +363,19 @@ h2 svg {
 
 <script>
 // Initialize release_info for chart.js
+// This object holds information about the artist's releases, including their ID, counts of releases in different statuses, and the total number of releases.
 window.release_info = {
-    artist_release: <?php echo json_encode(empty($artist_release) ? 0 : count($artist_release)); ?>
+    artist_id: null, // The ID of the artist
+    publish_count: <?php echo $publish_count; ?>, // The number of published releases
+    pending_count: <?php echo $pending_count; ?>, // The number of pending releases
+    draft_count: <?php echo $draft_count; ?>, // The number of draft releases
+    artist_release: <?php echo json_encode(empty($artist_release) ? 0 : count($artist_release)); ?> // The total number of releases by the artist
 };
+
 </script>
 
 <script src="<?= base_url('assets/src/js/music-upload/releases/index.js') ?>"></script>
-<script src="<?= base_url('assets/src/js/music-upload/releases/search.js') ?>"></script>
+<script src="<?= base_url('assets/src/js/music-upload/releases/search-idx.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/music-upload/releases/alert.js') ?>"></script>
 <script src="<?= base_url('assets/src/js/music-upload/releases/event-listeners.js') ?>"></script>
 
@@ -411,43 +407,33 @@ window.release_info = {
             </div>
         </div>
 
-    <!-- right colunm 1 -->
-    <div class="col-md-3 col-sm-12 mb-30">
-        <!-- row 1 -->
-        <div class="row">
-            <div class="col-md-12 col-sm-12 mb-15 mmt-24">
-                <div class="card-box height-100-p metric-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="weight-700 font-14 mb-0">Albums</h2>
-                        <div class="large-number">0</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- row 2 -->
-        <div class="row mt-4">
-            <div class="col-md-12 col-sm-12 mb-15">
-                <div class="card-box height-100-p metric-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="weight-700 font-14 mb-0">Singles</h2>
-                        <div class="large-number">0</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
         <!-- right colunm 2-->
-        <div class="col-md-3 col-sm-12  mb-30">
+        <div class="col-md-6 col-sm-12  mb-30">
             <!-- row 1 -->
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-lg-12 mb-15 mmt-24">
-                <div class="card-box height-100-p metric-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="weight-700 font-14 mb-0">Pending</h2>
-                        <div class="large-number pending-number">0</div>
+                <div class="col-md-4 col-sm-4 col-lg-4 mb-15 mmt-24">
+                    <div class="card-box height-100-p metric-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="weight-700 font-14 mb-0">Published</h2>
+                            <div class="large-number published-number"><?php echo $publish_count; ?></div>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 mb-15 mmt-24">
+                    <div class="card-box height-100-p metric-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="weight-700 font-14 mb-0">Pending</h2>
+                            <div class="large-number pending-number"><?php echo $pending_count; ?></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 mb-15 mmt-24">
+                    <div class="card-box height-100-p metric-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="weight-700 font-14 mb-0">Draft</h2>
+                            <div class="large-number draft-number"><?php echo $draft_count; ?></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -462,8 +448,7 @@ window.release_info = {
                     </div>
                 </div>
             </div>
-
-    </div>
+        </div>
 
     </div>
 
@@ -476,11 +461,11 @@ window.release_info = {
                 <input type="text" id="search" placeholder="Search releases..." onkeyup="search_filter()">
             </div>
             <div class="filter-select" onchange="search_filter()">
-                <select id="orderBy">
-                    <option value="">Order by</option>
-                    <option value="release_title">Title</option>
-                    <option value="genre">Genre</option>
-                    <option value="status">Status</option>
+                <select id="filterBy">
+                    <option value="">Filter by</option>
+                    <option value="Published">Published</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Draft">Draft</option>
                 </select>
             </div>
         </div>

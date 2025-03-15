@@ -5,10 +5,10 @@ var url = window.location.origin + '/MusicRelease/artist_release_table_data';
 window.search_filter = function(){
 
     const searchValue = $('#search').val();
-    const orderByValue = $('#orderBy').val();    
-    if (searchValue.length >= 4 || orderByValue) {
+    const filterByValue = $('#filterBy').val();    
+    if (searchValue.length >= 4 || filterByValue) {
         ajax_search_filter(); 
-    } else if (searchValue.length == 0){
+    } else if (searchValue.length == 0 || filterByValue.length == 0){
         load_artist_release_data();
     }
 
@@ -16,9 +16,10 @@ window.search_filter = function(){
 
 window.ajax_search_filter = function() {
 
-    var orderBy=$('#orderBy').val();
-    var search = $('#search').val();
 
+    var filterBy=$('#filterBy').val();
+    var search = $('#search').val();
+    var artist_id = window.release_info.artist_id;
     // Abort any existing request
     if (searchAjax && searchAjax.state() === 'pending') {
         searchAjax.abort();
@@ -27,8 +28,9 @@ window.ajax_search_filter = function() {
     searchAjax =$.ajax({
         url: url,
         data: {
+            artist_id:artist_id,
             search: search,
-            sort_column: orderBy,
+            filterBy: filterBy,
         },
         type: 'GET',
         timeout:20000, // 20 seconds
@@ -50,7 +52,7 @@ window.ajax_search_filter = function() {
             // Handle AJAX errors
             if (status != 'abort') {
                 $('#release-tbl-container-placeholder').hide();
-                window.errorMsg('An error occurred while processing your request. Please wait and try again.');
+                window.show_error_msg('An error occurred while processing your request. Please wait and try again.');
             }
         },
         // dataType: 'html'
@@ -60,6 +62,9 @@ window.ajax_search_filter = function() {
 
  window.load_artist_release_data = function() {
 
+    var filterBy=$('#filterBy').val();
+    var search = $('#search').val();
+    var artist_id = window.release_info.artist_id;
     // Abort any existing request
     if (currentRRequest && currentRRequest.state() === 'pending') {
         currentRRequest.abort();
@@ -67,6 +72,11 @@ window.ajax_search_filter = function() {
     // Store the new request
     currentRRequest = $.ajax({
         url: url,
+        data: {
+            artist_id:artist_id,
+            search: search,
+            filterBy: filterBy,
+        },
         type: 'GET',
         timeout:20000, // 20 seconds
         beforeSend: function (jqXHR) {

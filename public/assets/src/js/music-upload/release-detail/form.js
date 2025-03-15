@@ -29,11 +29,17 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('submit', '.updateCoverImageForm, .updateTrackTitle', function(e) {
+    $(document).on('submit', '.updateCoverImageForm, .updateTrackTitle, #updateReleaseStatus', function(e) {
         e.preventDefault();
         const $form = $(this);
-        const title = $form.hasClass('updateCoverImageForm') ? 'UPDATE COVER IMAGE' :
-                      $form.attr('id') === 'updateReleaseDetail' ? 'UPDATE RELEASE INFO' : 'UPDATE TRACK TITLE';
+        let title;
+        if ($form.hasClass('updateCoverImageForm')) {
+            title = 'UPDATE COVER IMAGE';
+        } else if ($form.attr('id') === 'updateReleaseStatus') {
+            title = 'UPDATE RELEASE STATUS';
+        } else {
+            title = 'UPDATE TRACK TITLE';
+        }
         const html = `Are you sure you want to update the ${title.toLowerCase()}?`;
         
         showSwalConfirmation(title, html, $form);

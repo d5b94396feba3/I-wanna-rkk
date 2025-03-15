@@ -85,19 +85,28 @@
 }
 
 .release-table .status {
-  font-weight: 500;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 16px;
+}
+
+.release-table .status.draft {
+    color: #d74848;
+    background-color: #d7484821;
+    width: 70px;
+    text-align: center;
 }
 
 .release-table .status.pending {
-  color: #FFAB5D;
+    color: #FFAB5D;
+    background-color: rgba(255, 171, 93, 0.1);
 }
 
-.release-table .status.active {
-  color: #03D973;
-}
-
-.release-table .status.inactive {
-  color: #E45263;
+.release-table .status.published {
+    color: #03D973;
+    background-color: rgba(3, 217, 115, 0.1);
 }
 
 .release-table .arrow {
@@ -175,6 +184,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
 @media screen and (max-width: 768px) {
     .table-container {
         overflow-x: auto;
@@ -193,7 +203,7 @@
   <thead>
     <tr>
       <th>
-        <a class="release-tbl-a" href="<?= esc(site_url(
+        <a class="release-tbl-a idx-tbl-a" href="<?= esc(site_url(
             "MusicRelease/artist_release_table_data?sort_column=release_id&order=" .
             ($sort_column == "release_id" && $order == "asc" ? "desc" : "asc")
         )) ?>">
@@ -205,7 +215,7 @@
       </th>
       <th>COVER</th>
       <th>
-        <a class="release-tbl-a" href="<?= esc(site_url(
+        <a class="release-tbl-a idx-tbl-a" href="<?= esc(site_url(
             "MusicRelease/artist_release_table_data?sort_column=release_title&order=" .
             ($sort_column == "release_title" && $order == "asc" ? "desc" : "asc")
         )) ?>">
@@ -216,7 +226,7 @@
         </a>
       </th>
       <th>
-        <a class="release-tbl-a" href="<?= esc(site_url(
+        <a class="release-tbl-a idx-tbl-a" href="<?= esc(site_url(
             "MusicRelease/artist_release_table_data?sort_column=genre&order=" .
             ($sort_column == "genre" && $order == "asc" ? "desc" : "asc")
         )) ?>">
@@ -227,7 +237,7 @@
         </a>
       </th>
       <th>
-        <a class="release-tbl-a" href="<?= esc(site_url(
+        <a class="release-tbl-a idx-tbl-a" href="<?= esc(site_url(
             "MusicRelease/artist_release_table_data?sort_column=release_date&order=" .
             ($sort_column == "release_date" && $order == "asc" ? "desc" : "asc")
         )) ?>">
@@ -237,7 +247,7 @@
           </span>
         </a>
       </th>
-      <!-- <th>
+      <th>
         <a class="release-tbl-a" href="<?= esc(site_url(
             "MusicRelease/artist_release_table_data?sort_column=status&order=" .
             ($sort_column == "status" && $order == "asc" ? "desc" : "asc")
@@ -247,7 +257,7 @@
             <?= ($sort_column == "status" ? ($order == "asc" ? "<span class='active-arrow'>↓</span>↑" : "↓<span class='active-arrow'>↑</span>") : "↑↓") ?>
           </span>
         </a>
-      </th> -->
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -257,13 +267,15 @@
       $index = $start_record;
       $end_record = min($current_page * $per_page, $total_records);
       foreach ($artist_release as $i => $release): ?>
-          <tr onclick="window.location='<?= base_url('release_detail/'.$release['release_id']) ?>'">
+          <tr onclick="window.location='<?= base_url('release/detail/'.$release['release_id']) ?>'">
             <td><?= $index ?></td>
             <td><img src="<?= $release['artwork_link'] ?>" alt="<?= $release['release_title'] ?>"></td>
             <td><?= $release['release_title'] ?></td>
             <td><?= $release['genre'] ?></td>
             <td><?= date('d M, Y', strtotime($release['release_date'])) ?></td>
-            <!-- <td class="status <?= strtolower($release['status']) ?>"><?= $release['status'] ?></td> -->
+            <td class="status <?= strtolower($release['status']) ?>">
+                <?= esc($release['status']) ?>
+            </td>
             <td><span class="arrow">›</span></td>
           </tr>
     <?php $index++; ?>
@@ -277,7 +289,7 @@
   <div id="pagination-container">
     <p class="pagi-rank">Showing <?= ($current_page - 1) * $per_page + 1 ?> to <?= min($current_page * $per_page, $total_records) ?> of <?= $total_records ?> </p>
     
-    <div class="pagination">
+    <div class="pagination idx-pagination">
         <?php if ($has_previous): ?>
             <a href="<?= esc(site_url('MusicRelease/artist_release_table_data?page='.$current_page - 1)) ?>" class="prev-link">&laquo; Prev</a>
         <?php endif; ?>
